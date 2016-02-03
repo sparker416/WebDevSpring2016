@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/webdev2016.iml" filepath="$PROJECT_DIR$/.idea/webdev2016.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/webdev.iml" filepath="$PROJECT_DIR$/.idea/webdev.iml" />
->>>>>>> 7bda0f0985d5e0be8b081199cec9fa29aadd65f4
     </modules>
   </component>
 </project>

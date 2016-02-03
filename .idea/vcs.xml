@@ -2,9 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-<<<<<<< HEAD
-    <mapping directory="C:\Users\spark\Documents\Northeastern\2016 Spring\CS4550 Web Development\webdev2016\WebDevSpring2016" vcs="Git" />
-=======
->>>>>>> 7bda0f0985d5e0be8b081199cec9fa29aadd65f4
   </component>
 </project>
