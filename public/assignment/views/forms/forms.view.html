@@ -36,48 +36,13 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                aria-controls="navbar">
-                    <scan class="sr-only">Toggle navigation</scan>
-                    <scan class="icon-bar"></scan>
-                    <scan class="icon-bar"></scan>
-                    <scan class="icon-bar"></scan>
-                </button>
-                <a class="navbar-brand" href="#">Form Maker</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Username</a></li>
-                    <li><a href="#">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="admin.html">Admin</a></li>
-                    <li class="active"><a href="forms.html">Forms<scan class="sr-only">(current)</scan></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1>Forms</h1>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="forms.html">Forms</a></li>
-                    <li role="presentation"><a href="form-fields.html">Fields</a></li>
+                    <li role="presentation" class="active"><a href="forms.view.html">Forms</a></li>
+                    <li role="presentation"><a href="fields.view.html">Fields</a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -92,39 +57,25 @@
                         <tr>
                             <td>
                                 <div class="form-group col-sm-10">
-                                    <input type="text" class="form-control" id="name" placeholder="name">
+                                    <input ng-model="form.title" type="text" class="form-control" id="name" placeholder="name">
                                 </div>
                             </td>
                             <td>
-                                <a href="#">
+                                <a ng-click="addForm(form)" href="#">
                                     <scan class="glyphicon glyphicon-plus"></scan>
                                 </a>
-                                <a href="#">
+                                <a ng-click="updateForm(form)" href="#">
                                     <scan class="glyphicon glyphicon-ok"></scan>
                                 </a>
                             </td>
                         </tr>
 
                     </form>
-                    <tr>
-                        <td><a href="form-fields.html">Registration Form</a></td>
+                    <tr ng-repeat="form in forms">
+                        <td><a href="fields.view.html">{{form.name}}</a></td>
                         <td>
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="form-fields.html">Contact List</a></td>
-                        <td>
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="form-fields.html">To Do List</a></td>
-                        <td>
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                            <scan class="glyphicon glyphicon-pencil"></scan>
+                            <scan ng-click="deleteForm($index)" class="glyphicon glyphicon-remove"></scan>
+                            <scan ng-click="selectForm($index)" class="glyphicon glyphicon-pencil"></scan>
                         </td>
                     </tr>
                 </table>
