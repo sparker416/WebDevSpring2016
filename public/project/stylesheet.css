@@ -1,0 +1,61 @@
+.float-right {
+    float: right;
+    text-align: right;
+    width: auto;
+    padding-top: 155px;
+}
+
+.header-pic {
+    height: 200px;
+    width: 100%;
+    background-image: url("KM-Home.png");
+    border-bottom: 1px solid black;
+}
+
+.header-links {
+    font-weight: bold;
+}
+
+.float-left {
+    float: left;
+    width: 50%;
+}
+.margin-left-right {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.centered {
+    text-align: center;
+}
+.padding-top {
+    padding-top: 1%;
+}
+.float-left-25 {
+    float: left;
+    width: 25%;
+}
+.float-left-75 {
+    float: left;
+    width: 75%;
+}
+.float-right-50 {
+    float: right;
+    width: 50%;
+}
+table {
+    background-color: white;
+    border: 1px solid black;
+}
+
+body {
+    background-color: #E4D264;
+}
+
+.float-left-30 {
+    float: left;
+    width: 30%;
+}
+.float-right-30 {
+    float: right;
+    width: 30%;
+}
