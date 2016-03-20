@@ -55,7 +55,7 @@ var library = [
         "<th>Picture</th>" +
         "<th>Description</th>" +
         "<th>Number of Players</th>" +
-        "<th>Playing Time</th>" +
+        "<th>Playing Time (min)</th>" +
         "<th>Age Range</th>" +
         "<th>Type(s)</th>" +
         "<th>Location</th>" +

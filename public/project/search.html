@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="http://knightmovescafe.com/wp-content/uploads/2014/03/knights-logo-site.png">
 
-    <title>Library Search</title>
+    <title>Library Search - Knight Moves</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap.css" rel="stylesheet">
@@ -36,7 +36,7 @@
                     </a>
                 </div>
                 <div class="float-right">
-                    <ul class="nav nav-pills header-links">
+                    <ul class="nav nav-pills bold">
                         <li role="presentation"><a href="index.html">Home</a></li>
                         <li role="presentation"><a href="about.html">About</a></li>
                         <li role="presentation" class="dropdown active">
@@ -63,33 +63,85 @@
     </nav>
 </div>
 
-<div class="padding-top" style="padding: 10px; background-color: white; border: 1px solid black; margin: 3%;">
-    <form>
-        <h2>Search for Games: </h2>
-        <p><span class="header-links">Number of Players: </span><input type="text" required="required"></p>
-        <p><span class="header-links">Keyword Search: </span><input type="text"></p>
-        <p><span class="header-links">Type: </span><br>
-                <input type="checkbox"> Co-op</input><br>
-                <input type="checkbox"> Strategy</input><br>
-                <input type="checkbox"> Party</input><br>
-                <input type="checkbox"> Classic</input><br>
-                <input type="checkbox"> Worker Placement</input><br>
-                <input type="checkbox"> Resource Management</input><br>
-                <input type="checkbox"> Deck-building</input>
-        </p>
-        <p><span class="header-links">Location: </span><br>
-            <input type="radio"> Coolidge Corner<br>
-            <input type="radio"> Teele Square
-        </p>
-        <p>
-           <span class="header-links"> Age of Youngest Player:</span>
-            <input type="number" min="1">
-        </p>
-        <p>
-            <span class="header-links">Length of desired playtime:</span>
-            <input type="number" min="0"> minutes
-        </p>
-        <button type="submit">Search</button>
+<div class="pad-10-px back-white-black-border margin-1">
+    <h2>Search for Games: </h2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="numPlayers" class="col-sm-2 control-label">
+                <span class="color-red bold sz-lrg"> * </span>Number of Players:
+            </label>
+            <div class="col-sm-10">
+                <input type="text" id="numPlayers" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="keyword" class="col-sm-2 control-label">Keyword Search:</label>
+            <div class="col-sm-10">
+                <input type="text" id="keyword" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <label>Type: </label>
+                <div class="checkbox">
+                    <div class="float-left-25">
+                        <label>
+                            <input type="checkbox" id="co-op"> Co-op
+                        </label><br>
+                        <label>
+                            <input type="checkbox" id="strategy"> Strategy
+                        </label><br>
+                        <label>
+                            <input type="checkbox" id="party"> Party
+                        </label><br>
+                        <label>
+                            <input type="checkbox" id="classic"> Classic
+                        </label>
+                    </div>
+                    <div class="float-left">
+                        <label>
+                            <input type="checkbox" id="worker-placement"> Worker Placement
+                        </label><br>
+                        <label>
+                            <input type="checkbox" id="resource-management"> Resource Management
+                        </label><br>
+                        <label>
+                            <input type="checkbox" id="deck-building"> Deck-building
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <label>Location: </label>
+                <div class="radio">
+                    <input type="radio" id="CC"> Cooldige Corner<br>
+                    <input type="radio" id="Teele"> Teele Square
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lowest-age" class="col-sm-2 control-label">
+                Age of Youngest Player:
+            </label>
+            <div class="col-sm-10">
+                <input type="number" id="lowest-age" class="form-control" min="1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="playtime" class="col-sm-2 control-label">
+                Length of desired playtime in minutes:
+            </label>
+            <div class="col-sm-10">
+                <input type="number" id="playtime" class="form-control" min="0">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </div>
     </form>
 </div>
 <!-- Bootstrap core JavaScript

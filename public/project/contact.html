@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="http://knightmovescafe.com/wp-content/uploads/2014/03/knights-logo-site.png">
 
-    <title>Library Search</title>
+    <title>Contact - Knight Moves</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap.css" rel="stylesheet">
@@ -35,7 +35,7 @@
             </a>
         </div>
         <div class="float-right">
-            <ul class="nav nav-pills header-links">
+            <ul class="nav nav-pills bold">
                 <li role="presentation"><a href="index.html">Home</a></li>
                 <li role="presentation"><a href="about.html">About</a></li>
                 <li role="presentation" class="dropdown">
@@ -61,28 +61,65 @@
 </div>
 
 
-<div style="background-color: #E4D264">
-    <div class="float-left" style="background-color: white; border: 1px solid black; padding: 10px;">
-        <p>
-            Address<br>
-            Address<br>
-            Address<br>
-        </p>
-        <p>Phone Number: (999)999-9999</p>
-        <p>Email Adress: km@knightmovescafe.com</p>
-        <p><a href="twitter.com">@knightmovescafe on Twitter</a></p>
-        <p><a href="facebook.com">Knight Moves Cafe on Facebook</a></p>
-        <p><a href="instagram.com">KnightMovesCafe on Instagram</a></p>
-        <p><a href="plus.google.com">Knight Moves Cafe on Google Plus</a></p>
-    </div>
-    <div class="float-right-50" style="background-color: white; border: 1px solid black; padding: 10px;">
-        <h3>Contact Us</h3>
-        <form>
-            Name: <input type="text"><br><br>
-            Email Address: <input type="email"><br><br>
-            Message: <textarea rows="10" cols="30"></textarea><br><br>
-            <button type="submit" onclick="alert('Thank you for contacting Knight Moves!')">Submit</button>
-        </form>
+<div class="ht-eq">
+    <div class="ht-row">
+        <div class="width-49 pad-10-px back-white-black-border ht-cell align-center">
+            <div>
+                <div class="float-left-49">
+                    <h4>Knight Moves Brookline</h4>
+                    <p>
+                        Knight Moves Cafe<br>
+                        1402 Beacon Street<br>
+                        Brookline, MA 02446<br>
+                    </p>
+                    <p>Phone Number: (617) 487-5259</p>
+                </div>
+                <div class="float-left-50">
+                    <h4>Knight Moves Somerville</h4>
+                    <p>
+                        Knight Moves Cafe<br>
+                        1159 Broadway<br>
+                        Somerville, MA 02144<br>
+                    </p>
+                    <p>Phone Number: (617) 702-4726</p>
+                </div>
+            </div>
+            <div class="margin-top-10">
+                <p>&nbsp;</p>
+                <p>Email Address: km@knightmovescafe.com</p>
+                <p><a href="https://twitter.com/KnightMovesCafe">@KnightMovesCafe on Twitter</a></p>
+                <p><a href="https://www.facebook.com/knightmovescafe">Knight Moves on Facebook</a></p>
+                <p><a href="https://www.instagram.com/knightmovescafe/">knightmovescafe on Instagram</a></p>
+                <p><a href="https://plus.google.com/103235318041038785674">Knight Moves Cafe on Google Plus</a></p>
+                <p><a href="https://plus.google.com/102377390973457513938">Knight Moves Cafe Somerville on Google Plus</a></p>
+            </div>
+        </div>
+        <div class="back-white-black-border width-49 ht-cell pad-10-px">
+            <h3 class="align-center">Contact Us</h3>
+            <form id="contactForm" class="form-horizontal">
+                <div class="form-group">
+                    <label for="contactName" class="col-sm-3 control-label">Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="contactName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail" class="col-sm-3 control-label">Email Address: </label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" id="contactEmail" placeholder="email@domain.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage" class="col-sm-3 control-label">Message: </label>
+                    <div class="col-sm-9">
+                        <textarea rows="10" cols="30" id="contactMessage" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-default" onclick="alert('Thank you for contacting Knight Moves!')">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <!-- Bootstrap core JavaScript
