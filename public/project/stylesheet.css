@@ -1,8 +1,11 @@
-.float-right {
+.float-right-nav-links {
     float: right;
     text-align: right;
     width: auto;
     padding-top: 155px;
+}
+.float-right {
+    float: right;
 }
 .header-pic {
     height: 200px;
@@ -19,7 +22,7 @@
 .float-left {
     float: left;
 }
-.float-right {
+.float-right-nav-links {
     float: right;
 }
 .float-left-50 {
@@ -129,4 +132,22 @@ body {
 }
 .margin-1 {
     margin: 1%;
+}
+.col-sm-right-3 {
+    margin-right: 25%;
+}
+.pad-top-bottom-10-px {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.login-links {
+    color: white;
+    font-weight: bold;
+}
+.mycontainer {
+    background-color: transparent;
+}
+.myactive {
+    background-color: #E4D264;
+    border: solid 1px white;
 }

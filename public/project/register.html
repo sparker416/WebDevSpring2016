@@ -29,13 +29,20 @@
 <div>
     <nav class="navbar" role="navigation">
         <div>
+            <div class="navbar navbar-default navbar-fixed-top navbar-right">
+                <div class="mycontainer">
+                    <p class="navbar-text navbar-right">
+                        <span class="navbar-link"><a href="login.html" class="login-links">Login</a></span> |
+                        <span class="navbar-link"><a href="register.html" class="myactive login-links">Register</a></span></p>
+                </div>
+            </div>
             <div class="header-pic">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="http://knightmovescafe.com">
                         <img alt="Brand" src="http://knightmovescafe.com/wp-content/uploads/2014/03/knights-logo-site.png">
                     </a>
                 </div>
-                <div class="float-right">
+                <div class="float-right-nav-links">
                     <ul class="nav nav-pills bold">
                         <li role="presentation" class="active"><a href="index.html">Home</a></li>
                         <li role="presentation" ><a href="about.html">About</a></li>
@@ -63,63 +70,47 @@
     </nav>
 </div>
 
-<div class="padding-top">
-    <div class="float-left-50" style="background-color: white; border: 1px solid black; margin: 2px; margin-right: 1px;">
-        <div class="margin-left-right">
-            <h2 class="align-center">Hours</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu ultricies nulla,
-                eu imperdiet quam. Nam hendrerit a nisl ac porttitor. Fusce convallis diam dapibus,
-                dapibus orci euismod, pellentesque est. Vestibulum efficitur rhoncus tellus eu elementum.
-                Suspendisse cursus eros nec leo lobortis dictum. Aenean molestie, lectus a malesuada
-                porttitor, dolor nisi pulvinar sem, in vulputate massa velit id augue. Suspendisse
-                suscipit, quam quis hendrerit faucibus, erat mauris mollis arcu, nec tempor ex ipsum
-                vel diam. Integer arcu urna, fermentum in ex nec, pharetra laoreet dui. Mauris convallis
-                non diam et laoreet. Donec vitae laoreet lectus. Mauris tristique eros ac tellus vehicula
-                faucibus. Proin tempus, dolor non facilisis tempus, dolor risus volutpat orci, pretium porta
-                nunc leo quis nisl. Cras auctor consectetur varius. Quisque sodales nibh in urna molestie
-                sagittis. Sed commodo a augue quis sollicitudin.</p>
+<div class="back-white-black-border pad-top-bottom-10-px margin-1">
+    <h3 class="align-center">Register</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="email" class="col-sm-offset-3 col-sm-2 control-label">
+                <span class="color-red bold sz-lrg"> * </span>Email
+            </label>
+            <div class="col-sm-4">
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
         </div>
-        <div class="margin-left-right">
-            <h2 class="align-center">Pricing</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu ultricies nulla,
-                eu imperdiet quam. Nam hendrerit a nisl ac porttitor. Fusce convallis diam dapibus,
-                dapibus orci euismod, pellentesque est. Vestibulum efficitur rhoncus tellus eu elementum.
-                Suspendisse cursus eros nec leo lobortis dictum. Aenean molestie, lectus a malesuada
-                porttitor, dolor nisi pulvinar sem, in vulputate massa velit id augue. Suspendisse
-                suscipit, quam quis hendrerit faucibus, erat mauris mollis arcu, nec tempor ex ipsum
-                vel diam. Integer arcu urna, fermentum in ex nec, pharetra laoreet dui. Mauris convallis
-                non diam et laoreet. Donec vitae laoreet lectus. Mauris tristique eros ac tellus vehicula
-                faucibus. Proin tempus, dolor non facilisis tempus, dolor risus volutpat orci, pretium porta
-                nunc leo quis nisl. Cras auctor consectetur varius. Quisque sodales nibh in urna molestie
-                sagittis. Sed commodo a augue quis sollicitudin.</p>
+        <div class="form-group">
+            <label for="username" class="col-sm-offset-3 col-sm-2 control-label">
+                <span class="color-red bold sz-lrg"> * </span>Username
+            </label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="username" placeholder="Username" required>
+            </div>
         </div>
-    </div>
-    <div style="background-color: #E4D264; width: 2px;"></div>
-    <div style="background-color: white; border: 1px solid black; margin: 2px; margin-left: 1px;">
-        <h2 class="align-center">About</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu ultricies nulla,
-            eu imperdiet quam. Nam hendrerit a nisl ac porttitor. Fusce convallis diam dapibus,
-            dapibus orci euismod, pellentesque est. Vestibulum efficitur rhoncus tellus eu elementum.
-            Suspendisse cursus eros nec leo lobortis dictum. Aenean molestie, lectus a malesuada
-            porttitor, dolor nisi pulvinar sem, in vulputate massa velit id augue. Suspendisse
-            suscipit, quam quis hendrerit faucibus, erat mauris mollis arcu, nec tempor ex ipsum
-            vel diam. Integer arcu urna, fermentum in ex nec, pharetra laoreet dui. Mauris convallis
-            non diam et laoreet. Donec vitae laoreet lectus. Mauris tristique eros ac tellus vehicula
-            faucibus. Proin tempus, dolor non facilisis tempus, dolor risus volutpat orci, pretium porta
-            nunc leo quis nisl. Cras auctor consectetur varius. Quisque sodales nibh in urna molestie
-            sagittis. Sed commodo a augue quis sollicitudin.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu ultricies nulla,
-            eu imperdiet quam. Nam hendrerit a nisl ac porttitor. Fusce convallis diam dapibus,
-            dapibus orci euismod, pellentesque est. Vestibulum efficitur rhoncus tellus eu elementum.
-            Suspendisse cursus eros nec leo lobortis dictum. Aenean molestie, lectus a malesuada
-            porttitor, dolor nisi pulvinar sem, in vulputate massa velit id augue. Suspendisse
-            suscipit, quam quis hendrerit faucibus, erat mauris mollis arcu, nec tempor ex ipsum
-            vel diam. Integer arcu urna, fermentum in ex nec, pharetra laoreet dui. Mauris convallis
-            non diam et laoreet. Donec vitae laoreet lectus. Mauris tristique eros ac tellus vehicula
-            faucibus. Proin tempus, dolor non facilisis tempus, dolor risus volutpat orci, pretium porta
-            nunc leo quis nisl. Cras auctor consectetur varius. Quisque sodales nibh in urna molestie
-            sagittis. Sed commodo a augue quis sollicitudin.</p>
-    </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-offset-3 col-sm-2 control-label">
+                <span class="color-red bold sz-lrg"> * </span>Password
+            </label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password" class="col-sm-offset-3 col-sm-2 control-label">
+                <span class="color-red bold sz-lrg"> * </span>Confirm Password
+            </label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control" id="confirm-password" placeholder="Password" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-4">
+                <button type="submit" class="btn btn-default">Register</button>
+            </div>
+        </div>
+    </form>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
