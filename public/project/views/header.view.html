@@ -1,0 +1,43 @@
+<div>
+    <nav class="navbar" role="navigation" >
+        <div>
+            <div class="navbar navbar-default login-links-fixed navbar-right">
+                <div class="mycontainer">
+                    <p class="navbar-text navbar-right">
+                        <span class="navbar-link"><a href="#/login" class="login-links">Login</a></span> |
+                        <span class="navbar-link"><a href="#/register" class="login-links">Register</a></span></p>
+                </div>
+            </div>
+            <div class="header-pic">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="../index.html">
+                        <img src="KM-logo.png">
+                    </a>
+                </div>
+                <div class="navbar-right nav-links-fixed navbar-right bold">
+                    <ul class="nav nav-pills" ng-controller="HeaderController">
+                        <li ng-class="{'active': $location.url().indexOf('home') >= 0}"><a href="#/home">Home</a></li>
+                        <li ng-class="{'active': $location.url().indexOf('about') >= 0}"><a href="#/about">About</a></li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Game Library<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/library">View</a></li>
+                                <li><a href="#/search">Search</a></li>
+                            </ul>
+                        </li>
+                        <li role="presentation"><a href="#/pricing">Pricing</a></li>
+                        <li role="presentation"><a href="#/events">Events</a></li>
+                        <li role="presentation"><a href="#/contact">Contact</a></li>
+                        <li role="presentation"><a href="#/directions">Directions</a></li>
+                        <li role="presentation"><a href="#/faq">FAQ</a></li>
+                        <li role="presentation"><a href="#/news">News and Reviews</a></li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
