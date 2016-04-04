@@ -18,33 +18,33 @@
             <td>  {{library.Min_Playing_Time}}  -  {{library.Max_Playing_Time}}  </td>
             <td>  {{library.Min_Age}}  -  {{library.Max_Age}}  </td>
             <td>
-                <span ng-if="{{library.Co_op}}">
+                <span ng-if="library.Co_op">
                 Co-op<br>
                     </span>
-            <span ng-if="{{library.Strategy}}">
+            <span ng-if="library.Strategy">
                 Strategy<br>
             </span>
-                <span ng-if="{{library.Party}}">
+                <span ng-if="library.Party">
                 Party<br>
                     </span>
-                <span ng-ifg="{{library.Classic}}">
+                <span ng-if="library.Classic">
                     Classic<br>
                     </span>
-                <span ng-if="{{library.Worker_placement}}">
+                <span ng-if="library.Worker_placement">
                 Worker placement<br>
                     </span>
-                <span ng-if="{{library.Resource_management}}">
+                <span ng-if="library.Resource_management">
                 Resource management  <br>
                     </span>
-                <span ng-if="{{library.Deck_building}}">
+                <span ng-if="library.Deck_building">
                 Deck building
                     </span>
             </td>
             <td>
-                <span ng-if="{{library.Coolidge_Corner}}">
+                <span ng-if="library.Coolidge_Corner">
                     Coolidge Corner<br>
                     </span>
-                <span ng-if="{{library.Teele_Square}}">
+                <span ng-if="library.Teele_Square">
                     Teele Square
                     </span>
             </td>
