@@ -6,8 +6,15 @@
         .module("KnightMovesApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function LoginController($scope, UserService, $location) {
+        $scope.login = login;
+
+        function login (user) {
+            var u = UserService.findUserByCredentials(user.username, user.password);
+            if (u) {
+                UserService.setCurrentUser(u);
+                $location.url("/profile");
+            }
+        }
     }
 })();

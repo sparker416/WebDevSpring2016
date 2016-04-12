@@ -138,6 +138,11 @@ body {
     color: white;
     font-weight: bold;
 }
+.login-links-active {
+    background-color: #E4D264;
+    color: white;
+    font-weight: bold;
+}
 .mycontainer {
     background-color: transparent;
 }
@@ -155,7 +160,8 @@ body {
     position: absolute;
     right: 0;
     z-index: 1030;
-    top: 0px;
+    top: 0;
+    color: white;
 }
 .about-events {
     background-color: white;
@@ -199,4 +205,7 @@ body {
     padding-bottom: 10px;
     margin-left: 1px;
     margin-right: 2px;
+}
+.white-text {
+    color: white;
 }

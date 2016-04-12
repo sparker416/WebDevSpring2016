@@ -60,6 +60,10 @@
                 templateUrl: "views/search.view.html",
                 controller: "SearchController"
             })
+            .when("/admin", {
+                templateUrl: "admin/admin.view.html",
+                controller: "AdminController"
+            })
             .otherwise({
                 redirectTo: "/home"
             });
