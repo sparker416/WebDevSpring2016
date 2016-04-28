@@ -15,42 +15,61 @@
                     _id: "000",
                     name: "Risk",
                     userId: 123,
-                    counter: 1
+                    counter: 1,
+                    dateLastPlayed: new Date()
                 },
                 {
                     _id: "010",
                     name: "Monopoly",
                     userId: 123,
-                    counter: 2
+                    counter: 2,
+                    dateLastPlayed: new Date()
                 },
                 {
                     _id: "020",
                     name: "Clue",
                     userId: 234,
-                    counter: 1
+                    counter: 1,
+                    dateLastPlayed: new Date()
                 }
             ],
 
-            addGameByIdForUser: addGameByIdForUser,
+            addGameForUser: addGameForUser,
             findAllGamesForUser: findAllGamesForUser,
-            deleteGameByIdForUser: deleteGameByIdForUser
+            deleteGameByIdForUser: deleteGameByIdForUser,
+            findGameByName: findGameByName
         };
         return model;
 
-        function addGameByIdForUser(gameId, game, userId) {
-            for (var i = 0; i < model.games.length; i++) {
-                if (model.games[i].userId === userId) {
-                    for (var u = 0; u < model.games.length; u++) {
-                        if (model.games[u]._id === gameId) {
-                            model.games[u].counter++;
-                            return null;
-                        }
-                    }
-                    model.games.push(game);
-                    return model.games;
+        function addGameForUser(game, userId) {
+            var userGames = findAllGamesForUser(userId);
+            for (var i = 0; i < userGames.length; i++) {
+                if (userGames[i]._id === game._id) {
+                    userGames[i].counter++;
+                    userGames[i].dateLastPlayed = new Date();
+                    return userGames;
                 }
             }
+            model.games.push({
+                _id: game._id,
+                name: game.name,
+                userId: userId,
+                counter: 1,
+                dateLastPlayed: new Date()
+            });
+            userGames = findAllGamesForUser(userId);
+            return userGames;
         }
+
+        function findGameByName(gameName){
+            for (var u = 0; u < model.games.length; u++) {
+                if (model.games[u].name.localeCompare(gameName) === 0){
+                    return model.games[u];
+                }
+            }
+            return null;
+        }
+
 
         function findAllGamesForUser(userId)
         {
@@ -66,13 +85,13 @@
         function deleteGameByIdForUser(gameId, userId)
         {
             for (var u = 0; u < model.games.length; u++) {
-                if (model.games[u].id === gameId
+                if (model.games[u]._id == gameId
                     && model.games[u].userId === userId) {
                     model.games.splice(u, 1);
-                    return model.games;
+                    return findAllGamesForUser(userId);
                 }
             }
-            return null;
+            return findAllGamesForUser(userId);
         }
     }
 })();

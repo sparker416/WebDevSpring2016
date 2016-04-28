@@ -110,7 +110,7 @@
         function deleteUserById(userId)
         {
             for (var u = 0; u < model.users.length; u++) {
-                if (model.users[u].id === userId) {
+                if (model.users[u]._id === userId) {
                     model.users.splice(u, 1);
                     return model.users;
                 }

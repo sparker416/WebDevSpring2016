@@ -6,30 +6,24 @@
         .module("KnightMovesApp")
         .controller("ProfileController", ProfileController);
 
-
-    function ProfileController($scope, UserService, $location) {
-        $scope.error = null;
-        $scope.message = null;
-
+    function ProfileController($scope, UserService, $location, GameService) {
         $scope.currentUser = UserService.getCurrentUser();
         if (!$scope.currentUser) {
             $location.url("/home");
         }
 
-        $scope.profileUpdate = profileUpdate;
+        $scope.games = GameService.findAllGamesForUser($scope.currentUser._id);
 
-        function profileUpdate (user) {
-            // same validation as register
-            $scope.error = null;
-            $scope.message = null;
+        $scope.addGame = addGame;
+        $scope.removeGame = removeGame;
 
-            $scope.currentUser = UserService.updateUser($scope.currentUser);
+        function addGame(gameName){
+            var game = GameService.findGameByName(gameName);
+            $scope.games = GameService.addGameForUser(game, $scope.currentUser._id);
+        }
 
-            if (user) {
-                $scope.message = "User updated successfully";
-            } else {
-                $scope.message = "Unable to update the user";
-            }
+        function removeGame(game){
+            $scope.games = GameService.deleteGameByIdForUser(game._id, $scope.currentUser._id);
         }
     }
 })();

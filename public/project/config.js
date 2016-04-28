@@ -52,6 +52,10 @@
                 templateUrl: "views/profile.view.html",
                 controller: "ProfileController"
             })
+            .when("/update", {
+                templateUrl: "views/update.view.html",
+                controller: "UpdateController"
+            })
             .when("/register", {
                 templateUrl: "views/register.view.html",
                 controller: "RegisterController"
