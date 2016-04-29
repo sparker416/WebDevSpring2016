@@ -14,6 +14,27 @@
         <br>
         <table class="table table-striped table-bordered">
             <tr>
+                <th colspan="4">
+                    Add or Update a Game
+                </th>
+            </tr>
+            <tr ng-show="currentUser">
+                <td colspan="4">
+                    <div class="pad-10-px">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="gameName">Name</label>
+                                <input ng-model="gameNameText" type="text" class="form-control" id="gameName">
+                            </div>
+                            <button type="submit" class="btn btn-default" ng-click="addGame(gameNameText)">
+                                Add Game
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
                 <th>
                     Game
                 </th>
@@ -32,21 +53,6 @@
                 <td><button ng-click="removeGame(gm)" class="btn btn-danger">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button></td>
-            </tr>
-            <tr ng-show="currentUser">
-                <td colspan="3">
-                    <div class="pad-10-px">
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <label for="gameName">Name</label>
-                                <input ng-model="gameNameText" type="text" class="form-control" id="gameName">
-                            </div>
-                            <button type="submit" class="btn btn-default" ng-click="addGame(gameNameText)">
-                                Add Game
-                            </button>
-                        </form>
-                    </div>
-                </td>
             </tr>
         </table>
     </div>
