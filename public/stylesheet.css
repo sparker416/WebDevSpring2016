@@ -21,7 +21,7 @@ body {
 }
 
 .right-div {
-    float: right;
+    float: left;
 }
 
 .align-left {
@@ -43,8 +43,15 @@ h1 {
 .bgpic {
     background-image: url(vine-border-green-emily-hi.png);
     background-repeat: no-repeat;
+    background-size: 100% 550px;
 }
 
 ul {
     list-style-position: inside;
+}
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
