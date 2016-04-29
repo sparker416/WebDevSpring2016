@@ -1,7 +1,7 @@
 .nav-links-padding-top {
     padding-top: 155px;
 }
-.float-right {
+.right-div {
     float: right;
 }
 .header-pic {
@@ -19,7 +19,7 @@
 .bold {
     font-weight: bold;
 }
-.float-left {
+.left-div {
     float: left;
 }
 .float-left-50 {

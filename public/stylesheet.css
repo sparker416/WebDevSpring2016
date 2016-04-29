@@ -1,0 +1,50 @@
+body {
+    background-color: #51a851;
+}
+
+.column {
+    background-color: white;
+    padding: 20px 0px 20px 20px;
+    border: 1px solid #3c763d;
+    height: 100%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+.left-div {
+    float: left;
+    padding-top: 100px;
+    padding-right: 110px;
+    padding-left: 110px;
+    height: 550px;
+    text-align: center;
+}
+
+.right-div {
+    float: right;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 25px;
+    font-family: "Brush Script MT", cursive;
+}
+.my-container {
+    margin: 20px;
+}
+.bgpic {
+    background-image: url(vine-border-green-emily-hi.png);
+    background-repeat: no-repeat;
+}
+
+ul {
+    list-style-position: inside;
+}
