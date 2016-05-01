@@ -1,13 +1,13 @@
 /**
  * Created by spark on 4/4/2016.
- */
+
 (function()
 {
     angular
         .module("KnightMovesApp")
-        .factory("GameService", GameService);
+        .factory("UserGameService", UserGameService);
 
-    function GameService($rootScope)
+    function UserGameService($rootScope)
     {
         var model = {
             games: [
@@ -95,3 +95,4 @@
         }
     }
 })();
+ */

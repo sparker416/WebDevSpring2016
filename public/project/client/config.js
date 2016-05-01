@@ -50,7 +50,7 @@
             })
             .when("/profile", {
                 templateUrl: "views/profile.view.html",
-                controller: "ProfileController"
+                controller: "GameController"
             })
             .when("/update", {
                 templateUrl: "views/update.view.html",
@@ -65,7 +65,7 @@
                 controller: "SearchController"
             })
             .when("/admin", {
-                templateUrl: "admin/admin.view.html",
+                templateUrl: "views/admin.view.html",
                 controller: "AdminController"
             })
             .otherwise({
