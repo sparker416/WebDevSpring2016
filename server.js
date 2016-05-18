@@ -1,6 +1,19 @@
 var express = require('express');
 
 var app = express();
+
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+
+app.use(express.static(__dirname + '/public'));
+
+app.listen(port, ipaddress);
+
+/*
+var express = require('express');
+
+
+var app = express();
 var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
 
@@ -72,3 +85,4 @@ app.put("/rest/game/:id", function(req, res)
 });
 
 app.listen(port, ipaddress);
+    */

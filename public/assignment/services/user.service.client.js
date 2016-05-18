@@ -43,7 +43,7 @@
         function findUserByCredentials(username, password, callback){
             for(var u = 0; u < model.currentUsers.length; u++){
                 var user = model.currentUsers[u];
-                if(user.username==username && user.password==password){
+                if(user.username===username && user.password===password){
                     callback(user);
                 } else{
                     callback(null);
