@@ -50,10 +50,10 @@
                 </td>
             </tr>
 
-            <tr ng-repeat="gm in games" ng-click="selectGame($index)" ng-class="{'success': $index == selectedGameIndex}">
-                <td>{{gm.name}}</td>
-                <td>{{gm.counter}}</td>
-                <td>{{gm.dateLastPlayed | shortDate}}</td>
+            <tr ng-repeat="meeple in games" ng-click="selectGame($index)" ng-class="{'success': $index == selectedGameIndex}">
+                <td>{{meeple.name}}</td>
+                <td>{{meeple.counter}}</td>
+                <td>{{meeple.dateLastPlayed | shortDate}}</td>
                 <td ng-show="currentUser">
                     <button ng-click="removeGame($index)" class="btn btn-danger">
                         Remove

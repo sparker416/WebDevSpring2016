@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="#">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Form Maker</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -19,6 +19,24 @@
 
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="views/main/main.controller.js"></script>
+    <script src="views/admin/admin.controller.js"></script>
+    <script src="views/forms/forms.controller.js"></script>
+    <script src="views/header/header.controller.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
+    <script src="views/users/login.controller.js"></script>
+    <script src="views/users/profile.controller.js"></script>
+    <script src="views/users/register.controller.js"></script>
+    <script src="services/forms.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,10 +45,11 @@
     <![endif]-->
 </head>
 <body ng-controller="MainController">
-<div ng-include="'views/header/header.view.html'"></div>
-<div ng-include="'views/sidebar/sidebar.view.html'"></div>>
+<div ng-if="!($location.path() == '/register')">
+    <div ng-include="'views/header/header.view.html'"></div>
+    <div ng-include="'views/sidebar/sidebar.view.html'"></div>
+</div>
 <div ng-view></div>
-
 
 <!-- Bootstrap core JavaScript
    ================================================== -->
@@ -38,25 +57,5 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
-<script src="app.js"></script>
-<script src="config.js"></script>
-<script src="views/main/main.controller.js"></script>
-<script src="views/admin/admin.controller.js"></script>
-<script src="views/forms/forms.controller.js"></script>
-<script src="views/header/header.controller.js"></script>
-<script src="views/home/home.controller.js"></script>
-<script src="views/sidebar/sidebar.controller.js"></script>
-<script src="views/users/login.controller.js"></script>
-<script src="views/users/profile.controller.js"></script>
-<script src="views/users/register.controller.js"></script>
-<script src="services/forms.service.client.js"></script>
-<script src="services/user.service.client.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
 </body>
 </html>

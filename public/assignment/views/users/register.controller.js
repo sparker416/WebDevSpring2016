@@ -7,24 +7,22 @@
         .controller("RegisterController", RegisterController);
 
     function RegisterController(UserService, $location) {
-        var vm = this;
+        $scope.$location = $location;
 
-        vm.register = register;
+        $scope.register = register;
 
-        function init() {
-
-        }
-        init();
-
+        var newUser = {
+            "_id": new Date().getTime(),
+            "firstName": "Place",
+            "lastName": "Holder",
+            "username": $scope.user.username,
+            "password": $scope.user.password,
+            "roles": ["student"]
+        };
+        
         function register() {
-            UserService
-                .then(function(response){
-                    var currentUser = response.data;
-                    if(currentUser != null) {
-                        UserService.createUser(currentUser);
-                        $location.url("/profile");
-                    }
-                });
+            UserService.createUser(newUser, UserService.setCurrentUser);
+            $location.url("/profile");
         }
     }
 })();

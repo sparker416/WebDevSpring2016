@@ -47,6 +47,12 @@
                 .then(callback);
         }
 
+        function addGame(game, callback)
+        {
+            $http.post("/rest/game", game)
+                .then(callback);
+        }
+
         function findAllGamesForUser(userId, gms)
         {
             var g = [];
@@ -66,12 +72,6 @@
                 }
             }
             return null;
-        }
-
-        function addGame(game, callback)
-        {
-            $http.post("/rest/game", game)
-                .then(callback);
         }
     }
 })();

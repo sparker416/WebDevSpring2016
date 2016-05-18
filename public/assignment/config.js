@@ -14,22 +14,26 @@
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
-                controller: "loginController"
+                controller: "LoginController"
             })
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
-                controller: "profileController"
+                controller: "ProfileController",
+                activeTab: "profile"
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
+                templateUrl: "views/admin/admin.view.html",
+                activeTab: "admin"
             })
             .when("/home",{
                 templateUrl: "views/home/home.view.html",
-                controller: "homeController"
+                controller: "HomeController",
+                activeTab: "home"
             })
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
-                controller: "formController"
+                controller: "FormController",
+                activeTab: "forms"
             })
             .when("/fields", {
                 templateUrl: "views/forms/fields.view.html"

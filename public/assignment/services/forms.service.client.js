@@ -7,9 +7,9 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .factory("FormService", formService);
+        .factory("FormService", FormService);
 
-    function formService()
+    function FormService()
     {
         var model = {
             forms: [

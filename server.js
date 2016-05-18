@@ -11,6 +11,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.bodyParser({ uploadDir: './public/uploads', keepExtensions: true }));
 app.use(multer());
 
 var games = [

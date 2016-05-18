@@ -4,9 +4,10 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("HomeController", homeController);
+        .controller("HomeController", HomeController);
 
-    function homeController($scope, $location) {
+    function HomeController($scope, $location, $route) {
         $scope.$location = $location;
+        $scope.$route  = $route;
     }
 })();

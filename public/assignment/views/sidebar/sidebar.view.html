@@ -1,57 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="#">
-
-    <title>Dashboard Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
-
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li><a href="../home/home.view.html">Home</a></li>
-                    <li ng-show="currentUser"><a href="../users/profile.view.html">Profile</a></li>
-                    <li ng-show="currentUser"><a href="../forms/forms.view.html">Forms</a></li>
-                    <li ng-show="currentUser.roles.indexOf('admin') != -1"><a href="../admin/admin.view.html">Admin</a></li>
-                </ul>
-            </div>
+<div class="container-fluid" ng-controller="SidebarController">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li ng-class="{active: $route.current.activetab == 'home'}">
+                    <a href="#/home">Home</a>
+                </li>
+                <li ng-show="currentUser" ng-class="{active: $route.current.activetab == 'profile'}">
+                    <a href="#/profile">Profile</a>
+                </li>
+                <li ng-show="currentUser" ng-class="{active: $route.current.activetab == 'forms'}">
+                    <a href="#/forms">Forms</a>
+                </li>
+                <li ng-show="currentUserIsAdmin" ng-class="{active: $route.current.activetab == 'admin'}">
+                    <a href="#/admin">Admin</a>
+                </li>
+            </ul>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
-</body>
-
-</html>
+</div>

@@ -4,9 +4,13 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("SidebarController", sidebarController);
+        .controller("SidebarController", SidebarController);
 
-    function sidebarController($scope, $location) {
+    function SidebarController($scope, $location, UserService, $route) {
         $scope.$location = $location;
+        $scope.$route  = $route;
+
+        $scope.currentUser = UserService.getCurrentUser();
+        $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
     }
 })();

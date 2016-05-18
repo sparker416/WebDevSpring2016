@@ -4,12 +4,20 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("FormController", formController);
+        .controller("FormController", FormController);
 
-    function formController($scope, FormService, $location) {
+    function FormController($scope, FormService, $location, $route) {
+        $scope.$location = $location;
+        $scope.$route  = $route;
 
         $scope.error = null;
         $scope.message = null;
+
+        $scope.addForm = addForm;
+        $scope.updateForm = updateForm;
+        $scope.deleteForm = deleteForm;
+        $scope.selectForm = selectForm;
+        $scope.updateUser = updateUser;
 
         $scope.forms = FormService.findAllFormsForUser($scope.currentUser._id);
 

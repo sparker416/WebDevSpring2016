@@ -1,90 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="#">
-
-    <title>Dashboard Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
-
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Profile</h1>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="username3" class="col-sm-2">Username:</label>
-                <div class="col-sm-10">
-                    <input ng-model="user.username" type="text" class="form-control" id="username3" placeholder="Username">
-                </div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProfileController">
+    <h1 class="page-header">Profile</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="username3" class="col-sm-2">Username:</label>
+            <div class="col-sm-10">
+                <input ng-model="user.username" type="text" class="form-control" id="username3" placeholder="Username">
             </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2">Password:</label>
-                <div class="col-sm-10">
-                    <input ng-model="user.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2">Password:</label>
+            <div class="col-sm-10">
+                <input ng-model="user.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
             </div>
-            <div class="form-group">
-                <label for="firstName" class="col-sm-2">First Name:</label>
-                <div class="col-sm-10">
-                    <input ng-model="user.firstName" type="text" class="form-control" id="firstName" placeholder="First Name">
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="firstName" class="col-sm-2">First Name:</label>
+            <div class="col-sm-10">
+                <input ng-model="user.firstName" type="text" class="form-control" id="firstName" placeholder="First Name">
             </div>
-            <div class="form-group">
-                <label for="lastName" class="col-sm-2">Last Name:</label>
-                <div class="col-sm-10">
-                    <input ng-model="user.lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="col-sm-2">Last Name:</label>
+            <div class="col-sm-10">
+                <input ng-model="user.lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
             </div>
-            <div class="form-group">
-                <label for="email" class="col-sm-2">Email:</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" placeholder="Email">
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-2">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="Email">
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <a ng-click="update(user)" class="btn btn-default btn-lg btn-block active" href="profile.view.html" role="button">Update</a>
-                </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a ng-click="update(currentUser)" class="btn btn-default btn-lg btn-block active" href="profile.view.html" role="button">Update</a>
             </div>
-        </form>
-    </div>
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
-</body>
-
-</html>
+        </div>
+    </form>
+</div>

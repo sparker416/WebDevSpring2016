@@ -6,7 +6,7 @@
         .module("FormBuilderApp")
         .factory("UserService", userService);
 
-    function userService()
+    function userService($rootScope)
     {
         var model = {
             currentUsers: [
@@ -21,13 +21,24 @@
                 {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
                     "username":"ed",     "password":"ed",      "roles": ["student"]		}
             ],
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            userIsAdmin: userIsAdmin
         };
         return model;
+
+        function setCurrentUser (user) {
+            $rootScope.currentUser = user;
+        }
+
+        function getCurrentUser () {
+            return $rootScope.currentUser;
+        }
 
         function findUserByCredentials(username, password, callback){
             for(var u in model.currentUsers){
@@ -44,7 +55,6 @@
         }
 
         function createUser(user, callback){
-            user._id = (new Date).getTime();
             model.currentUsers.push(user);
             callback(user);
         }
@@ -73,6 +83,25 @@
                 } else{
                     callback(model.currentUsers[u]);
                 }
+            }
+        }
+
+        function userIsAdmin(user)
+        {
+            if(user==null){
+                return false;
+            }
+            else
+            {
+                var roles = user.roles;
+
+                for(var i=0; i<roles.length; i++){
+                    if(roles[i] === "admin")
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
         }
     }
