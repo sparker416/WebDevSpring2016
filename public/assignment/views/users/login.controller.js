@@ -6,15 +6,22 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController ($scope, UserService, $location, $rootScope) {
+    function LoginController ($scope, UserService, $location) {
         $scope.$location = $location;
+
+        $scope.error = null;
 
         $scope.login = login;
 
-        function login (username, password) {
-            UserService.findUserByCredentials(username, password, UserService.setCurrentUser);
+        function login (usrnm, psswrd) {
+            $scope.error = null;
+            
+            UserService.findUserByCredentials(usrnm, psswrd, UserService.setCurrentUser);
+
             if ($scope.currentUser) {
                 $location.url("/profile");
+            } else {
+                $scope.error = "Could not log you in";
             }
         }
     }
