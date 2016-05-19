@@ -10,16 +10,46 @@
     {
         var model = {
             currentUsers: [
-                {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                    "username":"alice",  "password":"alice",   "roles": ["student"]		},
-                {	"_id":234, "firstName":"Bob",              "lastName":"Hope",
-                    "username":"bob",    "password":"bob",     "roles": ["admin"]		},
-                {	"_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                    "username":"charlie","password":"charlie", "roles": ["faculty"]		},
-                {	"_id":456, "firstName":"Dan",              "lastName":"Craig",
-                    "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
-                {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
-                    "username":"ed",     "password":"ed",      "roles": ["student"]		}
+                {
+                    "_id":123,
+                    "firstName":"Alice",
+                    "lastName":"Wonderland",
+                    "username":"alice",
+                    "password":"alice",
+                    "roles": ["student"]
+                },
+                {
+                    "_id":234,
+                    "firstName":"Bob",
+                    "lastName":"Hope",
+                    "username":"bob",
+                    "password":"bob",
+                    "roles": ["admin"]
+                },
+                {
+                    "_id":345,
+                    "firstName":"Charlie",
+                    "lastName":"Brown",
+                    "username":"charlie",
+                    "password":"charlie",
+                    "roles": ["faculty"]
+                },
+                {
+                    "_id":456,
+                    "firstName":"Dan",
+                    "lastName":"Craig",
+                    "username":"dan",
+                    "password":"dan",
+                    "roles": ["faculty", "admin"]
+                },
+                {
+                    "_id":567,
+                    "firstName":"Edward",
+                    "lastName":"Norton",
+                    "username":"ed",
+                    "password":"ed",
+                    "roles": ["student"]
+                }
             ],
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
@@ -45,8 +75,7 @@
                 var user = model.currentUsers[u];
                 if(user.username===username && user.password===password){
                     callback(user);
-                } else{
-                    callback(null);
+                    return;
                 }
             }
         }
@@ -65,6 +94,7 @@
                 if(model.currentUsers[u]._id === userId){
                     model.currentUsers.splice(userId, 1);
                     callback(model.currentUsers);
+                    return;
                 } else{
                     callback(model.currentUsers);
                 }
@@ -81,6 +111,7 @@
                     model.currentUsers[u].password = user.password;
                     model.currentUsers[u].roles = user.roles;
                     callback(model.currentUsers[u]);
+                    return;
                 } else{
                     callback(model.currentUsers[u]);
                 }
@@ -89,7 +120,7 @@
 
         function userIsAdmin(user)
         {
-            if(user==null){
+            if(!user){
                 return false;
             }
             else
