@@ -6,8 +6,10 @@
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $location, $route) {
+    function AdminController($scope, $location, $route, UserService) {
         $scope.$location = $location;
         $scope.$route = $route;
+        $scope.currentUser = UserService.getCurrentUser();
+
     }
 })();

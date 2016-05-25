@@ -6,16 +6,23 @@
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, $location, UserService) {
+    function HeaderController($scope, $location, UserService, $rootScope) {
         $scope.$location = $location;
         $scope.currentUser = UserService.getCurrentUser();
-        $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+        $scope.currentUserIsAdmin = UserService.userIsAdmin(UserService.getCurrentUser());
+
+        $rootScope.$on("updateCurrentUser", function(){
+            $scope.currentUser = UserService.getCurrentUser();
+            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+
+        });
 
         $scope.logout = logout;
 
         function logout()
         {
-            $scope.currentUser = UserService.setCurrentUser(null);
+            UserService.setCurrentUser(null);
+            $rootScope.$broadcast("updateCurrentUser");
             $location.url("/home");
         }
 

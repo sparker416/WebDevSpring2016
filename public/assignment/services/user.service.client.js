@@ -4,9 +4,9 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .factory("UserService", userService);
+        .factory("UserService", UserService);
 
-    function userService($rootScope)
+    function UserService($rootScope)
     {
         var model = {
             currentUsers: [

@@ -9,7 +9,7 @@
         .module("FormBuilderApp")
         .factory("FormService", FormService);
 
-    function FormService()
+    function FormService($rootScope)
     {
         var model = {
             forms: [
@@ -17,6 +17,8 @@
                 {"_id": "010", "title": "ToDo",     "userId": 123},
                 {"_id": "020", "title": "CDs",      "userId": 234}
             ],
+            setCurrentForms: setCurrentForms,
+            getCurrentForms: getCurrentForms,
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
             deleteFormById: deleteFormById,
@@ -24,11 +26,19 @@
         };
         return model;
 
+        function setCurrentForms(forms){
+            $rootScope.currentForms = forms;
+        }
+
+        function getCurrentForms(){
+            return $rootScope.currentForms;
+        }
+
         function createFormForUser(userId, form, callback){
             form._id = (new Date).getTime();
             form.userId = userId;
             model.forms.push(form);
-            callback(form);
+            callback(model.forms);
         }
 
         function findAllFormsForUser(userId, callback){
@@ -59,9 +69,9 @@
                 if(model.forms[u]._id === formId){
                     model.forms[u]._id = newForm._id;
                     model.forms[u].title = newForm.title;
-                    callback(newForm);
+                    callback(model.forms);
                 } else{
-                    callback(newForm);
+                    callback(model.forms);
                 }
             }
         }

@@ -6,8 +6,9 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, UserService, $location) {
+    function RegisterController($scope, UserService, $location, $rootScope) {
         $scope.$location = $location;
+        $scope.currentUser = UserService.getCurrentUser();
 
         $scope.error = null;
 
@@ -28,6 +29,7 @@
                 };
 
                 UserService.createUser(newUser, UserService.setCurrentUser);
+                $rootScope.$broadcast("updateCurrentUser");
                 $location.url("/profile");
             } else{
                 $scope.error="Passwords do not match."

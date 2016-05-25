@@ -6,7 +6,7 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, UserService, $location, $route) {
+    function ProfileController($scope, UserService, $location, $route, $rootScope) {
         $scope.$location = $location;
         $scope.$route  = $route;
 
@@ -40,6 +40,7 @@
 
             if (user) {
                 $scope.message = "User updated successfully";
+                $rootScope.$broadcast("updateCurrentUser");
             } else {
                 $scope.error = "Unable to update the user";
             }

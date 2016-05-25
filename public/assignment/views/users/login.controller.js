@@ -10,7 +10,7 @@
         $scope.$location = $location;
 
         $scope.error = null;
-        $scope.currentUser = UserService.getCurrentUser(null);
+        $scope.currentUser = UserService.getCurrentUser();
 
         $scope.login = login;
 
@@ -22,6 +22,8 @@
 
             if ($scope.currentUser) {
                 $location.url("/profile");
+                $rootScope.$broadcast("updateCurrentUser");
+
             } else {
                 $scope.error = "Could not log you in";
             }
