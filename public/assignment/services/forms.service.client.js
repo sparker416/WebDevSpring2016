@@ -34,45 +34,42 @@
             return $rootScope.currentForms;
         }
 
-        function createFormForUser(userId, form, callback){
-            form._id = (new Date).getTime();
-            form.userId = userId;
-            model.forms.push(form);
+        function createFormForUser(userId, formTitle, callback){
+            var newForm =
+            {
+                _id: (new Date).getTime(),
+                title: formTitle,
+                userId: userId
+            };
+            model.forms.push(newForm);
             callback(model.forms);
         }
 
         function findAllFormsForUser(userId, callback){
+            var userForms = [];
             for(var u in model.forms){
-                if(model.forms[u].userId===userId){
-                    var formsById = [];
-                    formsById.push(model.forms[u]);
-                    callback(formsById);
-                } else {
-                    callback([]);
+                if(model.forms[u].userId === userId) {
+                    userForms.push(model.forms[u]);
                 }
+                callback(userForms);
             }
         }
 
         function deleteFormById(formId, callback){
             for(var u in model.forms){
                 if(model.forms[u]._id === formId){
-                    model.forms.splice(formId, 1);
-                    callback(model.forms);
-                } else{
-                    callback(model.forms);
+                    model.forms.splice(u, 1);
                 }
+                callback(model.forms);
             }
         }
 
-        function updateFormById(formId, newForm, callback){
+        function updateFormById(formId, formTitle, callback){
             for(var u in model.forms){
                 if(model.forms[u]._id === formId){
-                    model.forms[u]._id = newForm._id;
-                    model.forms[u].title = newForm.title;
-                    callback(model.forms);
-                } else{
-                    callback(model.forms);
+                    model.forms[u].title = formTitle;
                 }
+                callback(model.forms);
             }
         }
     }

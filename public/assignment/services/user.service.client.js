@@ -92,7 +92,7 @@
         function deleteUserById(userId, callback) {
             for(var u in model.currentUsers){
                 if(model.currentUsers[u]._id === userId){
-                    model.currentUsers.splice(userId, 1);
+                    model.currentUsers.splice(u, 1);
                     callback(model.currentUsers);
                     return;
                 } else{

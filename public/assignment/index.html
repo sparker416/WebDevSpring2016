@@ -21,7 +21,6 @@
     <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
     <script src="app.js"></script>
@@ -37,13 +36,8 @@
     <script src="views/users/register.controller.js"></script>
     <script src="services/forms.service.client.js"></script>
     <script src="services/user.service.client.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
+
 <body ng-controller="MainController">
 <div ng-if="!($location.path() == '/register')">
     <div ng-include="'views/header/header.view.html'"></div>

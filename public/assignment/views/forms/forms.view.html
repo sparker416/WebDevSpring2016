@@ -19,25 +19,25 @@
                     <tr>
                         <td>
                             <div class="form-group col-sm-10">
-                                <input ng-model="form.title" type="text" class="form-control" id="name" placeholder="name">
+                                <input ng-model="formTitle" type="text" class="form-control" id="title" placeholder="Form Title">
                             </div>
                         </td>
                         <td>
-                            <a ng-click="addForm(form)" href="#">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </a>
-                            <a ng-click="updateForm(form)" href="#">
-                                <scan class="glyphicon glyphicon-ok"></scan>
-                            </a>
+                            <button ng-hide="currentForm" ng-click="addForm(formTitle)">
+                                <scan class="glyphicon glyphicon-plus"> Add</scan>
+                            </button>
+                            <button ng-show="currentForm" ng-click="updateForm(formTitle, currentForm)" href="#">
+                                <scan class="glyphicon glyphicon-ok"> Update</scan>
+                            </button>
                         </td>
                     </tr>
 
                 </form>
-                <tr ng-repeat="form in forms">
-                    <td>{{form.name}}</td>
+                <tr ng-repeat="form in currentForms">
+                    <td>{{form.title}}</td>
                     <td>
-                        <scan ng-click="deleteForm($index)" class="glyphicon glyphicon-remove"></scan>
-                        <scan ng-click="selectForm($index)" class="glyphicon glyphicon-pencil"></scan>
+                        <button ng-click="deleteForm($index)"><scan class="glyphicon glyphicon-remove"> Remove</scan></button>
+                        <button ng-click="selectForm($index)"><scan class="glyphicon glyphicon-pencil"> Edit</scan></button>
                     </td>
                 </tr>
             </table>
