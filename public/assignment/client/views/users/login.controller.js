@@ -17,16 +17,17 @@
         function login (usrnm, psswrd) {
             $scope.error = null;
 
-            UserService.findUserByCredentials(usrnm, psswrd, UserService.setCurrentUser);
-            $scope.currentUser = UserService.getCurrentUser();
-
-            if ($scope.currentUser) {
-                $location.url("/profile");
-                $rootScope.$broadcast("updateCurrentUser");
-
-            } else {
-                $scope.error = "Could not log you in";
-            }
+            UserService
+                .findUserByCredentials(usrnm, psswrd)
+                .then(function(response){
+                    if(response.data){
+                        UserService.setCurrentUser(response.data);
+                        $location.url("/profile");
+                        $rootScope.$broadcast("updateCurrentUser");
+                    } else {
+                        $scope.error = "Could not log you in";
+                    }
+                });
         }
     }
 })();

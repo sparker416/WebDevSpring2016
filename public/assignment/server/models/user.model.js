@@ -3,7 +3,7 @@
  */
 var mockUsers = require("./user.mock.json");
 
-module.exports = function(app) {
+module.exports = function() {
     var api = {
         createUser: createUser,
         findAllUsers: findAllUsers,
@@ -41,7 +41,7 @@ module.exports = function(app) {
         mockUsers[index].lastName = user.lastName;
         mockUsers[index].username = user.username;
         mockUsers[index].password = user.password;
-        return mockUsers;
+        return mockUsers[index];
     }
 
     function deleteUser(userId) {

@@ -7,7 +7,7 @@
  */
 var mockForms = require("./form.mock.json");
 
-module.exports = function(app) {
+module.exports = function() {
     var api = {
         createForm: createForm,
         findAllForms: findAllForms,

@@ -36,14 +36,18 @@
                 "roles": user.roles
             };
 
-            $scope.currentUser = UserService.updateUser(user._id, updatedUser, UserService.setCurrentUser);
+            UserService
+                .updateUser(user._id, updatedUser)
+                .then(function(response){
+                    if(response.data === updatedUser){
+                        UserService.setCurrentUser(response.data);
+                        $scope.message = "User updated successfully";
+                        $rootScope.$broadcast("updateCurrentUser");
+                    } else {
+                        $scope.error = "Unable to update the user";
+                    }
+                });
 
-            if (user) {
-                $scope.message = "User updated successfully";
-                $rootScope.$broadcast("updateCurrentUser");
-            } else {
-                $scope.error = "Unable to update the user";
-            }
         }
     }
 })();

@@ -28,9 +28,15 @@
                     "roles": ["student"]
                 };
 
-                UserService.createUser(newUser, UserService.setCurrentUser);
-                $rootScope.$broadcast("updateCurrentUser");
-                $location.url("/profile");
+                UserService.createUser(newUser)
+                    .then(function(response){
+                        var currentUser = response.data;
+                        if(currentUser != null){
+                            UserService.setCurrentUser(currentUser);
+                            $rootScope.$broadcast("updateCurrentUser");
+                            $location.url("/profile");
+                        }
+                    });
             } else{
                 $scope.error="Passwords do not match."
             }

@@ -19,30 +19,31 @@
 
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="client/css/styles.css" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
-    <script src="app.js"></script>
-    <script src="config.js"></script>
-    <script src="views/main/main.controller.js"></script>
-    <script src="views/admin/admin.controller.js"></script>
-    <script src="views/forms/forms.controller.js"></script>
-    <script src="views/header/header.controller.js"></script>
-    <script src="views/home/home.controller.js"></script>
-    <script src="views/sidebar/sidebar.controller.js"></script>
-    <script src="views/users/login.controller.js"></script>
-    <script src="views/users/profile.controller.js"></script>
-    <script src="views/users/register.controller.js"></script>
-    <script src="services/forms.service.client.js"></script>
-    <script src="services/user.service.client.js"></script>
-    <script src="services/field.service.client.js"></script>
+    <script src="client/app.js"></script>
+    <script src="server/app.js"></script>
+    <script src="client/config.js"></script>
+    <script src="client/views/main/main.controller.js"></script>
+    <script src="client/views/admin/admin.controller.js"></script>
+    <script src="client/views/forms/forms.controller.js"></script>
+    <script src="client/views/header/header.controller.js"></script>
+    <script src="client/views/home/home.controller.js"></script>
+    <script src="client/views/sidebar/sidebar.controller.js"></script>
+    <script src="client/views/users/login.controller.js"></script>
+    <script src="client/views/users/profile.controller.js"></script>
+    <script src="client/views/users/register.controller.js"></script>
+    <script src="client/services/forms.service.client.js"></script>
+    <script src="client/services/user.service.client.js"></script>
+    <script src="client/services/field.service.client.js"></script>
 </head>
 
 <body ng-controller="MainController">
 <div ng-if="!($location.path() == '/register')">
-    <div ng-include="'views/header/header.view.html'"></div>
-    <div ng-include="'views/sidebar/sidebar.view.html'"></div>
+    <div ng-include="'client/views/header/header.view.html'"></div>
+    <div ng-include="'client/views/sidebar/sidebar.view.html'"></div>
 </div>
 <div ng-view></div>
 

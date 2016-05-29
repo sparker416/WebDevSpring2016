@@ -6,14 +6,13 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($http)
+    function UserService($http, $rootScope)
     {
         var model = {
-            /*
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             userIsAdmin: userIsAdmin,
-            */
+
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
@@ -22,7 +21,7 @@
             updateUser: updateUser
         };
         return model;
-/*
+
         function setCurrentUser (user) {
             $rootScope.currentUser = user;
         }
@@ -49,7 +48,7 @@
                 return false;
             }
         }
-*/
+
         function findUserByUsername(username)
         {
             return $http.get("/api/assignment/user?username=" + username);

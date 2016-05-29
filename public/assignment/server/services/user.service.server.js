@@ -1,4 +1,4 @@
-module.exports = function(app, model, db) {
+module.exports = function(app, model) {
     app.post("/api/assignment/user", function(req, res){
         var user = req.body;
         res.json(model.createUser(user));
@@ -18,7 +18,7 @@ module.exports = function(app, model, db) {
         res.json(model.findUserByUsername(username));
     });
 
-    app.get("/api/assignment/user?username=alice&password=wonderland", function(req, res){
+    app.get("/api/assignment/user?username=username&password=password", function(req, res){
         var credentials = {
             username: req.body.username,
             password: req.body.password
