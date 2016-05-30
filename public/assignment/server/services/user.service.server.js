@@ -14,20 +14,20 @@ module.exports = function(app, model) {
     });
 
     app.get("/api/assignment/user?username=username", function(req, res){
-        var username = req.body.username;
+        var username = req.query.username;
         res.json(model.findUserByUsername(username));
     });
 
     app.get("/api/assignment/user?username=username&password=password", function(req, res){
         var credentials = {
-            username: req.body.username,
-            password: req.body.password
+            username: req.query.username,
+            password: req.query.password
         };
         res.json(model.findUserByCredentials(credentials));
     });
 
     app.put("/api/assignment/user/:id", function(req, res){
-        var userId  = req.params._id;
+        var userId  = req.params.id;
         var user  = req.body;
         res.json(model.updateUser(userId, user));
     });
