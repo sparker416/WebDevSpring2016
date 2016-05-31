@@ -21,6 +21,11 @@
                 controller: "ProfileController",
                 activeTab: "profile"
             })
+            .when("/api/assignment/user", {
+                templateUrl: "client/views/users/profile.view.html",
+                controller: "ProfileController",
+                activeTab: "profile"
+            })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
                 activeTab: "admin"

@@ -2,6 +2,7 @@
  * Created by spark on 5/27/2016.
  */
 var mockUsers = require("./user.mock.json");
+console.log(mockUsers);
 
 module.exports = function() {
     var api = {
@@ -65,11 +66,14 @@ module.exports = function() {
         var username = credentials.username;
         var password = credentials.password;
         var user = null;
+        console.log(username);
+        console.log(password);
         for(var i=0; i<mockUsers.length; i++){
             if(mockUsers[i].username === username && mockUsers[i].password === password){
                 user = mockUsers[i];
             }
         }
+        console.log(user);
         return user;
     }
 };

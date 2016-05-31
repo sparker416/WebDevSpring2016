@@ -19,6 +19,12 @@
         $scope.firstNamePlaceholder = $scope.currentUser.firstName;
         $scope.lastNamePlaceholder = $scope.currentUser.lastName;
 
+        $rootScope.$on("updateCurrentUser", function(){
+            $scope.currentUser = UserService.getCurrentUser();
+            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+
+        });
+
         $scope.updateUser = updateUser;
 
         function updateUser (username, password, firstName, lastName) {
