@@ -17,7 +17,7 @@ module.exports = function() {
 
     function createUser(newUser){
         mockUsers.push(newUser);
-        return mockUsers;
+        return mockUsers[mockUsers.length-1];
     }
 
     function findAllUsers() {
@@ -28,7 +28,7 @@ module.exports = function() {
     function findUserById(userId) {
         var user = null;
         for(var i=0; i<mockUsers.length; i++){
-            if(mockUsers[i]._id === userId){
+            if(mockUsers[i]._id == userId){
                 user = mockUsers[i];
             }
         }
@@ -36,20 +36,25 @@ module.exports = function() {
     }
 
     function updateUser(userId, user) {
-        var index = mockUsers.indexOf(findUserById(userId));
-        mockUsers[index]._id = user._id;
-        mockUsers[index].firstName = user.firstName;
-        mockUsers[index].lastName = user.lastName;
-        mockUsers[index].username = user.username;
-        mockUsers[index].password = user.password;
-        return mockUsers[index];
+        var newUser = null;
+        for(var i=0; i<mockUsers.length; i++) {
+            if (mockUsers[i]._id == userId) {
+                mockUsers[i] = user;
+                newUser = mockUsers[i];
+            }
+        }
+        return newUser;
     }
 
     function deleteUser(userId) {
-        var user = findUserById(userId);
-        var index = mockUsers.indexOf(user);
-        mockUsers.splice(index, 1);
-        return mockUsers;
+        var index = null;
+        for(var i=0; i<mockUsers.length; i++){
+          if(mockUsers[i]._id == userId){
+              index = i;
+              mockUsers.splice(index, 1);
+              return mockUsers;
+          }
+        }
     }
 
     function findUserByUsername(username) {

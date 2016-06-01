@@ -18,11 +18,10 @@
         $scope.usernamePlaceholder = $scope.currentUser.username;
         $scope.firstNamePlaceholder = $scope.currentUser.firstName;
         $scope.lastNamePlaceholder = $scope.currentUser.lastName;
-
+        
         $rootScope.$on("updateCurrentUser", function(){
             $scope.currentUser = UserService.getCurrentUser();
 //            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
-
         });
 
         $scope.updateUser = updateUser;
@@ -31,21 +30,20 @@
             $scope.error = null;
             $scope.message = null;
 
-            var user = $scope.currentUser;
+            var userId = $scope.currentUser._id;
 
             var updatedUser = {
-                "_id": user._id,
+                "_id": userId,
                 "firstName": firstName,
                 "lastName": lastName,
                 "username": username,
-                "password": password,
-                "roles": user.roles
+                "password": password
             };
 
             UserService
-                .updateUser(user._id, updatedUser)
+                .updateUser(userId, updatedUser)
                 .then(function(response){
-                    if(response.data === updatedUser){
+                    if(response.data){
                         UserService.setCurrentUser(response.data);
                         $scope.message = "User updated successfully";
                         $rootScope.$broadcast("updateCurrentUser");

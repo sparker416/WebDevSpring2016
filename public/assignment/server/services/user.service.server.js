@@ -32,6 +32,6 @@ module.exports = function(app, model) {
 
     app.delete("/api/assignment/user/:id", function(req, res){
         var userId = req.params.id;
-        res.json(model.deleteUserById(userId));
+        res.json(model.deleteUser(userId));
     });
 };

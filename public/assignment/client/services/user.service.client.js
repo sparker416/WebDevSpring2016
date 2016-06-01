@@ -11,6 +11,8 @@
         var model = {
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
+            setCurrentUsers: setCurrentUsers,
+            getCurrentUsers: getCurrentUsers,
 //            userIsAdmin: userIsAdmin,
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
@@ -21,12 +23,20 @@
         };
         return model;
 
-        function setCurrentUser (user) {
+        function setCurrentUser(user) {
             $rootScope.currentUser = user;
         }
 
-        function getCurrentUser () {
+        function getCurrentUser() {
             return $rootScope.currentUser;
+        }
+
+        function setCurrentUsers(users) {
+            $rootScope.currentUsers = users;
+        }
+
+        function getCurrentUsers() {
+            return $rootScope.currentUsers;
         }
 
         /*

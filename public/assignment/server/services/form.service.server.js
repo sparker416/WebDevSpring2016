@@ -5,8 +5,13 @@ module.exports = function(app, model) {
     });
 
     app.get("/api/assignment/form/:formId", function(req, res){
-        var formId = req.params.formId;
-        res.json(model.findFormById(formId));
+        if (req.params.formId.isNumber()) {
+            var formId = req.params.formId;
+            res.json(model.findFormById(formId));
+        } else {
+            var formTitle = req.params.formId;
+            res.json(model.findFormByTitle(formTitle));
+        }
     });
 
     app.delete("/api/assignment/form/:formId", function(req, res){

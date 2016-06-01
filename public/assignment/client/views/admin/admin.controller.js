@@ -1,26 +1,95 @@
 /**
  * Created by spark on 2/27/2016.
  */
-(function(){
+(function() {
     angular
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $location, $route, UserService) {
+    function AdminController($scope, $location, $route, UserService, $rootScope) {
         $scope.$location = $location;
         $scope.$route = $route;
         $scope.currentUser = UserService.getCurrentUser();
-        $scope.users = [];
+        $scope.selectedUser = null;
+        $scope.currentUsers = UserService.getCurrentUsers();
+
+        UserService
+            .findAllUsers()
+            .then(function (response) {
+                UserService.setCurrentUsers(response.data);
+                $scope.currentUsers = UserService.getCurrentUsers();
+            });
         
-        $scope.getUsers = getUsers;
-        
-        function getUsers() 
+        $rootScope.$on("updateCurrentUsers", function(){
+            UserService
+                .findAllUsers()
+                .then(function (response) {
+                    UserService.setCurrentUsers(response.data);
+                    $scope.currentUsers = UserService.getCurrentUsers();
+                });
+        });
+
+        $scope.addUser = addUser;
+        $scope.updateUser = updateUser;
+        $scope.deleteUser = deleteUser;
+        $scope.selectUser = selectUser;
+
+        function addUser(username, password)
         {
-            UserService.findAllUsers()
-                .then(function(response){
-                    $scope.users = response.data;
+            if (username == null || username == ""
+            || password == null || password == ""){
+
+            } else {
+                var newUser = {
+                    "_id": new Date().getTime(),
+                    "firstName": "First Name",
+                    "lastName": "Last Name",
+                    "username": username,
+                    "password": password
+                };
+                UserService
+                    .createUser(newUser)
+                    .then(function () {
+                        $rootScope.$broadcast("updateCurrentUsers");
+                    });
+            }
+        }
+
+        function updateUser(username, password, selectedUser)
+        {
+            var updatedUser = {
+                "_id": selectedUser._id,
+                "firstName": selectedUser.firstName,
+                "lastName": selectedUser.lastName,
+                "username": username,
+                "password": password
+            };
+
+            UserService
+                .updateUser(selectedUser._id, updatedUser)
+                .then(function(){
+                    $scope.selectedUser = null;
+                    $scope.newUsername = null;
+                    $scope.newPassword = null;
+                    $rootScope.$broadcast("updateCurrentUsers");
                 });
         }
 
+        function deleteUser($index)
+        {
+            UserService
+                .deleteUserById($scope.currentUsers[$index]._id)
+                .then(function(response){
+                    UserService.setCurrentUsers(response.data);
+                    $rootScope.$broadcast("updateCurrentUsers");
+                });
+        }
+
+        function selectUser($index)
+        {
+            $scope.selectedUser = $scope.currentUsers[$index];
+            $scope.newUsername = $scope.selectedUser.username;
+            $scope.newPassword = $scope.selectedUser.password;
+        }
     }
 })();

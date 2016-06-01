@@ -16,6 +16,8 @@
 
                 createFormForUser: createFormForUser,
                 findAllFormsForUser: findAllFormsForUser,
+                findFormById: findFormById,
+                findFormByTitle: findFormByTitle,
                 deleteFormById: deleteFormById,
                 updateFormById: updateFormById
             };
@@ -39,6 +41,16 @@
             function findAllFormsForUser(userId)
             {
                 return $http.get("/api/assignment/user/" + userId + "/form");
+            }
+
+            function findFormById(formId)
+            {
+                return $http.get("/api/assignment/form/" + formId);
+            }
+
+            function findFormByTitle(title)
+            {
+                return $http.get("/api/assignment/form/" + title);
             }
 
             function deleteFormById(formId)

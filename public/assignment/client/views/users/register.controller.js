@@ -24,17 +24,15 @@
                     "firstName": "First Name",
                     "lastName": "Last Name",
                     "username": username,
-                    "password": password,
-                    "roles": ["student"]
+                    "password": password
                 };
 
                 UserService.createUser(newUser)
                     .then(function(response){
-                        var currentUser = response.data;
-                        if(currentUser != null){
-                            UserService.setCurrentUser(currentUser);
-                            $rootScope.$broadcast("updateCurrentUser");
+                        if(response.data){
+                            UserService.setCurrentUser(response.data);
                             $location.url("/profile");
+                            $rootScope.$broadcast("updateCurrentUser");
                         }
                     });
             } else{
