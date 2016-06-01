@@ -10,6 +10,17 @@
         $scope.$location = $location;
         $scope.$route = $route;
         $scope.currentUser = UserService.getCurrentUser();
+        $scope.users = [];
+        
+        $scope.getUsers = getUsers;
+        
+        function getUsers() 
+        {
+            UserService.findAllUsers()
+                .then(function(response){
+                    $scope.users = response.data;
+                });
+        }
 
     }
 })();

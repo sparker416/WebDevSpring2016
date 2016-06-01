@@ -13,17 +13,17 @@
         FormService
             .findAllFormsForUser($scope.currentUser._id)
             .then(function(response){
-                FormsService.setCurrentForms(response);
+                FormService.setCurrentForms(response.data);
+                $scope.currentForms = FormService.getCurrentForms();
             });
-        $scope.currentForms = FormService.getCurrentForms();
 
         $rootScope.$on("updateCurrentForms", function(){
             FormService
                 .findAllFormsForUser($scope.currentUser._id)
                 .then(function(response){
-                    FormsService.setCurrentForms(response);
+                    FormService.setCurrentForms(response.data);
+                    $scope.currentForms = FormService.getCurrentForms();
                 });
-            $scope.currentForms = FormService.getCurrentForms();
         });
 
         $scope.addForm = addForm;
@@ -32,18 +32,22 @@
         $scope.selectForm = selectForm;
 
         function addForm(formTitle){
-            var newForm = {
-                "_id": new Date().getTime(),
-                "title": formTitle,
-                "userId": $scope.currentUser._id,
-                "fields": []
-            };
-            FormService
-                .createFormForUser($scope.currentUser._id, newForm)
-                .then(function(response){
-                    FormService.setCurrentForms(response.data);
-                    $rootScope.$broadcast("updateCurrentForms");
-                });
+            if (formTitle == null || formTitle == ""){
+                
+            } else {
+                var newForm = {
+                    "_id": new Date().getTime(),
+                    "title": formTitle,
+                    "userId": $scope.currentUser._id,
+                    "fields": []
+                };
+                FormService
+                    .createFormForUser($scope.currentUser._id, newForm)
+                    .then(function (response) {
+                        FormService.setCurrentForms(response.data);
+                        $rootScope.$broadcast("updateCurrentForms");
+                    });
+            }
         }
 
         function updateForm(formTitle, form){

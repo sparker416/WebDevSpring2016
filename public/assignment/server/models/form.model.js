@@ -15,6 +15,7 @@ module.exports = function() {
         updateForm: updateForm,
         deleteForm: deleteForm,
         findFormByTitle: findFormByTitle,
+        findAllFormsForUser: findAllFormsForUser,
         findFieldsByFormId: findFieldsByFormId,
         findFieldById: findFieldById,
         deleteFieldById: deleteFieldById,
@@ -71,7 +72,7 @@ module.exports = function() {
     function findAllFormsForUser(userId) {
         var forms = [];
         for(var i=0; i<mockForms.length; i++){
-            if(mockForms[i].userId === userId){
+            if(mockForms[i].userId == userId){
                 forms.push(mockForms[i]);
             }
         }
