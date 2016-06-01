@@ -36,7 +36,8 @@
                 activeTab: "forms"
             })
             .when("/fields", {
-                templateUrl: "client/views/forms/fields.view.html"
+                templateUrl: "client/views/forms/fields.view.html",
+                controller: "FieldController"
             })
             .otherwise({
                 redirectTo: "/home"
