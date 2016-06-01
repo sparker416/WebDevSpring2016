@@ -9,11 +9,11 @@
     function HeaderController($scope, $location, UserService, $rootScope) {
         $scope.$location = $location;
         $scope.currentUser = UserService.getCurrentUser();
-        $scope.currentUserIsAdmin = UserService.userIsAdmin(UserService.getCurrentUser());
+//        $scope.currentUserIsAdmin = UserService.userIsAdmin(UserService.getCurrentUser());
 
         $rootScope.$on("updateCurrentUser", function(){
             $scope.currentUser = UserService.getCurrentUser();
-            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+//            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
 
         });
 

@@ -21,7 +21,7 @@
 
         $rootScope.$on("updateCurrentUser", function(){
             $scope.currentUser = UserService.getCurrentUser();
-            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+//            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
 
         });
 

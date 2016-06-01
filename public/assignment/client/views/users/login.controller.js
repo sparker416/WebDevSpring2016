@@ -16,13 +16,11 @@
 
         function login (usrnm, psswrd) {
             $scope.error = null;
-            
+
             UserService
                 .findUserByCredentials(usrnm, psswrd)
                 .then(function(response){
-                    console.log(response);
                     if(response.data){
-                        console.log(response.data);
                         UserService.setCurrentUser(response.data);
                         $location.url("/profile");
                         $rootScope.$broadcast("updateCurrentUser");

@@ -11,8 +11,7 @@
         var model = {
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
-            userIsAdmin: userIsAdmin,
-
+//            userIsAdmin: userIsAdmin,
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
@@ -30,6 +29,7 @@
             return $rootScope.currentUser;
         }
 
+        /*
         function userIsAdmin(user)
         {
             if(!user){
@@ -48,6 +48,7 @@
                 return false;
             }
         }
+        */
 
         function findUserByUsername(username)
         {
