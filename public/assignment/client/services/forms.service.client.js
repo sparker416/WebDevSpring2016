@@ -13,7 +13,8 @@
             var model = {
                 setCurrentForms: setCurrentForms,
                 getCurrentForms: getCurrentForms,
-
+                setCurrentForm: setCurrentForm,
+                getCurrentForm: getCurrentForm,
                 createFormForUser: createFormForUser,
                 findAllFormsForUser: findAllFormsForUser,
                 findFormById: findFormById,
@@ -31,6 +32,16 @@
             function getCurrentForms()
             {
                 return $rootScope.currentForms;
+            }
+
+            function setCurrentForm(form)
+            {
+                $rootScope.currentForm = form;
+            }
+
+            function getCurrentForm()
+            {
+                return $rootScope.currentForm;
             }
 
             function createFormForUser(userId, form)

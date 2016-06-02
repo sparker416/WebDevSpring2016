@@ -1,19 +1,15 @@
 /**
  * Created by spark on 5/28/2016.
  */
-/**
- * Created by spark on 3/5/2016.
- */
-/**
- * Created by spark on 3/5/2016.
- */
 (function(){
         angular
             .module("FormBuilderApp")
             .factory("FieldService", FieldService);
 
-        function FieldService($http) {
+        function FieldService($http, $rootScope) {
             var model = {
+                setCurrentFields: setCurrentFields,
+                getCurrentFields: getCurrentFields,
                 createFieldForForm: createFieldForForm,
                 getFieldsForForm: getFieldsForForm,
                 getFieldForForm: getFieldForForm,
@@ -21,6 +17,16 @@
                 updateField: updateField
             };
             return model;
+
+            function setCurrentFields(fields)
+            {
+                $rootScope.currentFields = fields;
+            }
+
+            function getCurrentFields()
+            {
+                return $rootScope.currentFields;
+            }
 
             function createFieldForForm(formId, field)
             {

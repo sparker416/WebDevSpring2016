@@ -63,6 +63,7 @@
                     FormService.setCurrentForms(response.data);
                     $scope.formTitle = null;
                     $scope.currentForm = null;
+                    FormService.setCurrentForm(null);
                     $rootScope.$broadcast("updateCurrentForms");
                 });
         }
@@ -79,6 +80,8 @@
         function selectForm($index){
             $scope.currentForm = $scope.currentForms[$index];
             $scope.formTitle = $scope.currentForm.title;
+
+            FormService.setCurrentForm($scope.currentForm);
         }
     }
 })();
