@@ -8,86 +8,38 @@
             </ul>
         </div>
         <div class="panel-body">
+            <h2 class="align-center col-md-9">{{selectedForm.title}}</h2>
             <form>
-                <div ng-repeat="field in fields" ng-switch="{{field.type}}">
-                    <div class="row" ng-switch-when="TEXT">
-                        <label>{{field.label}}</label>
-                        <input type="text" class="form-control" placeholder="{{field.placeholder}}">
-                        <div class="col-md-6">
-                            <button ng-click="editField(field)">
-                                <scan class="glyphicon glyphicon-pencil"></scan>
-                            </button>
-                            <button ng-click="addField()">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </button>
-                            <button ng-click="removeField(field)">
-                                <scan class="glyphicon glyphicon-remove"></scan>
-                            </button>
-                            <button ng-click="">
-                                <scan class="glyphicon glyphicon-menu-hamburger"></scan>
-                            </button>
+                <ul id="sortable">
+                    <li ng-repeat="field in sortableArray" ng-bind="item" ng-switch="field.type">
+                        <div class="col-md-9" ng-switch-when="TEXT">
+                            <label>{{field.label}}</label>
+                            <input type="text" class="form-control" placeholder="{{field.placeholder}}">
                         </div>
-                    </div>
-                    <div class="row" ng-switch-when="TEXTAREA">
-                        <label>{{field.label}}</label>
-                        <textarea placeholder="{{field.placeholder}}"></textarea>
-                        <div class="col-md-6">
-                            <button ng-click="editField(field)">
-                                <scan class="glyphicon glyphicon-pencil"></scan>
-                            </button>
-                            <button ng-click="addField()">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </button>
-                            <button ng-click="removeField(field)">
-                                <scan class="glyphicon glyphicon-remove"></scan>
-                            </button>
-                            <button ng-click="">
-                                <scan class="glyphicon glyphicon-menu-hamburger"></scan>
-                            </button>
+
+                        <div class="col-md-9" ng-switch-when="EMAIL">
+                            <label>{{field.label}}</label>
+                            <input type="email" class="form-control" placeholder="{{field.placeholder}}">
                         </div>
-                    </div>
-                    <div class="row" ng-switch-when="DATE">
-                        <label for="{{field.label}}">{{field.label}}</label>
-                        <input type="date" class="form-control" id="{{field.label}}">
-                        <div class="col-md-6">
-                            <button ng-click="editField(field)">
-                                <scan class="glyphicon glyphicon-pencil"></scan>
-                            </button>
-                            <button ng-click="addField()">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </button>
-                            <button ng-click="removeField(field)">
-                                <scan class="glyphicon glyphicon-remove"></scan>
-                            </button>
-                            <button ng-click="">
-                                <scan class="glyphicon glyphicon-menu-hamburger"></scan>
-                            </button>
+
+                        <div class="col-md-9" ng-switch-when="TEXTAREA">
+                            <label>{{field.label}}</label>
+                            <textarea class="width-100" rows="5" placeholder="{{field.placeholder}}"></textarea>
                         </div>
-                    </div>
-                    <div class="row" ng-switch-when="OPTIONS">
-                        <div class="form-group col-md-6">
-                            <label for="{{field.label}}">{{field.label}}</label>
-                            <select class="form-control" id="{{field.label}}">
+
+                        <div class="col-md-9" ng-switch-when="DATE">
+                            <label for="field.label">{{field.label}}</label>
+                            <input type="date" class="form-control" id="field.label">
+                        </div>
+
+                        <div class="col-md-9" ng-switch-when="OPTIONS">
+                            <label for="field.label">{{field.label}}</label>
+                            <select class="form-control" id="field.label">
                                 <option ng-repeat="option in field.options">{{option.label}}</option>
                             </select>
-                            <div class="col-md-6">
-                                <button ng-click="editField(field)">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </button>
-                                <button ng-click="addField()">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </button>
-                                <button ng-click="removeField(field)">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </button>
-                                <button ng-click="">
-                                    <scan class="glyphicon glyphicon-menu-hamburger"></scan>
-                                </button>
-                            </div>
                         </div>
-                    </div>
-                    <div class="row" ng-switch-when="CHECKBOXES">
-                        <div class="col-md-6">
+
+                        <div class="col-md-9" ng-switch-when="CHECKBOXES">
                             <label>{{field.label}}:</label>
                             <div ng-repeat="option in field.options">
                                 <div class="checkbox">
@@ -97,23 +49,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <button ng-click="editField(field)">
-                                <scan class="glyphicon glyphicon-pencil"></scan>
-                            </button>
-                            <button ng-click="addField()">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </button>
-                            <button ng-click="removeField(field)">
-                                <scan class="glyphicon glyphicon-remove"></scan>
-                            </button>
-                            <button ng-click="">
-                                <scan class="glyphicon glyphicon-menu-hamburger"></scan>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row" ng-switch-when="RADIOS">
-                        <div class="col-md-6">
+
+                        <div class="col-md-9" ng-switch-when="RADIOS">
                             <label>{{field.label}}</label>
                             <div ng-repeat="option in field.options">
                                 <div class="radio">
@@ -123,39 +60,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <br>
                             <button ng-click="editField(field)">
                                 <scan class="glyphicon glyphicon-pencil"></scan>
                             </button>
-                            <button ng-click="addField()">
+                            <button ng-click="addField(field.type)">
                                 <scan class="glyphicon glyphicon-plus"></scan>
                             </button>
                             <button ng-click="removeField(field)">
                                 <scan class="glyphicon glyphicon-remove"></scan>
                             </button>
-                            <button ng-click="">
+                            <button ng-click="selectField($index)">
                                 <scan class="glyphicon glyphicon-menu-hamburger"></scan>
                             </button>
                         </div>
+                    </li>
+                </ul>
+                <hr>
+                <div class="row">
+                    <div class="col-md-9">
+                        <label for="newField">Add a New Field:</label>
+                        <select class="form-control" id="newField" ng-model="fieldType">
+                            <option>Single Line Text Field</option>
+                            <option>Multi Line Text Field</option>
+                            <option>Date Field</option>
+                            <option>Dropdown Field</option>
+                            <option>Checkboxes Field</option>
+                            <option>Radio Buttons Field</option>
+                        </select>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="newField">Add a New Field:</label>
-                            <select class="form-control" id="newField" ng-model="model.fieldType">
-                                <option>Single Line Text Field</option>
-                                <option>Multi Line Text Field</option>
-                                <option>Date Field</option>
-                                <option>Dropdown Field</option>
-                                <option>Checkboxes Field</option>
-                                <option>Radio Buttons Field</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <button ng-click="addField(model.fieldType)">
-                                <scan class="glyphicon glyphicon-plus " aria-hidden="true "></scan>
-                            </button>
-                        </div>
+                    <div class="col-md-3">
+                        <br>
+                        <button ng-click="addField(fieldType)">
+                            <scan class="glyphicon glyphicon-plus " aria-hidden="true "></scan>
+                        </button>
                     </div>
                 </div>
             </form>

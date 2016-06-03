@@ -6,7 +6,7 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, FormService, $location, UserService, $rootScope) {
+    function FormController($scope, FormService, $location, UserService, $rootScope, FieldService) {
         $scope.$location = $location;
         $scope.currentUser = UserService.getCurrentUser();
         $scope.currentForm = null;
@@ -82,6 +82,7 @@
             $scope.formTitle = $scope.currentForm.title;
 
             FormService.setCurrentForm($scope.currentForm);
+            FieldService.setCurrentFields($scope.currentForm.fields);
         }
     }
 })();
