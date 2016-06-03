@@ -1,6 +1,6 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FieldController">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1>Forms</h1>
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-controller="FieldController">
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li role="presentation"><a href="#/forms">Forms</a></li>
@@ -10,8 +10,8 @@
         <div class="panel-body">
             <h2 class="align-center col-md-9">{{selectedForm.title}}</h2>
             <form>
-                <ul id="sortable">
-                    <li ng-repeat="field in sortableArray" ng-bind="item" ng-switch="field.type">
+                <ul id="sortable" sortable="model">
+                    <li ng-repeat="field in sortableArray" ng-switch="field.type">
                         <div class="col-md-9" ng-switch-when="TEXT">
                             <label>{{field.label}}</label>
                             <input type="text" class="form-control" placeholder="{{field.placeholder}}">

@@ -13,34 +13,9 @@
         $scope.sortableArray = FieldService.getCurrentFields();
         console.log($scope.sortableArray);
 
-        FieldService
-            .getFieldsForForm($scope.selectedForm._id)
-            .then(function(response){
-                FieldService.setCurrentFields(response.data);
-                $scope.sortableArray = FieldService.getCurrentFields();
-                /*
-                var sortableEle;
-
-                $scope.dragStart = function(e, ui) {
-                    ui.item.data('start', ui.item.index());
-                };
-
-                $scope.dragEnd = function(e, ui) {
-                    var start = ui.item.data('start'),
-                        end = ui.item.index();
-
-                    $scope.sortableArray.splice(end, 0,
-                        $scope.sortableArray.splice(start, 1)[0]);
-
-                    $scope.$apply();
-                };
-
-                sortableEle = $('#sortable').sortable({
-                    start: $scope.dragStart,
-                    update: $scope.dragEnd
-                });
-                */
-            });
+        $scope.$watch("sortableArray", function(value) {
+            console.log("SortableArray: " + value.map(function(e){return e.id}).join(','));
+        },true);
 
         $rootScope.$on("updateCurrentFields", function(){
             FieldService
