@@ -12,8 +12,10 @@
     function sortableFields() {
         var start = null;
         var end = null;
-        function link(scope, element) {
+        function link(scope, element, attributes) {
+            var fieldAxis = attributes.fieldAxis;
             $(element).sortable({
+                axis: fieldAxis,
                 start: function(event, ui) {
                     start = ui.item.index();
                 },
