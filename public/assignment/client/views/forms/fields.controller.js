@@ -11,12 +11,7 @@
         $scope.currentUser = UserService.getCurrentUser();
         $scope.selectedForm = FormService.getCurrentForm();
         $scope.sortableArray = FieldService.getCurrentFields();
-        console.log($scope.sortableArray);
-
-        $scope.$watch("sortableArray", function(value) {
-            console.log("SortableArray: " + value.map(function(e){return e.id}).join(','));
-        },true);
-
+        
         $rootScope.$on("updateCurrentFields", function(){
             FieldService
                 .getFieldsForForm($scope.selectedForm._id)

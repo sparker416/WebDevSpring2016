@@ -4,9 +4,9 @@
 .width-100 {
     width: 100%;
 }
-#sortable {
+ul {
     list-style-type: none;
 }
-#sortable li {
+ul li {
     cursor: move;
 }
