@@ -10,7 +10,7 @@
         <div class="panel-body">
             <h2 class="align-center col-md-9">{{selectedForm.title}}</h2>
             <form>
-                <ul sortable-fields>
+                <ul sortable-fields id="sortable-fields">
                     <li ng-repeat="field in sortableArray" ng-switch="field.type">
                         <div class="col-md-9" ng-switch-when="TEXT">
                             <label>{{field.label}}</label>

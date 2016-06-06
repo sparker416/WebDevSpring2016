@@ -10,23 +10,25 @@
         .directive("sortableFields", sortableFields);
 
     function sortableFields() {
-        var start = null;
-        var end = null;
-        function link(scope, element, attributes) {
-            var fieldAxis = attributes.fieldAxis;
+        var startPos = null;
+        var endPos = null;
+        function link(scope, element, attrs) {
             $(element).sortable({
-                axis: fieldAxis,
+//                items: "li",
+//                placeholder: ".ui-state-highlight",
                 start: function(event, ui) {
-                    start = ui.item.index();
+                    startPos = ui.item.index();
+                    console.log(startPos);
                 },
                 stop: function(event, ui) {
-                    end = ui.item.index();
-                    var temp = scope.sortableArray[start];
-                    scope.sortableArray[start] = scope.sortableArray[end];
-                    scope.sortableArray[end] = temp;
-                    scope.$apply();
+                    endPos = ui.item.index();
+                    console.log(endPos);
+                    var temp = scope.sortableArray[startPos];
+                    scope.sortableArray.splice(startPos, 1);
+                    scope.sortableArray.splice(endPos,0,temp);
                 }
             });
+//            $(element).disableSelection();
         }
         return {
             link: link
