@@ -13,9 +13,27 @@
                 <ul sortable-fields id="sortable-fields">
                     <li ng-repeat="field in sortableArray" ng-switch="field.type">
                         <div class="col-md-9" ng-switch-when="TEXT">
-                            <label>{{field.label}}</label>
+                            <label id="textLabel">{{field.label}}</label>
                             <input type="text" class="form-control" placeholder="{{field.placeholder}}">
                         </div>
+
+                        <script type="text/ng-template" id="TEXTDialogBox" title="Single Line Field">
+                            <form>
+                                <div class="form-group">
+                                    <label for="editTEXTLabel">
+                                        Edit Label:
+                                    </label>
+                                    <input id="editTEXTLabel" type="text" ng-model="editTEXTLabel" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editTEXTPlaceholder">
+                                        Edit Placeholder:
+                                    </label>
+                                    <input id="editTEXTPlaceholder" type="text" ng-model="editTEXTPlaceholder" class="form-control">
+                                </div>
+                                <input type="submit" class="btn btn-default" value="Update Text Field" ng-click="closeThisDialog({'label':editTEXTLabel, 'placeholder':editTEXTPlaceholder})">
+                            </form>
+                        </script>
 
                         <div class="col-md-9" ng-switch-when="EMAIL">
                             <label>{{field.label}}</label>
@@ -27,10 +45,41 @@
                             <textarea class="width-100" rows="5" placeholder="{{field.placeholder}}"></textarea>
                         </div>
 
+                        <script type="text/ng-template" id="TEXTAREADialogBox" title="Single Line Field">
+                            <form>
+                                <div class="form-group">
+                                    <label for="editTEXTAREALabel">
+                                        Edit Label:
+                                    </label>
+                                    <input id="editTEXTAREALabel" type="text" ng-model="editTEXTAREALabel" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editTEXTAREAPlaceholder">
+                                        Edit Placeholder:
+                                    </label>
+                                    <input id="editTEXTAREAPlaceholder" type="text" ng-model="editTEXTAREAPlaceholder" class="form-control">
+                                </div>
+                                <input type="submit" class="btn btn-default" value="Update Multiline Text Field"
+                                       ng-click="closeThisDialog({'label':editTEXTAREALabel, 'placeholder':editTEXTAREAPlaceholder})">
+                            </form>
+                        </script>
+
                         <div class="col-md-9" ng-switch-when="DATE">
                             <label for="field.label">{{field.label}}</label>
                             <input type="date" class="form-control" id="field.label">
                         </div>
+
+                        <script type="text/ng-template" id="DATEDialogBox" title="Single Line Field">
+                            <form>
+                                <div class="form-group">
+                                    <label for="editDATELabel">
+                                        Edit Label:
+                                    </label>
+                                    <input id="editDATELabel" type="text" ng-model="editDATELabel" class="form-control">
+                                </div>
+                                <input type="submit" class="btn btn-default" value="Update Date Field" ng-click="closeThisDialog(editDATELabel)">
+                            </form>
+                        </script>
 
                         <div class="col-md-9" ng-switch-when="OPTIONS">
                             <label for="field.label">{{field.label}}</label>
@@ -38,6 +87,25 @@
                                 <option ng-repeat="option in field.options">{{option.label}}</option>
                             </select>
                         </div>
+
+                        <script type="text/ng-template" id="OPTIONSDialogBox" title="Single Line Field">
+                            <form>
+                                <div class="form-group">
+                                    <label for="editOPTIONSLabel">
+                                        Edit Label:
+                                    </label>
+                                    <input id="editOPTIONSLabel" type="text" ng-model="editOPTIONSLabel" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editOPTIONSOptions">
+                                        Edit Options:
+                                    </label>
+                                    <p>Please enter each option on a separate line, following the format LABEL:VALUE. Label is the text which will display in the dropdown.</p>
+                                    <textarea id="editOPTIONSOptions" ng-model="editOPTIONSOptions" class="form-control"></textarea>
+                                </div>
+                                <input type="submit" class="btn btn-default" value="Update Options Field" ng-click="closeThisDialog({'label':editOPTIONSLabel, 'options':editOPTIONSOptions})">
+                            </form>
+                        </script>
 
                         <div class="col-md-9" ng-switch-when="CHECKBOXES">
                             <label>{{field.label}}:</label>
@@ -50,25 +118,62 @@
                             </div>
                         </div>
 
+                        <script type="text/ng-template" id="CHECKBOXESDialogBox" title="Single Line Field">
+                            <form>
+                                <div class="form-group">
+                                    <label for="editCHECKBOXESLabel">
+                                        Edit Label:
+                                    </label>
+                                    <input id="editCHECKBOXESLabel" type="text" ng-model="editCHECKBOXESLabel" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCHECKBOXESOptions">
+                                        Edit Options:
+                                    </label>
+                                    <p>Please enter each option on a separate line, following the format LABEL:VALUE</p>
+                                    <textarea id="editCHECKBOXESOptions" ng-model="editCHECKBOXESOptions" class="form-control"></textarea>
+                                </div>
+                                <input type="submit" class="btn btn-default" value="Update Checkboxes Field" ng-click="closeThisDialog({'label':editCHECKBOXESLabel, 'options':editCHECKBOXESOptions})">
+                            </form>
+                        </script>
+
                         <div class="col-md-9" ng-switch-when="RADIOS">
                             <label>{{field.label}}</label>
                             <div ng-repeat="option in field.options">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" value="{{option.value}}"> {{option.label}}
+                                        <input type="radio" value="{{option.value}}" name="radiosOptions"> {{option.label}}
                                     </label>
                                 </div>
                             </div>
                         </div>
+
+                        <script type="text/ng-template" id="RADIOSDialogBox" title="Single Line Field">
+                            <form>
+                                <div class="form-group">
+                                    <label for="editRADIOSLabel">
+                                        Edit Label:
+                                    </label>
+                                    <input id="editRADIOSLabel" type="text" ng-model="editRADIOSLabel" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editRADIOSOptions">
+                                        Edit Options:
+                                    </label>
+                                    <p>Please enter each option on a separate line, following the format LABEL:VALUE</p>
+                                    <textarea id="editRADIOSOptions" ng-model="editRADIOSOptions" class="form-control"></textarea>
+                                </div>
+                                <input type="submit" class="btn btn-default" value="Update Checkboxes Field" ng-click="closeThisDialog({'label':editRADIOSLabel, 'options':editRADIOSOptions})">
+                            </form>
+                        </script>
+
+
                         <div class="col-md-3">
                             <br>
-                            <button ng-click="editField(field)">
+                            <button ng-click="openDialog(field.type, field)">
                                 <scan class="glyphicon glyphicon-pencil"></scan>
                             </button>
-                            <button ng-click="addField(field.type)">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </button>
-                            <button ng-click="removeField(field)">
+                            <button ng-click="removeField($index)">
                                 <scan class="glyphicon glyphicon-remove"></scan>
                             </button>
                             <button ng-click="selectField($index)">

@@ -35,6 +35,10 @@
                 controller: "FormController",
                 activeTab: "forms"
             })
+            .when("/form/:formId/fields", {
+                templateUrl: "client/views/forms/fields.view.html",
+                controller: "FieldController"
+            })
             .when("/fields", {
                 templateUrl: "client/views/forms/fields.view.html",
                 controller: "FieldController"

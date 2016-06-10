@@ -89,7 +89,7 @@ module.exports = function() {
         var fields = form.fields;
         var field = null;
         for(var i=0; i<fields.length; i++){
-            if(fields[i]._id === fieldId){
+            if(fields[i]._id == fieldId){
                 field = fields[i];
             }
         }
@@ -97,17 +97,15 @@ module.exports = function() {
     }
 
     function deleteFieldById(formId, fieldId) {
-        var form = findFormById(formId);
-        var fields = form.fields;
-        var field = null;
+        var fields = findFieldsByFormId(formId);
         for(var i=0; i<fields.length; i++){
-            if(fields[i]._id === fieldId){
-                field = fields[i];
-                var index = fields.indexOf(field);
+            if(fields[i]._id == fieldId){
+                var index = fields.indexOf(fields[i]);
+                console.log(index);
                 fields.splice(index, 1);
-                return fields;
             }
         }
+        return fields;
     }
 
     function createField(formId, field) {
@@ -121,7 +119,8 @@ module.exports = function() {
         var form = findFormById(formId);
         var fields = form.fields;
         var field = findFieldById(formId, fieldId);
-        field = updatedField;
+        var index = fields.indexOf(field);
+        fields[index] = updatedField;
         return fields;
     }
 };

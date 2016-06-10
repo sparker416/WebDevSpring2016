@@ -34,7 +34,7 @@
 
                 </form>
                 <tr ng-repeat="form in currentForms">
-                    <td>{{form.title}}</td>
+                    <td><a href="#/form/{{form._id}}/fields">{{form.title}}</a></td>
                     <td>
                         <button ng-click="deleteForm($index)"><scan class="glyphicon glyphicon-remove"> Remove</scan></button>
                         <button ng-click="selectForm($index)"><scan class="glyphicon glyphicon-pencil"> Edit</scan></button>

@@ -3,5 +3,5 @@
  */
 (function(){
     angular
-        .module("FormBuilderApp", ["ngRoute", "sortableFields"]);
+        .module("FormBuilderApp", ["ngRoute", "sortableFields", "ngDialog"]);
 })();
