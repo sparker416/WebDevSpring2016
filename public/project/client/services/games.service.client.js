@@ -1,5 +1,6 @@
-/**
+/*
  * Created by spark on 4/4/2016.
+*/
 
 (function()
 {
@@ -7,92 +8,73 @@
         .module("KnightMovesApp")
         .factory("UserGameService", UserGameService);
 
-    function UserGameService($rootScope)
+    function UserGameService($rootScope, $http)
     {
         var model = {
-            games: [
-                {
-                    _id: "000",
-                    name: "Risk",
-                    userId: 123,
-                    counter: 1,
-                    dateLastPlayed: new Date()
-                },
-                {
-                    _id: "010",
-                    name: "Monopoly",
-                    userId: 123,
-                    counter: 2,
-                    dateLastPlayed: new Date()
-                },
-                {
-                    _id: "020",
-                    name: "Clue",
-                    userId: 234,
-                    counter: 1,
-                    dateLastPlayed: new Date()
-                }
-            ],
-
-            addGameForUser: addGameForUser,
+            getCurrentGames: getCurrentGames,
+            setCurrentGames: setCurrentGames,
+            findAllGames: findAllGames,
+            addGame: addGame,
+            addUserToGame: addUserToGame,
             findAllGamesForUser: findAllGamesForUser,
-            deleteGameByIdForUser: deleteGameByIdForUser,
-            findGameByName: findGameByName
+            deleteGameById: deleteGameById,
+            deleteUserFromGame: deleteUserFromGame,
+            findGameByName: findGameByName,
+            findGameById: findGameById,
+            editGame: editGame
         };
         return model;
 
-        function addGameForUser(game, userId) {
-            var userGames = findAllGamesForUser(userId);
-            for (var i = 0; i < userGames.length; i++) {
-                if (userGames[i]._id === game._id) {
-                    userGames[i].counter++;
-                    userGames[i].dateLastPlayed = new Date();
-                    return userGames;
-                }
-            }
-            model.games.push({
-                _id: game._id,
-                name: game.name,
-                userId: userId,
-                counter: 1,
-                dateLastPlayed: new Date()
-            });
-            userGames = findAllGamesForUser(userId);
-            return userGames;
+        function getCurrentGames()
+        {
+            return $rootScope.currentGames;
+        }
+
+        function setCurrentGames(games)
+        {
+            $rootScope.currentGames = games;
+        }
+
+        function findAllGames()
+        {
+            return $http.get("/rest/api/KM/game");
+        }
+
+        function addGame(game) {
+            return $http.post("/rest/api/KM/admin/game", game);
+        }
+
+        function addUserToGame(userId, gameId){
+
         }
 
         function findGameByName(gameName){
-            for (var u = 0; u < model.games.length; u++) {
-                if (model.games[u].name.localeCompare(gameName) === 0){
-                    return model.games[u];
-                }
-            }
-            return null;
+            return $http.get("/rest/api/KM/game/" + gameName);
         }
 
 
         function findAllGamesForUser(userId)
         {
-            var g = [];
-            for (var u = 0; u < model.games.length; u++) {
-                if(model.games[u].userId === userId){
-                    g.push(model.games[u]);
-                }
-            }
-            return g;
+            return $http.get("/rest/api/KM/user/" + userId + "/game");
         }
 
-        function deleteGameByIdForUser(gameId, userId)
+        function deleteGameById(gameId)
         {
-            for (var u = 0; u < model.games.length; u++) {
-                if (model.games[u]._id == gameId
-                    && model.games[u].userId === userId) {
-                    model.games.splice(u, 1);
-                    return findAllGamesForUser(userId);
-                }
-            }
-            return findAllGamesForUser(userId);
+            return $http.delete("/rest/api/KM/admin/game/" + gameId);
+        }
+
+        function deleteUserFromGame(userId, gameId){
+            
+        }
+
+        function findGameById(gameId)
+        {
+            return $http.get("/rest/api/KM/game/" + gameId);
+        }
+
+        function editGame(gameId, game)
+        {
+            return $http.put("/rest/api/KM/admin/game/" + gameId, game);
         }
     }
 })();
- */

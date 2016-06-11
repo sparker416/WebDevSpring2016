@@ -7,64 +7,17 @@
         .module("KnightMovesApp")
         .factory("UserService", userService);
 
-    function userService($rootScope)
+    function userService($rootScope, $http)
     {
         var model = {
-            users: [
-                {
-                    _id:123,
-                    firstName:"Alice",
-                    lastName:"Wonderland",
-                    email: "alice@wonderland.com",
-                    username:"alice",
-                    password:"alice",
-                    roles: ["player"]
-                },
-                {
-                    _id:234,
-                    firstName:"Bob",
-                    lastName:"Hope",
-                    email: "bob@hope.com",
-                    username:"bob",
-                    password:"bob",
-                    roles: ["admin"]
-                },
-                {
-                    _id:345,
-                    firstName:"Charlie",
-                    lastName:"Brown",
-                    email: "charlie@brown.com",
-                    username:"charlie",
-                    password:"charlie",
-                    roles: ["staff"]
-                },
-                {
-                    _id:456,
-                    firstName:"Dan",
-                    lastName:"Craig",
-                    email: "dan@craig.com",
-                    username:"dan",
-                    password:"dan",
-                    roles: ["player"]
-                },
-                {
-                    _id:567,
-                    firstName:"Edward",
-                    lastName:"Norton",
-                    email: "edward@norton.com",
-                    username:"ed",
-                    password:"ed",
-                    roles: ["player"]
-                }
-            ],
-
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            findUserById: findUserById
         };
         return model;
 
@@ -78,59 +31,37 @@
 
         function findUserByCredentials(username, password)
         {
-            for (var u = 0; u < model.users.length; u++) {
-                if (model.users[u].username === username &&
-                    model.users[u].password === password) {
-                    return model.users[u];
-                }
-            }
-            return null;
+            return $http.get("/rest/api/project/user?=username" + username + "&password=" + password);
         }
 
         function findAllUsers()
         {
-            return model.users;
+            return $http.get("/rest/api/project/user");
         }
 
         function createUser(user)
         {
-            var newUser = {
-                _id: (new Date).getTime(),
-                firstName: "",
-                lastName: "",
-                email: user.email,
-                username: user.username,
-                password: user.password,
-                roles: ["player"]
-            };
-            model.users.push(newUser);
-            return newUser;
+            return $http.post("/rest/api/project/user", user);
         }
 
         function deleteUserById(userId)
         {
-            for (var u = 0; u < model.users.length; u++) {
-                if (model.users[u]._id === userId) {
-                    model.users.splice(u, 1);
-                    return model.users;
-                }
-            }
-            return null;
+            return $http.delete("/rest/api/project/user/" + userId);
         }
 
-        function updateUser(user)
+        function updateUser(userId, user)
         {
-            for (var u = 0; u < model.users.length; u++) {
-                var old = findUserByCredentials(user.username, user.password);
-                if (old !== null) {
-                    old.firstName = user.firstName;
-                    old.lastName = user.lastName;
-                    old.email = user.email;
-                    old.password = user.password;
-                    return old;
-                }
-            }
-            return null;
+            return $http.put("/rest/api/project/user/" + userId, user);
+        }
+
+        function findUserById(userId)
+        {
+            return $http.get("/rest/api/project/user/" + userId);
+        }
+
+        function findUserByUsername(name)
+        {
+            return $http.get("/rest/api/project/user?=username=" + username);
         }
     }
 })();

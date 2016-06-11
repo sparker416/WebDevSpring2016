@@ -4,11 +4,10 @@
 (function(){
     angular
         .module("KnightMovesApp")
-        .controller("LibraryController", LibraryController);
+        .controller("AdminController", AdminController);
 
-    function LibraryController($scope, $location) {
+    function AdminController($scope, $location) {
         console.log($location);
         $scope.$location = $location;
-
     }
 })();

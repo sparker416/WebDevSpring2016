@@ -21,7 +21,6 @@ module.exports = function() {
     }
 
     function findAllUsers() {
-        console.log(mockUsers);
         return mockUsers;
     }
 

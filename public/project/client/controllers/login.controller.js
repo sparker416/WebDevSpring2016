@@ -6,15 +6,17 @@
         .module("KnightMovesApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, UserService, $location) {
+    function LoginController($scope, UserService, $location, $rootScope) {
         $scope.login = login;
 
         function login (user) {
-            var u = UserService.findUserByCredentials(user.username, user.password);
-            if (u) {
-                UserService.setCurrentUser(u);
-                $location.url("/profile");
-            }
+            UserService
+                .findUserByCredentials(user.username, user.password)
+                .then(function(response){
+                    UserService.setCurrentUser(response.data);
+                    $rootScope.$broadcast("updateCurrentUser");
+                    $location.url("/profile")
+                });
         }
     }
 })();
