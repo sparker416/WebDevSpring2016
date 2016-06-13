@@ -1,7 +1,8 @@
 module.exports = function(app){
-    var userModel = require("./models/user.mock.json");
-    var gameModel = require("./models/games.mock.json");
+    var userModel = require("./models/user.model.js");
+    var gameModel = require("./models/game.model.js");
 
-    var userService = require("./services/user.service.js")(app, userModel);
-    var gameService = require("./services/game.service.server.js")(app, gameModel);
+    console.log(userModel);
+    var userServerService = require("./services/user.service.server.js")(app, userModel);
+    var gameServerService = require("./services/game.service.server.js")(app, gameModel);
 };

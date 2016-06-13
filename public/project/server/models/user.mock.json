@@ -1,32 +1,32 @@
 [
-{"_id": 123, "email": "alice@wonderland.com", "username": "alice", "password": "alice",
-  "games":[
-    {"name": "Clue", "dateLastPlayed": "01/08/2015"},
-    {"name": "Risk", "dateLastPlayed": "10/25/2016"}
-]
-},
+  {"_id": 123, "email": "alice@wonderland.com", "username": "alice", "password": "alice",
+    "games":[
+      {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 1},
+      {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 2}
+    ]
+  },
   {"_id": 234, "email": "bob@hope.com", "username": "bob", "password": "bob",
     "games":[
-      {"name": "Clue", "dateLastPlayed": "01/08/2015"},
-      {"name": "Risk", "dateLastPlayed": "10/25/2016"}
+      {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 3},
+      {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 4}
     ]
   },
   {"_id": 345, "email": "charlie@brown.com", "username": "charlie", "password": "charlie",
     "games":[
-      {"name": "Clue", "dateLastPlayed": "01/08/2015"},
-      {"name": "Risk", "dateLastPlayed": "10/25/2016"}
+      {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 5},
+      {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 6}
     ]
   },
   {"_id": 456, "email": "dan@tiger.com", "username": "dan", "password": "dan",
     "games":[
-      {"name": "Clue", "dateLastPlayed": "01/08/2015"},
-      {"name": "Risk", "dateLastPlayed": "10/25/2016"}
+      {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 7},
+      {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 8}
     ]
   },
   {"_id": 567, "email": "ed@prince.com", "username": "ed", "password": "ed",
     "games":[
-      {"name": "Clue", "dateLastPlayed": "01/08/2015"},
-      {"name": "Risk", "dateLastPlayed": "10/25/2016"}
+      {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 9},
+      {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 10}
     ]
-  },
+  }
 ]

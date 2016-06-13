@@ -33,4 +33,16 @@ module.exports = function(app, model) {
         var game = req.body;
         res.json(model.editGame(gameId, game));
     });
+    
+    app.get("/rest/api/KM/user/:userId/game/:gameId", function (req, res){
+        var userId = req.params.userId;
+        var gameId = req.params.gameId;
+        res.json(model.addUserToGame(userId, gameId));
+    })
+
+    app.delete("/rest/api/KM/user/:userId/game/:gameId", function (req, res){
+        var userId = req.params.userId;
+        var gameId = req.params.gameId;
+        res.json(model.deleteUserFromGame(userId, gameId));
+    })
 };

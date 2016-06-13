@@ -7,12 +7,14 @@
         .controller("LoginController", LoginController);
 
     function LoginController($scope, UserService, $location, $rootScope) {
+        $scope.$location = $location;
         $scope.login = login;
 
-        function login (user) {
+        function login (username, password) {
             UserService
-                .findUserByCredentials(user.username, user.password)
+                .findUserByCredentials(username, password)
                 .then(function(response){
+                    console.log(response.data);
                     UserService.setCurrentUser(response.data);
                     $rootScope.$broadcast("updateCurrentUser");
                     $location.url("/profile")

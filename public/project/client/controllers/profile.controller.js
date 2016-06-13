@@ -9,6 +9,7 @@
 
     function ProfileController($scope, UserService, $location, UserGameService, $rootScope) {
         $scope.currentUser = UserService.getCurrentUser();
+        $scope.userGames = UserGameService.getCurrentGames();
         if (!$scope.currentUser) {
             $location.url("/home");
         }
@@ -17,32 +18,44 @@
             $scope.currentUser = UserService.getCurrentUser();
         });
 
+        $rootScope.$on("updateUserGames", function(){
+            $scope.userGames = UserGameService.getCurrentGames();
+        });
+
         UserGameService
             .findAllGamesForUser($scope.currentUser._id)
             .then(function(response){
                 $scope.userGames = response.data;
             });
 
-        $scope.addGame = addGame;
-        $scope.removeGame = removeGame;
+        $scope.addGameForUser = addGameForUser;
+        $scope.removeGameForUser = removeGameForUser;
+        $scope.selectGame = selectGame;
 
         function addGameForUser(gameName){
             UserGameService.findGameByName(gameName)
                 .then(function(response){
                     var game = response.data;
-                    UserService.addUserToGame($scope.currentUser._id, game)
+                    UserGameService
+                        .addUserToGame($scope.currentUser._id, game)
                         .then(function(response){
-                            $scope.games = response.data;
+                            UserGameService.setCurrentGames(response.data);
+                            $rootScope.$broadcast("updateUserGames");
                         });
                 });
         }
 
-        function removeGame(game){
+        function removeGameForUser(game){
             UserGameService
-                .deleteGameByIdForUser(game._id, $scope.currentUser._id)
+                .deleteUserFromGame($scope.currentUser._id, game.id)
                 .then(function(response){
-                    $scope.games = response.data;
+                    UserGameService.setCurrentGames(response.data);
+                    $rootScope.$broadcast("updateUserGames");
                 })
+        }
+
+        function selectGame($index){
+            $scope.currentGame = $scope.userGames[$index];
         }
     }
 })();

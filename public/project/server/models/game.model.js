@@ -12,10 +12,11 @@ module.exports = function() {
         getGameById: getGameById,
         getGameByName: getGameByName,
         editGame: editGame,
-        deleteGame: deleteGame
+        deleteGame: deleteGame,
+        deleteUserFromGame: deleteUserFromGame
     };
     return api;
-    
+
     function createGame(game){
         gameLibrary.push(game);
         return gameLibrary;
@@ -31,7 +32,7 @@ module.exports = function() {
     function getAllGames(){
         return gameLibrary;
     }
-    
+
     function getAllGamesForUser(userId){
         var games = [];
         for (var i=0; i<gameLibrary.length; i++){
@@ -43,7 +44,7 @@ module.exports = function() {
         }
         return games;
     }
-    
+
     function getGameById(gameId){
         var game = null;
         for (var i=0; i<gameLibrary.length; i++){
@@ -53,7 +54,7 @@ module.exports = function() {
         }
         return game;
     }
-    
+
     function getGameByName(name){
         var game = null;
         for (var i=0; i<gameLibrary.length; i++){
@@ -63,7 +64,7 @@ module.exports = function() {
         }
         return game;
     }
-    
+
     function editGame(gameId, updatedGame){
         for (var i=0; i<gameLibrary.length; i++){
             if(gameId == gameLibrary[i].id){
@@ -72,13 +73,28 @@ module.exports = function() {
         }
         return gameLibrary;
     }
-    
+
     function deleteGame(gameId){
         var index;
         for (var i=0; i<gameLibrary.length; i++){
             if(gameId == gameLibrary[i].id){
                 index = i;
                 gameLibray.splice(index, 1);
+            }
+        }
+        return gameLibrary;
+    }
+
+    function deleteUserFromGame(userId, gameId){
+        var playerIndex;
+        for (var i=0; i<gameLibrary.length; i++){
+            if(gameLibrary[i].id == gameId){
+                for(var j=0; j<gameLibrary[i].Players.length; j++) {
+                    if (gameLibrary[i].Players[j] == userId) {
+                        playerIndex = j;
+                        gameLibray[i].Players.splice(playerIndex, 1);
+                    }
+                }
             }
         }
         return gameLibrary;

@@ -45,7 +45,7 @@
         }
 
         function addUserToGame(userId, gameId){
-
+            return $http.get("/rest/api/KM/user/" + userId + "/game/" + gameId);
         }
 
         function findGameByName(gameName){
@@ -64,7 +64,7 @@
         }
 
         function deleteUserFromGame(userId, gameId){
-            
+            return $http.delete("/rest/api/KM/user/" + userId + "/game/" + gameId);
         }
 
         function findGameById(gameId)

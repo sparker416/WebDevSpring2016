@@ -5,9 +5,9 @@
 {
     angular
         .module("KnightMovesApp")
-        .factory("UserService", userService);
+        .factory("UserService", UserService);
 
-    function userService($rootScope, $http)
+    function UserService($rootScope, $http)
     {
         var model = {
             setCurrentUser: setCurrentUser,
@@ -31,7 +31,7 @@
 
         function findUserByCredentials(username, password)
         {
-            return $http.get("/rest/api/project/user?=username" + username + "&password=" + password);
+            return $http.get("/rest/api/project/user?username=" + username + "&password=" + password);
         }
 
         function findAllUsers()
@@ -61,7 +61,7 @@
 
         function findUserByUsername(name)
         {
-            return $http.get("/rest/api/project/user?=username=" + username);
+            return $http.get("/rest/api/project/user?username=" + username);
         }
     }
 })();

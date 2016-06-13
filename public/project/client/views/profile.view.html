@@ -1,4 +1,4 @@
-<div class="back-white-black-border pad-10-px margin-1 col-xs-12">
+<div class="back-white-black-border pad-10-px margin-1 col-xs-12" ng-controller="ProfileController">
     <p ng-show="currentUser" ng-class="{'active': $location.url()=='/update'}" class="align-center">
         <a href="#/update">Update Profile</a>
     </p>
@@ -32,30 +32,22 @@
                         <form class="form-inline">
                             <div class="form-group">
                                 <label for="gameName">Name</label>
-                                <input type="text" class="form-control" id="gameName">
+                                <input type="text" class="form-control" id="gameName" ng-model="gameName">
                             </div>
-                            <button type="submit" class="btn btn-info" ng-click="createGame(gameName.value)">
+                            <button type="submit" class="btn btn-info" ng-click="addGameForUser(gameName)">
                                 Add
                             </button>
-                            <div ng-show="currentGame">
-                                <br>
-                                <label for="update">Name</label>
-                                <input ng-model="currentGame.name" type="text" class="form-control" id="update">
-                                <button type="submit" class="btn btn-success" ng-click="updateGame($index)">
-                                    Update
-                                </button>
-                            </div>
-                        </form>
+                         </form>
                     </div>
                 </td>
             </tr>
 
-            <tr ng-repeat="meeple in games" ng-click="selectGame($index)" ng-class="{'success': $index == selectedGameIndex}">
-                <td>{{meeple.name}}</td>
-                <td>{{meeple.counter}}</td>
+            <tr ng-repeat="meeple in userGames" ng-click="selectGame($index)" ng-class="{'success': $index == selectedGameIndex}">
+                <td>{{meeple.Name}}</td>
+               <!-- <td>{{meeple.counter}}</td>
                 <td>{{meeple.dateLastPlayed | shortDate}}</td>
-                <td ng-show="currentUser">
-                    <button ng-click="removeGame($index)" class="btn btn-danger">
+                <td ng-show="currentUser"> -->
+                    <button ng-click="removeGameForUser(meeple)" class="btn btn-danger">
                         Remove
                     </button>
                 </td>
