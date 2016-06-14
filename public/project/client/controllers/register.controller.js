@@ -6,7 +6,7 @@
         .module("KnightMovesApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, $scope, UserService) {
+    function RegisterController($location, $scope, UserService, $rootScope) {
         $scope.message = null;
         $scope.register = register;
 
@@ -33,14 +33,27 @@
             UserService
                 .findUserByCredentials(user.username, user.password)
                 .then(function(response){
-                    if (response.data != null) {
+                    if (!response.data) {
                         $scope.message = "User already exists";
-                        $location.url("/login");
-                    }                    
+                        if($scope.message){
+                            window.setTimeout(function(){
+                                $location.url("/login");
+
+                            }, 5000);
+                        }
+                    }
                 });
 
+            var newUser = {
+                "_id": new Date().getTime(),
+                "email": user.email,
+                "username": user.username,
+                "password": user.password,
+                "games": []
+            };
+
             UserService
-                .createUser(user)
+                .createUser(newUser)
                 .then(function(response){
                     UserService.setCurrentUser(response.data);
                     $rootScope.$broadcast("updateCurrentUser");

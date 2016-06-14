@@ -46,7 +46,10 @@
                         $scope.error = null;
                         var game = response.data;
                         UserGameService
-                            .addUserToGame(userId, game.id);
+                            .addUserToGame(userId, game.id)
+                            .then(function(response){
+                                console.log(response.data);
+                            });
 
                         UserService.addGame(userId, gameName)
                             .then(function(response){

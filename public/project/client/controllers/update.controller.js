@@ -23,7 +23,11 @@
             $scope.error = null;
             $scope.message = null;
 
-            $scope.currentUser = UserService.updateUser($scope.currentUser);
+            UserService
+                .updateUser(user)
+                .then(function(response){
+                    $scope.currentUser = response.data;
+                });
 
             if (user) {
                 $scope.message = "User updated successfully";
