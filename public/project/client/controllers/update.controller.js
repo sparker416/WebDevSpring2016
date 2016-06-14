@@ -6,8 +6,7 @@
         .module("KnightMovesApp")
         .controller("UpdateController", UpdateController);
 
-
-    function UpdateController($scope, UserService, $location) {
+    function UpdateController($scope, UserService, $location, $rootScope) {
         $scope.error = null;
         $scope.message = null;
 
@@ -23,17 +22,25 @@
             $scope.error = null;
             $scope.message = null;
 
-            UserService
-                .updateUser(user)
-                .then(function(response){
-                    $scope.currentUser = response.data;
-                });
+            var updatedUser = {
+                "_id": $scope.currentUser._id,
+                "email": user.email,
+                "username": user.username,
+                "password": user.password,
+                "games": $scope.currentUser.games
+            };
 
-            if (user) {
-                $scope.message = "User updated successfully";
-            } else {
-                $scope.message = "Unable to update the user";
-            }
+            UserService
+                .updateUser($scope.currentUser._id, updatedUser)
+                .then(function (response) {
+                    if (response.data) {
+                        $scope.currentUser = response.data;
+                        $scope.message = "User updated successfully";
+                        $rootScope.$broadcast("updateCurrentUser");
+                    } else {
+                        $scope.error = "Unable to update the user";
+                    }
+                });
         }
     }
 })();

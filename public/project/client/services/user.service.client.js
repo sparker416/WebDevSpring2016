@@ -19,7 +19,8 @@
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
-            findUserById: findUserById
+            findUserById: findUserById,
+            findUserByUsername: findUserByUsername
         };
         return model;
 
@@ -75,7 +76,7 @@
 
         function findUserByUsername(name)
         {
-            return $http.get("/rest/api/project/user?username=" + username);
+            return $http.get("/rest/api/project/user?username=" + name);
         }
     }
 })();

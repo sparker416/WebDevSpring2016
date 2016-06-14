@@ -71,6 +71,7 @@ module.exports = function() {
             if (userDB[i]._id == userId) {
                 userDB[i] = user;
                 newUser = userDB[i];
+                console.log(newUser);
             }
         }
         return newUser;
