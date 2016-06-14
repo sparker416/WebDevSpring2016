@@ -3,18 +3,13 @@ module.exports = function(app, model) {
         res.json(model.getAllGames());
     });
 
-    app.get("/rest/api/KM/user/:userId/game", function(req, res){
-        var userId = req.params.userId;
-        res.json(model.getAllGamesForUser(userId));
-    });
-
     app.get("/rest/api/KM/game/:gameId", function(req, res){
-        if (req.params.gameId.isNumber()) {
-            var gameId = req.params.gameId;
-            res.json(model.getGameById(gameId));
-        } else {
+        if (isNaN(req.params.gameId)) {
             var gameTitle = req.params.gameId;
             res.json(model.getGameByName(gameTitle));
+        } else {
+            var gameId = req.params.gameId;
+            res.json(model.getGameById(gameId));
         }
     });
 
@@ -38,7 +33,7 @@ module.exports = function(app, model) {
         var userId = req.params.userId;
         var gameId = req.params.gameId;
         res.json(model.addUserToGame(userId, gameId));
-    })
+    });
 
     app.delete("/rest/api/KM/user/:userId/game/:gameId", function (req, res){
         var userId = req.params.userId;

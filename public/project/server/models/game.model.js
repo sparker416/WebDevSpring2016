@@ -8,7 +8,6 @@ module.exports = function() {
         createGame: createGame,
         addUserToGame: addUserToGame,
         getAllGames: getAllGames,
-        getAllGamesForUser: getAllGamesForUser,
         getGameById: getGameById,
         getGameByName: getGameByName,
         editGame: editGame,
@@ -22,27 +21,20 @@ module.exports = function() {
         return gameLibrary;
     }
 
-    function addUserToGame(userId, game){
-        if(!game.Players.contains(userId)){
-            game.Players.push(userId);
+    function addUserToGame(userId, gameId){
+        var game = getGameById(gameId);
+        for(var p in game.Players) {
+            if (game.Players[p] == userId) {
+                return game;
+            } else {
+                game.Players.push(userId);
+                return game;
+            }
         }
-        return game;
     }
 
     function getAllGames(){
         return gameLibrary;
-    }
-
-    function getAllGamesForUser(userId){
-        var games = [];
-        for (var i=0; i<gameLibrary.length; i++){
-            for(var j=0; j<gameLibray[i].Players.length; j++){
-                if(userId == gameLibrary[i].Players[j]){
-                    games.push(gameLibrary[i]);
-                }
-            }
-        }
-        return games;
     }
 
     function getGameById(gameId){
@@ -58,7 +50,7 @@ module.exports = function() {
     function getGameByName(name){
         var game = null;
         for (var i=0; i<gameLibrary.length; i++){
-            if(name == gameLibrary[i].name){
+            if(name == gameLibrary[i].Name){
                 game = gameLibrary[i];
             }
         }

@@ -7,7 +7,6 @@
         .controller("HomeController", HomeController);
 
     function HomeController($scope, $location) {
-        console.log($location);
         $scope.$location = $location;
     }
 })();

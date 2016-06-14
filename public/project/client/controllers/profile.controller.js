@@ -9,7 +9,8 @@
 
     function ProfileController($scope, UserService, $location, UserGameService, $rootScope) {
         $scope.currentUser = UserService.getCurrentUser();
-        $scope.userGames = UserGameService.getCurrentGames();
+        $scope.error = null;
+
         if (!$scope.currentUser) {
             $location.url("/home");
         }
@@ -18,30 +19,44 @@
             $scope.currentUser = UserService.getCurrentUser();
         });
 
-        $rootScope.$on("updateUserGames", function(){
-            $scope.userGames = UserGameService.getCurrentGames();
-        });
-
-        UserGameService
+        UserService
             .findAllGamesForUser($scope.currentUser._id)
             .then(function(response){
                 $scope.userGames = response.data;
             });
 
+        $rootScope.$on("updateUserGames", function(){
+            UserService
+                .findAllGamesForUser($scope.currentUser._id)
+                .then(function(response){
+                    $scope.userGames = response.data;
+                });
+        });
+
+
+
         $scope.addGameForUser = addGameForUser;
         $scope.removeGameForUser = removeGameForUser;
         $scope.selectGame = selectGame;
 
-        function addGameForUser(gameName){
+        function addGameForUser(userId, gameName){
             UserGameService.findGameByName(gameName)
                 .then(function(response){
-                    var game = response.data;
-                    UserGameService
-                        .addUserToGame($scope.currentUser._id, game)
-                        .then(function(response){
-                            UserGameService.setCurrentGames(response.data);
-                            $rootScope.$broadcast("updateUserGames");
-                        });
+                    if(response.data){
+                        $scope.error = null;
+                        var game = response.data;
+                        UserGameService
+                            .addUserToGame(userId, game.id);
+
+                        UserService.addGame(userId, gameName)
+                            .then(function(response){
+                                $scope.userGames = response.data;
+                                $rootScope.$broadcast("updateUserGames");
+                            });
+                    }
+                    else {
+                        $scope.error = "Game does not exist in database.";
+                    }
                 });
         }
 

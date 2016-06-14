@@ -14,6 +14,8 @@
             getCurrentUser: getCurrentUser,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
+            findAllGamesForUser: findAllGamesForUser,
+            addGame: addGame,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
@@ -21,11 +23,13 @@
         };
         return model;
 
-        function setCurrentUser (user) {
+        function setCurrentUser(user)
+        {
             $rootScope.currentUser = user;
         }
 
-        function getCurrentUser () {
+        function getCurrentUser()
+        {
             return $rootScope.currentUser;
         }
 
@@ -37,6 +41,16 @@
         function findAllUsers()
         {
             return $http.get("/rest/api/project/user");
+        }
+
+        function findAllGamesForUser(userId)
+        {
+            return $http.get("/rest/api/project/user/" + userId + "/game");
+        }
+        
+        function addGame(userId, gameName)
+        {
+            return $http.post("/rest/api/project/user/" + userId + "/game", {"name": gameName});
         }
 
         function createUser(user)

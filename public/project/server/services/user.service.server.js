@@ -19,6 +19,17 @@ module.exports = function(app, model) {
         }
     });
 
+    app.get("/rest/api/project/user/:userId/game", function(req, res){
+        var userId = req.params.userId;
+        res.json(model.findAllGamesForUser(userId));
+    });
+
+    app.post("/rest/api/project/user/:userId/game", function(req, res){
+        var userId = req.params.userId;
+        var gameName = req.body.name;
+        res.json(model.addGame(userId, gameName));
+    });
+
     app.get("/rest/api/project/user/:id", function(req, res){
         var userId = req.params.id;
         res.json(model.findUserById(userId));

@@ -10,14 +10,17 @@
         $scope.$location = $location;
         $scope.login = login;
 
+        $rootScope.$on("updateCurrentUser", function(){
+            $scope.currentUser = UserService.getCurrentUser();
+        });
+
         function login (username, password) {
             UserService
                 .findUserByCredentials(username, password)
                 .then(function(response){
-                    console.log(response.data);
                     UserService.setCurrentUser(response.data);
+                    $location.url("/profile");
                     $rootScope.$broadcast("updateCurrentUser");
-                    $location.url("/profile")
                 });
         }
     }

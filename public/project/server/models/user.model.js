@@ -8,6 +8,8 @@ module.exports = function() {
         createUser: createUser,
         findAllUsers: findAllUsers,
         findUserById: findUserById,
+        findAllGamesForUser: findAllGamesForUser,
+        addGame: addGame,
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByUsername: findUserByUsername,
@@ -34,6 +36,35 @@ module.exports = function() {
         return user;
     }
 
+    function findAllGamesForUser(userId)
+    {
+        var games = [];
+        for(var i=0; i<userDB.length; i++){
+            if(userId == userDB[i]._id){
+                for(var j=0; j<userDB[i].games.length; j++){
+                    games.push(userDB[i].games[j]);
+                }
+            }
+        }
+        return games;
+    }
+
+    function addGame(userId, gameName)
+    {
+        var updatedGames = findAllGamesForUser(userId);
+        for(var g=0; g<updatedGames.length; g++) {
+            if(updatedGames[g].name == gameName){
+                updatedGames[g].timesPlayed++;
+                updatedGames[g].dateLastPlayed = new Date().getMonth()+1 + "/" + new Date().getDate() + "/" + new Date().getFullYear();
+                findUserById(userId).games = updatedGames;
+                return findUserById(userId).games;
+            }
+        }
+        updatedGames.push({"name": gameName, "dateLastPlayed": new Date().getMonth()+1 + "/" + new Date().getDate() + "/" + new Date().getFullYear(), "timesPlayed": 1});
+        findUserById(userId).games = updatedGames;
+        return findUserById(userId).games;
+    }
+    
     function updateUser(userId, user) {
         var newUser = null;
         for(var i=0; i<userDB.length; i++) {

@@ -16,7 +16,6 @@
             findAllGames: findAllGames,
             addGame: addGame,
             addUserToGame: addUserToGame,
-            findAllGamesForUser: findAllGamesForUser,
             deleteGameById: deleteGameById,
             deleteUserFromGame: deleteUserFromGame,
             findGameByName: findGameByName,
@@ -50,12 +49,6 @@
 
         function findGameByName(gameName){
             return $http.get("/rest/api/KM/game/" + gameName);
-        }
-
-
-        function findAllGamesForUser(userId)
-        {
-            return $http.get("/rest/api/KM/user/" + userId + "/game");
         }
 
         function deleteGameById(gameId)

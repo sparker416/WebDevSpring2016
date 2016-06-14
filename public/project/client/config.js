@@ -50,7 +50,7 @@
             })
             .when("/profile", {
                 templateUrl: "views/profile.view.html",
-                controller: "GameController"
+                controller: "ProfileController"
             })
             .when("/update", {
                 templateUrl: "views/update.view.html",

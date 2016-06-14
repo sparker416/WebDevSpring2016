@@ -9,9 +9,10 @@
         Games Played:
     </div>
 
-    <div class="col-xs-9 right-div" ng-controller="GameController">
+    <div class="col-xs-9 right-div">
         {{currentUser.username}}<br>
         <br>
+        <div ng-show="error" class="alert-danger">{{error}}</div>
         <table class="table table-striped table-bordered">
             <tr>
                 <th>
@@ -34,7 +35,7 @@
                                 <label for="gameName">Name</label>
                                 <input type="text" class="form-control" id="gameName" ng-model="gameName">
                             </div>
-                            <button type="submit" class="btn btn-info" ng-click="addGameForUser(gameName)">
+                            <button type="submit" class="btn btn-info" ng-click="addGameForUser(currentUser._id, gameName)">
                                 Add
                             </button>
                          </form>
@@ -43,10 +44,10 @@
             </tr>
 
             <tr ng-repeat="meeple in userGames" ng-click="selectGame($index)" ng-class="{'success': $index == selectedGameIndex}">
-                <td>{{meeple.Name}}</td>
-               <!-- <td>{{meeple.counter}}</td>
-                <td>{{meeple.dateLastPlayed | shortDate}}</td>
-                <td ng-show="currentUser"> -->
+                <td>{{meeple.name}}</td>
+                <td>{{meeple.timesPlayed}}</td>
+                <td>{{meeple.dateLastPlayed}}</td>
+                <td ng-show="currentUser">
                     <button ng-click="removeGameForUser(meeple)" class="btn btn-danger">
                         Remove
                     </button>
