@@ -1,7 +1,7 @@
-module.exports = function(app, userModel) {
+module.exports = function(app, model) {
     app.post("/rest/api/project/user", function(req, res){
         var user = req.body;
-        res.json(userModel.createUser(user));
+        res.json(model.createUser(user));
     });
 
     app.get("/rest/api/project/user", function(req, res){
@@ -10,28 +10,28 @@ module.exports = function(app, userModel) {
                 username: req.query.username,
                 password: req.query.password
             };
-            res.json(userModel.findUserByCredentials(credentials));
+            res.json(model.findUserByCredentials(credentials));
         } if (req.query.username != null) {
             var username = req.query.username;
-            res.json(userModel.findUserByUsername(username));
+            res.json(model.findUserByUsername(username));
         } else {
-            res.json(userModel.findAllUsers());
+            res.json(model.findAllUsers());
         }
     });
 
     app.get("/rest/api/project/user/:id", function(req, res){
         var userId = req.params.id;
-        res.json(userModel.findUserById(userId));
+        res.json(model.findUserById(userId));
     });
 
     app.put("/rest/api/project/user/:id", function(req, res){
         var userId  = req.params.id;
         var user  = req.body;
-        res.json(userModel.updateUser(userId, user));
+        res.json(model.updateUser(userId, user));
     });
 
     app.delete("/rest/api/project/user/:id", function(req, res){
         var userId = req.params.id;
-        res.json(userModel.deleteUser(userId));
+        res.json(model.deleteUser(userId));
     });
 };

@@ -1,6 +1,6 @@
 [
   {"_id": 123, "email": "alice@wonderland.com", "username": "alice", "password": "alice",
-    "games":[
+    "games": [
       {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 1},
       {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 2}
     ]

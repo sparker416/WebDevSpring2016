@@ -1,7 +1,7 @@
 /**
  * Created by spark on 4/30/2016.
  */
-var gameLibrary = require("./games.mock.json");
+var gameLibrary = require("./game.mock.json");
 
 module.exports = function() {
     var api = {

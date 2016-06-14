@@ -4,7 +4,7 @@
 var userDB = require("./user.mock.json");
 
 module.exports = function() {
-    var userAPI = {
+    var api = {
         createUser: createUser,
         findAllUsers: findAllUsers,
         findUserById: findUserById,
@@ -13,8 +13,8 @@ module.exports = function() {
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials
     };
-    return userAPI;
-
+    return api;
+    
     function createUser(newUser){
         userDB.push(newUser);
         return userDB[userDB.length-1];

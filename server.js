@@ -1,9 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-
-var assignment = require('./public/assignment/server/app.js');
-var project = require('./public/project/server/app.js');
+//var mongoose = require('mongoose');
 
 var app = express();
 
@@ -15,8 +13,9 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.bodyParser({ uploadDir: './public/uploads', keepExtensions: true }));
 app.use(multer());
+//mongoose.connect('mongodb://localhost/cs4550');
+
+require('./public/project/server/app.js')(app);
+require('./public/assignment/server/app.js')(app);
 
 app.listen(port, ipaddress);
-
-assignment(app);
-project(app);

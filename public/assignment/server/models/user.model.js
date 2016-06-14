@@ -20,7 +20,7 @@ module.exports = function() {
         return mockUsers[mockUsers.length-1];
     }
 
-    function findAllUsers() {
+    function findAllUsers(){
         return mockUsers;
     }
 
