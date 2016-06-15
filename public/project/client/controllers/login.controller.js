@@ -8,6 +8,7 @@
 
     function LoginController($scope, UserService, $location, $rootScope) {
         $scope.$location = $location;
+        $scope.message = null;
         $scope.login = login;
 
         $rootScope.$on("updateCurrentUser", function(){
@@ -18,9 +19,14 @@
             UserService
                 .findUserByCredentials(username, password)
                 .then(function(response){
-                    UserService.setCurrentUser(response.data);
-                    $location.url("/profile");
-                    $rootScope.$broadcast("updateCurrentUser");
+                    if(response.data) {
+                        UserService.setCurrentUser(response.data);
+                        $location.url("/profile");
+                        $rootScope.$broadcast("updateCurrentUser");
+                    } else {
+                        $scope.message = "User not found.";
+                        $location.url("/login");
+                    }
                 });
         }
     }

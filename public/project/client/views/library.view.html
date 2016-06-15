@@ -9,8 +9,9 @@
             <th>Age Range</th>
             <th>Type(s)</th>
             <th>Location</th>
+            <th>Players</th>
         </tr>
-        <tr ng-repeat="library in lib">
+        <tr ng-repeat="library in allGames">
             <td>  {{library.Name}}  </td>
             <td><img ng-src="{{library.Picture}}" width="100px" /></td>
             <td>  {{library.Description}}  </td>
@@ -48,6 +49,7 @@
                     Teele Square
                     </span>
             </td>
+            <td><span ng-if="displayUsernames(library.Players)"><p ng-repeat="username in usernames">{{username}}</p></span></td>
         </tr>
     </table>
 </div>
