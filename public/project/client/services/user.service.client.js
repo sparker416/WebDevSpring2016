@@ -12,6 +12,7 @@
         var model = {
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
+            isAdmin: isAdmin,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             findAllGamesForUser: findAllGamesForUser,
@@ -34,6 +35,16 @@
             return $rootScope.currentUser;
         }
 
+        function isAdmin(user){
+            var isAdmin = false;
+            for(var i in user.roles){
+                if(user.roles[i] == "admin"){
+                    isAdmin = true;
+                }
+            } 
+            return isAdmin;
+        }
+        
         function findUserByCredentials(username, password)
         {
             return $http.get("/rest/api/project/user?username=" + username + "&password=" + password);

@@ -6,8 +6,14 @@
         .module("KnightMovesApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $location, UserGameService, $rootScope) {
+    function AdminController($scope, $location, UserGameService, $rootScope, UserService) {
         $scope.$location = $location;
+        $scope.currentUser = UserService.getCurrentUser();
+        $scope.isAdmin = UserService.isAdmin($scope.currentUser);
+
+        if(!$scope.isAdmin){
+            $location.url("/home");
+        }
 
         $scope.addGame = addGame;
         $scope.editGame = editGame;
