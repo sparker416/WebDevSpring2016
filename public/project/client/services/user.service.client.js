@@ -13,6 +13,7 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             isAdmin: isAdmin,
+            isOwner: isOwner,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             findAllGamesForUser: findAllGamesForUser,
@@ -41,7 +42,17 @@
                 if(user.roles[i] == "admin"){
                     isAdmin = true;
                 }
-            } 
+            }
+            return isAdmin;
+        }
+
+        function isOwner(user){
+            var isAdmin = false;
+            for(var i in user.roles){
+                if(user.roles[i] == "owner"){
+                    isAdmin = true;
+                }
+            }
             return isAdmin;
         }
         

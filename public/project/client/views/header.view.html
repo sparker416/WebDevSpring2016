@@ -4,18 +4,22 @@
                     <span ng-hide="currentUser" ng-class="{'active': $location.url()=='/register'}">
                         <a href="#/register" class="white-text">Register</a>
                     </span>
-                    <span ng-hide="currentUser" class="white-text bold"> | </span>
+            <span ng-hide="currentUser" class="white-text bold"> | </span>
                     <span ng-hide="currentUser" ng-class="{'active': $location.url()=='/login'}">
                         <a href="#/login" class="white-text">   Login  </a>
                     </span>
                     <span ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
                         <a href="#/profile" class="white-text"> Profile</a>
                     </span>
-                    <span ng-show="currentUser" class="white-text bold"> | </span>
+            <span ng-show="currentUser" class="white-text bold"> | </span>
                     <span ng-show="currentUser.roles.indexOf('admin') > -1" ng-class="{'active': $location.url()=='/admin'}">
                         <a href="#/admin" class="white-text">   Admin  </a>
                     </span>
-                    <span ng-show="currentUser.roles.indexOf('admin') > -1" class="white-text bold"> | </span>
+            <span ng-show="currentUser.roles.indexOf('admin') > -1" class="white-text bold"> | </span>
+                               <span ng-show="currentUser.roles.indexOf('owner') > -1" ng-class="{'active': $location.url()=='/owner'}">
+                        <a href="#/owner" class="white-text">   UberAdmin  </a>
+                    </span>
+            <span ng-show="currentUser.roles.indexOf('owner') > -1" class="white-text bold"> | </span>
                     <span ng-show="currentUser">
                         <a ng-click="logout()" class="white-text">  Logout </a>
                     </span>

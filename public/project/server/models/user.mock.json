@@ -4,7 +4,7 @@
       {"name": "Clue", "dateLastPlayed": "01/08/2015", "timesPlayed": 1},
       {"name": "Risk", "dateLastPlayed": "10/25/2016", "timesPlayed": 2}
     ],
-    "roles": ["admin", "player"]
+    "roles": ["admin", "player", "owner"]
   },
   {"_id": 234, "email": "bob@hope.com", "username": "bob", "password": "bob",
     "games":[
