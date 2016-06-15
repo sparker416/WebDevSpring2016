@@ -68,6 +68,10 @@
                 templateUrl: "views/admin.view.html",
                 controller: "AdminController"
             })
+            .when("/owner", {
+                templateUrl: "views/owner.view.html",
+                controller: "OwnerController"
+            })
             .otherwise({
                 redirectTo: "/home"
             });

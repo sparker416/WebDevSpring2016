@@ -212,3 +212,12 @@ body {
 .white-text {
     color: white;
 }
+.num-input {
+    width: 3em;
+}
+.text-input {
+    width: 15em;
+}
+.num-range {
+    width: 10em;
+}

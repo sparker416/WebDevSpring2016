@@ -4,10 +4,9 @@
 (function(){
     angular
         .module("KnightMovesApp")
-        .controller("AdminController", AdminController);
+        .controller("OwnerController", OwnerController);
 
-    function AdminController($scope, $location) {
-        console.log($location);
+    function OwnerController($scope, $location) {
         $scope.$location = $location;
     }
 })();

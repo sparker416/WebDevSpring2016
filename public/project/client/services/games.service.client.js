@@ -13,6 +13,8 @@
         var model = {
             getCurrentGames: getCurrentGames,
             setCurrentGames: setCurrentGames,
+            getCurrentGame: getCurrentGame,
+            setCurrentGame: setCurrentGame,
             findAllGames: findAllGames,
             addGame: addGame,
             addUserToGame: addUserToGame,
@@ -32,6 +34,16 @@
         function setCurrentGames(games)
         {
             $rootScope.currentGames = games;
+        }
+
+        function getCurrentGame()
+        {
+            return $rootScope.currentGame;
+        }
+
+        function setCurrentGame(game)
+        {
+            $rootScope.currentGame = game;
         }
 
         function findAllGames()

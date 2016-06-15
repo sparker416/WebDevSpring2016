@@ -70,8 +70,7 @@ module.exports = function() {
         var index;
         for (var i=0; i<gameLibrary.length; i++){
             if(gameId == gameLibrary[i].id){
-                index = i;
-                gameLibray.splice(index, 1);
+                gameLibrary.splice(i, 1);
             }
         }
         return gameLibrary;
