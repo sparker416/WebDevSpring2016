@@ -6,14 +6,15 @@
                 <span class="color-red bold sz-lrg"> * </span>Number of Players:
             </label>
             <div class="col-sm-10">
-                <input type="text" id="numPlayers" class="form-control" required>
+                <input type="text" id="numPlayers" class="form-control" required ng-model="criteria.numPlayers">
             </div>
         </div>
         <div class="form-group">
             <label for="keyword" class="col-sm-2 control-label">Keyword Search:</label>
             <div class="col-sm-10">
-                <input type="text" id="keyword" class="form-control">
+                <input type="text" id="keyword" class="form-control" ng-model="criteria.keywords">
             </div>
+            <div class="col-sm-offset-2">  Please separate search terms by a comma.</div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -21,27 +22,27 @@
                 <div class="checkbox">
                     <div class="float-left-25">
                         <label>
-                            <input type="checkbox" id="co-op"> Co-op
+                            <input type="checkbox" id="co-op" ng-model="criteria.co-op" value="true"> Co-op
                         </label><br>
                         <label>
-                            <input type="checkbox" id="strategy"> Strategy
+                            <input type="checkbox" id="strategy" ng-model="criteria.strategy" value="true"> Strategy
                         </label><br>
                         <label>
-                            <input type="checkbox" id="party"> Party
+                            <input type="checkbox" id="party" ng-model="criteria.party" value="true"> Party
                         </label><br>
                         <label>
-                            <input type="checkbox" id="classic"> Classic
+                            <input type="checkbox" id="classic" ng-model="criteria.classic" value="true"> Classic
                         </label>
                     </div>
                     <div class="left-div">
                         <label>
-                            <input type="checkbox" id="worker-placement"> Worker Placement
+                            <input type="checkbox" id="worker-placement" ng-model="criteria.worker" value="true"> Worker Placement
                         </label><br>
                         <label>
-                            <input type="checkbox" id="resource-management"> Resource Management
+                            <input type="checkbox" id="resource-management" ng-model="criteria.resource" value="true"> Resource Management
                         </label><br>
                         <label>
-                            <input type="checkbox" id="deck-building"> Deck-building
+                            <input type="checkbox" id="deck-building" ng-model="criteria.deck" value="true"> Deck-building
                         </label>
                     </div>
                 </div>
@@ -51,8 +52,8 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <label>Location: </label>
                 <div class="radio">
-                    <input type="radio" id="CC"> Cooldige Corner<br>
-                    <input type="radio" id="Teele"> Teele Square
+                    <input type="radio" id="CC" ng-model="criteria.CC" value="true"> Coolidge Corner<br>
+                    <input type="radio" id="Teele" ng-model="criteria.Teele" value="true"> Teele Square
                 </div>
             </div>
         </div>
@@ -61,21 +62,75 @@
                 Age of Youngest Player:
             </label>
             <div class="col-sm-10">
-                <input type="number" id="lowest-age" class="form-control" min="1">
+                <input type="number" id="lowest-age" class="form-control" min="1" ng-model="criteria.lowAge">
             </div>
         </div>
         <div class="form-group">
             <label for="playtime" class="col-sm-2 control-label">
-                Length of desired playtime in minutes:
+                Length of desired playtime in hours:
             </label>
             <div class="col-sm-10">
-                <input type="number" id="playtime" class="form-control" min="0">
+                <input type="number" id="playtime" class="form-control" min="0.25" ng-model="criteria.playtime">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Search</button>
+                <button type="submit" class="btn btn-default" ng-click="search(criteria)">Search</button>
             </div>
         </div>
     </form>
+
+    <table class="table table-bordered" ng-show="results">
+        <tr>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Description</th>
+            <th>Number of Players</th>
+            <th>Playing Time (min)</th>
+            <th>Age Range</th>
+            <th>Type(s)</th>
+            <th>Location</th>
+            <th>Players</th>
+        </tr>
+        <tr ng-repeat="library in results">
+            <td>  {{library.Name}}  </td>
+            <td><img ng-src="{{library.Picture}}" width="100px" /></td>
+            <td>  {{library.Description}}  </td>
+            <td>  {{library.Min_Num_of_Players }} -  {{library.Max_Num_of_Players}}  </td>
+            <td>  {{library.Min_Playing_Time}}  -  {{library.Max_Playing_Time}}  </td>
+            <td>  {{library.Min_Age}}  -  {{library.Max_Age}}  </td>
+            <td>
+                <span ng-if="library.Co_op">
+                Co-op<br>
+                    </span>
+            <span ng-if="library.Strategy">
+                Strategy<br>
+            </span>
+                <span ng-if="library.Party">
+                Party<br>
+                    </span>
+                <span ng-if="library.Classic">
+                    Classic<br>
+                    </span>
+                <span ng-if="library.Worker_placement">
+                Worker placement<br>
+                    </span>
+                <span ng-if="library.Resource_management">
+                Resource management  <br>
+                    </span>
+                <span ng-if="library.Deck_building">
+                Deck building
+                    </span>
+            </td>
+            <td>
+                <span ng-if="library.Coolidge_Corner">
+                    Coolidge Corner<br>
+                    </span>
+                <span ng-if="library.Teele_Square">
+                    Teele Square
+                    </span>
+            </td>
+            <td><p ng-repeat="playerId in library.Players">{{playerId}}</p></td>
+        </tr>
+    </table>
 </div>
