@@ -7,7 +7,6 @@
         .controller("SearchController", SearchController);
 
     function SearchController($scope, $location) {
-        console.log($location);
         $scope.$location = $location;
     }
 })();
