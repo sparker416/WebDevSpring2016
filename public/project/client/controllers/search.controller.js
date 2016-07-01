@@ -11,53 +11,551 @@
 
         $scope.search = search;
         $scope.searchGameForKeywords = searchGameForKeywords;
+        $scope.searchTypes = searchTypes;
 
-        var games = [];
+        var allGames = [];
 
         UserGameService
             .findAllGames()
             .then(function(response){
-                games = response.data;
+                allGames = response.data;
             });
 
         function searchGameForKeywords(keywords, game)
         {
             var terms = keywords.split(',');
             var descTerms = game.Description.split(' ');
+            var title = game.Name.toLowerCase();
 
-            for(var t in terms){
-                for(var d in descTerms){
-                    if(terms[t]==descTerms[d]){
-                        return true;
+            for(var t in terms) {
+                if (title.indexOf(terms[t].toLowerCase()) > -1) {
+                    return true;
+                } else {
+                    for (var d in descTerms) {
+                        if (terms[t].toLowerCase() == descTerms[d].toLowerCase()) {
+                            return true;
+                        }
                     }
                 }
             }
             return false;
+
+        }
+
+        function searchTypes(criteria, game)
+        {
+            return (Boolean(criteria.strategy) && game.Strategy) ||
+                (Boolean(criteria.coOp) && game.Co_op) ||
+                (Boolean(criteria.party) && game.Party) ||
+                (Boolean(criteria.classic) && game.Classic) ||
+                (Boolean(criteria.worker) && game.Worker_placement) ||
+                (Boolean(criteria.resource) && game.Resource_management) ||
+                (Boolean(criteria.deck) && game.Deck_building);
         }
 
         function search(criteria)
         {
             var results = [];
 
-            for(var g in games) {
-                if (criteria.numPlayers && criteria.numPlayers>=games[g].Min_Num_of_Players && criteria.numPlayers<=games[g].Max_Num_of_Players){
-                    if(criteria.keywords){
-                        if(searchGameForKeywords(criteria.keywords, games[g])){
-                            if((criteria.strategy && games[g].Strategy) ||
-                                (criteria.party && games[g].Party) ||
-                                (criteria.classic && games[g].Classic) ||
-                                (criteria.worker && games[g].Worker_placement) ||
-                                (criteria.resource && games[g].Resource_management) ||
-                                (criteria.deck && games[g].Deck_building)){
-                                if((criteria.CC && games[g].Coolidge_Corner) || (criteria.Teele && games[g].Teele_Square)){
-                                    if(criteria.lowAge && criteria.lowAge>=games[g].Min_Age){
-                                        if(criteria.playTime && criteria.playtime>=games[g].Min_Playing_Time && criteria.playtime<=games[g].Max_Playing_Time){
-                                            results.push(games[g]);
-                                        }
-                                    }
-                                }
-                            }
+            for(var g in allGames)
+            {
+                if (criteria.numPlayers &&
+                    criteria.numPlayers>=allGames[g].Min_Num_of_Players &&
+                    criteria.numPlayers<=allGames[g].Max_Num_of_Players)
+                {
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
                         }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if(((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            (criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if((criteria.lowAge >= allGames[g].Min_Age) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if(((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        ! (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if(((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            (criteria.lowAge >= allGames[g].Min_Age))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        ! (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            ((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            $scope.searchTypes(criteria, allGames[g]))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        criteria.playtime)
+                    {
+                        if(((criteria.playtime >= allGames[g].Min_Playing_Time) &&
+                            (criteria.playtime <= allGames[g].Max_Playing_Time)))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if(criteria.lowAge >= allGames[g].Min_Age)
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        (criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if((criteria.CC && allGames[g].Coolidge_Corner) ||
+                            (criteria.Teele && allGames[g].Teele_Square))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        (criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchTypes(criteria, allGames[g]))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]))
+                        {
+                            results.push(allGames[g]);
+                        }
+                    }
+                    if(!criteria.keywords &&
+                        !(criteria.coOp || criteria.strategy || criteria.party ||
+                        criteria.classic || criteria.worker ||
+                        criteria.resource || criteria.deck) &&
+                        !(criteria.CC || criteria.Teele)&&
+                        !criteria.lowAge &&
+                        !criteria.playtime)
+                    {
+                        results.push(allGames[g]);
                     }
                 }
             }
