@@ -9,7 +9,6 @@
             <th>Age Range</th>
             <th>Type(s)</th>
             <th>Location</th>
-            <th>Players</th>
         </tr>
         <tr ng-repeat="library in allGames" ng-click="goToDetails($index)" class="clickable">
             <td>  {{library.Name}}  </td>
@@ -49,7 +48,6 @@
                     Teele Square
                     </span>
             </td>
-            <td><p ng-repeat="playerId in library.Players">{{playerId}}</p></td>
         </tr>
     </table>
 </div>
