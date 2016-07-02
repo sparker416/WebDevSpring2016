@@ -221,3 +221,12 @@ body {
 .num-range {
     width: 10em;
 }
+.pad-left-10-px {
+    padding-left: 10px;
+}
+.height-inherit {
+    height: inherit;
+}
+.clickable {
+    cursor: pointer;
+}

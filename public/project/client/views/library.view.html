@@ -11,7 +11,7 @@
             <th>Location</th>
             <th>Players</th>
         </tr>
-        <tr ng-repeat="library in allGames">
+        <tr ng-repeat="library in allGames" ng-click="goToDetails($index)" class="clickable">
             <td>  {{library.Name}}  </td>
             <td><img ng-src="{{library.Picture}}" width="100px" /></td>
             <td>  {{library.Description}}  </td>

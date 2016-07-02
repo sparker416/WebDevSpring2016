@@ -76,6 +76,10 @@
                 templateUrl: "views/search.view.html",
                 controller: "SearchController"
             })
+            .when("/detail", {
+                templateUrl: "views/detail.view.html",
+                controller: "DetailController"
+            })
             .otherwise({
                 redirectTo: "/home"
             });
