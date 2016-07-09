@@ -1,7 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var db = mongoose.connect('mongodb://localhost/cs4550');
 
 var app = express();
 
@@ -16,6 +17,6 @@ app.use(multer());
 //mongoose.connect('mongodb://localhost/cs4550');
 
 require('./public/project/server/app.js')(app);
-require('./public/assignment/server/app.js')(app);
+require('./public/assignment/server/app.js')(app, db, mongoose);
 
 app.listen(port, ipaddress);

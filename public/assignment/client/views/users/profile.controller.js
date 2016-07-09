@@ -51,7 +51,6 @@
                         $scope.error = "Unable to update the user";
                     }
                 });
-
         }
     }
 })();

@@ -20,17 +20,20 @@
             
             if (password === verifyPassword){
                 var newUser = {
-                    "_id": new Date().getTime(),
-                    "firstName": "First Name",
-                    "lastName": "Last Name",
-                    "username": username,
-                    "password": password
+                    username: username,
+                    password: password,
+                    firstName: "First Name",
+                    lastName: "Last Name",
+                    emails: [],
+                    phones: []
                 };
 
                 UserService.createUser(newUser)
                     .then(function(response){
-                        if(response.data){
-                            UserService.setCurrentUser(response.data);
+                        console.log(response);
+                        console.log(response.config.data);
+                        if(response.config.data){
+                            UserService.setCurrentUser(response.config.data);
                             $location.url("/profile");
                             $rootScope.$broadcast("updateCurrentUser");
                         }

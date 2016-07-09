@@ -1,9 +1,11 @@
 /**
  * Created by spark on 5/27/2016.
  */
-var mockUsers = require("./user.mock.json");
+module.exports = function(db, mongoose) {
+    var UserSchema = require("./user.schema.server")(mongoose);
 
-module.exports = function() {
+    var User = mongoose.model("User", UserSchema);
+
     var api = {
         createUser: createUser,
         findAllUsers: findAllUsers,
@@ -16,65 +18,72 @@ module.exports = function() {
     return api;
 
     function createUser(newUser){
-        mockUsers.push(newUser);
-        return mockUsers[mockUsers.length-1];
+        User.findOne({username: newUser.username}, function(err, user)
+        {
+            if(user == null)
+            {
+                User.create(newUser, function(err, user){
+                    User.findOne({username: newUser.username}, function(err, user){
+                        return user;
+                    });
+                });
+            }
+        });
     }
 
     function findAllUsers(){
-        return mockUsers;
+        User.find(function(err, data){
+            console.log(data);
+            return data;
+        });
     }
 
     function findUserById(userId) {
-        var user = null;
-        for(var i=0; i<mockUsers.length; i++){
-            if(mockUsers[i]._id == userId){
-                user = mockUsers[i];
-            }
-        }
-        return user;
+        User.findById(userId, function(err, data){
+            console.log(data);
+            return data;
+        })
     }
 
     function updateUser(userId, user) {
-        var newUser = null;
-        for(var i=0; i<mockUsers.length; i++) {
-            if (mockUsers[i]._id == userId) {
-                mockUsers[i] = user;
-                newUser = mockUsers[i];
-            }
-        }
-        return newUser;
+        User.update({_id: userId},
+            {username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                emails: user.emails,
+                phones: user.phones},
+            function(err, data){
+                User.find(function(err, data){
+                    console.log(data);
+                    return data;
+                });
+            });
     }
 
     function deleteUser(userId) {
-        var index = null;
-        for(var i=0; i<mockUsers.length; i++){
-          if(mockUsers[i]._id == userId){
-              index = i;
-              mockUsers.splice(index, 1);
-              return mockUsers;
-          }
-        }
+        User.remove({_id: userId},
+            function(err,data){
+                User.find(function(err, data){
+                    console.log(data);
+                    return data;
+                });
+            });
     }
 
-    function findUserByUsername(username) {
-        var user = null;
-        for(var i=0; i<mockUsers.length; i++){
-            if(mockUsers[i].username === username){
-                user = mockUsers[i];
-            }
-        }
-        return user;
+    function findUserByUsername(usrnm) {
+        User.find({username: usrnm}, function(err, data){
+            console.log(data);
+            return data;
+        });
     }
 
     function findUserByCredentials(credentials) {
-        var username = credentials.username;
-        var password = credentials.password;
-        var user = null;
-        for(var i=0; i<mockUsers.length; i++){
-            if(mockUsers[i].username === username && mockUsers[i].password === password){
-                user = mockUsers[i];
-            }
-        }
-        return user;
+        User.find({username: credentials.username,
+                password: credentials.password},
+            function(err, data){
+                console.log(data);
+                return data;
+            });
     }
 };
