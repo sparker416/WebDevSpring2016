@@ -30,10 +30,8 @@
 
                 UserService.createUser(newUser)
                     .then(function(response){
-                        console.log(response);
-                        console.log(response.config.data);
-                        if(response.config.data){
-                            UserService.setCurrentUser(response.config.data);
+                        if(response.data){
+                            UserService.setCurrentUser(response.data);
                             $location.url("/profile");
                             $rootScope.$broadcast("updateCurrentUser");
                         }

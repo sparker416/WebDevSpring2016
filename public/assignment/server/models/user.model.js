@@ -1,6 +1,8 @@
 /**
  * Created by spark on 5/27/2016.
  */
+var q = require('q');
+
 module.exports = function(db, mongoose) {
     var UserSchema = require("./user.schema.server")(mongoose);
 
@@ -18,35 +20,51 @@ module.exports = function(db, mongoose) {
     return api;
 
     function createUser(newUser){
-        User.findOne({username: newUser.username}, function(err, user)
-        {
-            if(user == null)
-            {
-                User.create(newUser, function(err, user){
-                    User.findOne({username: newUser.username}, function(err, user){
-                        return user;
-                    });
-                });
+        var deferred = q.defer();
+
+        User.create(newUser, function(err, doc){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
         });
+        return deferred.promise;
     }
 
     function findAllUsers(){
-        User.find(function(err, data){
-            console.log(data);
-            return data;
+        var deferred = q.defer();
+
+        User.find({}, function(err, data){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(data);
+            }
         });
+
+        return deferred.promise;
     }
 
     function findUserById(userId) {
-        User.findById(userId, function(err, data){
-            console.log(data);
-            return data;
-        })
+        var deferred = q.defer();
+
+        User.findById({_id: userId},
+            function(err, data){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+            });
+
+        return deferred.promise;
     }
 
     function updateUser(userId, user) {
-        User.update({_id: userId},
+        var deferred = q.defer();
+
+        User.findByIdAndUpdate(userId,
             {username: user.username,
                 password: user.password,
                 firstName: user.firstName,
@@ -54,36 +72,58 @@ module.exports = function(db, mongoose) {
                 emails: user.emails,
                 phones: user.phones},
             function(err, data){
-                User.find(function(err, data){
-                    console.log(data);
-                    return data;
-                });
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
             });
+
+        return deferred.promise;
     }
 
     function deleteUser(userId) {
-        User.remove({_id: userId},
-            function(err,data){
-                User.find(function(err, data){
-                    console.log(data);
-                    return data;
-                });
-            });
+        var deferred = q.defer();
+
+        User.findByIdAndRemove(userId,
+                User.find({}, function(err, data){
+                    if(err){
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve(data);
+                    }
+            }));
+        return deferred.promise;
     }
 
     function findUserByUsername(usrnm) {
-        User.find({username: usrnm}, function(err, data){
-            console.log(data);
-            return data;
+        var deferred = q.defer();
+
+        User.findOne({username: usrnm}, function(err, data){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(data);
+            }
         });
+
+        return deferred.promise;
     }
 
     function findUserByCredentials(credentials) {
-        User.find({username: credentials.username,
-                password: credentials.password},
+        var deferred = q.defer();
+
+        User.findOne(
+            { username: credentials.username,
+                password: credentials.password },
+
             function(err, data){
-                console.log(data);
-                return data;
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
             });
+        return deferred.promise;
     }
 };

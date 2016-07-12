@@ -36,14 +36,17 @@
                 
             } else {
                 var newForm = {
-                    "_id": new Date().getTime(),
-                    "title": formTitle,
-                    "userId": $scope.currentUser._id,
-                    "fields": []
+                    userId: $scope.currentUser._id,
+                    title: formTitle,
+                    fields: [],
+                    created: new Date(),
+                    updated: new Date()
                 };
+                console.log(newForm);
                 FormService
                     .createFormForUser($scope.currentUser._id, newForm)
                     .then(function (response) {
+                        console.log(response);
                         FormService.setCurrentForms(response.data);
                         $rootScope.$broadcast("updateCurrentForms");
                     });
@@ -52,10 +55,12 @@
 
         function updateForm(formTitle, form){
             var updatedForm = {
-                "_id": form._id,
+                _id: form._id,
+                userId: form.userId,
                 "title": formTitle,
-                "userId": form.userId,
-                "fields": form.fields
+                "fields": form.fields,
+                created: form.created,
+                updated: new Date()
             };
             FormService
                 .updateFormById(form._id, updatedForm)

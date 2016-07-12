@@ -40,29 +40,30 @@
             var newField;
             if (type === "Single Line Text Field"){
                 newField = {
-                    "_id": new Date().getTime(),
                     "label": "New Text Field",
                     "type": "TEXT",
-                    "placeholder": "New Field"
+                    "placeholder": "New Field",
+                    options: []
                 };
             } else if (type === "Multi Line Text Field"){
                 newField = {
-                    "_id": new Date().getTime(),
                     "label": "New Text Field",
                     "type": "TEXTAREA",
-                    "placeholder": "New Field"
+                    "placeholder": "New Field",
+                    options: []
                 };
             } else if (type === "Date Field") {
                 newField = {
-                    "_id": new Date().getTime(),
                     "label": "New Date Field",
-                    "type": "DATE"
+                    "type": "DATE",
+                    placeholder: "",
+                    options: []
                 };
             } else if (type === "Dropdown Field"){
                 newField = {
-                    "_id": new Date().getTime(),
                     "label": "New Dropdown",
                     "type": "OPTIONS",
+                    placeholder: "",
                     "options": [
                         {"label": "Option 1", "value": "OPTION_1"},
                         {"label": "Option 2", "value": "OPTION_2"},
@@ -71,9 +72,9 @@
                 };
             } else if (type === "Checkboxes Field"){
                 newField = {
-                    "_id": new Date().getTime(),
                     "label": "New Checkboxes",
                     "type": "CHECKBOXES",
+                    placeholder: "",
                     "options": [
                         {"label": "Option A", "value": "OPTION_A"},
                         {"label": "Option B", "value": "OPTION_B"},
@@ -82,9 +83,9 @@
                 };
             } else if (type === "Radio Buttons Field") {
                 newField = {
-                    "_id": new Date().getTime(),
                     "label": "New Radio Buttons",
                     "type": "RADIOS",
+                    placeholder: "",
                     "options": [
                         {"label": "Option X", "value": "OPTION_X"},
                         {"label": "Option Y", "value": "OPTION_Y"},
@@ -159,23 +160,26 @@
             var updatedOptions;
             if (field.type == "TEXT"){
                 updatedField = {
-                    "_id": field._id,
+                    _id: field._id,
                     "label": label,
                     "type": "TEXT",
-                    "placeholder": placeholder
+                    "placeholder": placeholder,
+                    options: options
                 };
                 FieldService
                     .updateField($scope.formId, updatedField._id, updatedField)
                     .then(function(response){
+                        console.log(response)
                         FieldService.setCurrentFields(response.data);
                         $rootScope.$broadcast("updateCurrentFields");
                     });
             } else if (field.type === "TEXTAREA"){
                 updatedField = {
-                    "_id": field._id,
+                    _id: field._id,
                     "label": label,
                     "type": "TEXTAREA",
-                    "placeholder": placeholder
+                    "placeholder": placeholder,
+                    options: options
                 };
                 FieldService
                     .updateField($scope.formId, updatedField._id, updatedField)
@@ -185,9 +189,11 @@
                     });
             } else if (field.type === "DATE") {
                 updatedField = {
-                    "_id": field._id,
+                    _id: field._id,
                     "label": label,
-                    "type": "DATE"
+                    "type": "DATE",
+                    placeholder: placeholder,
+                    options: options
                 };
                 FieldService
                     .updateField($scope.formId, updatedField._id, updatedField)
@@ -204,9 +210,10 @@
                 }
 
                 updatedField = {
-                    "_id": field._id,
+                    _id: field._id,
                     "label": label,
                     "type": "OPTIONS",
+                    placeholder: "",
                     "options": updatedOptions
                 };
                 FieldService
@@ -224,9 +231,10 @@
                 }
 
                 updatedField = {
-                    "_id": field._id,
+                    _id: field._id,
                     "label": label,
                     "type": "CHECKBOXES",
+                    placeholder: placeholder,
                     "options": updatedOptions
                 };
 
@@ -245,9 +253,10 @@
                 }
 
                 updatedField = {
-                    "_id": field._id,
+                    _id: field._id,
                     "label": label,
                     "type": "RADIOS",
+                    placeholder: placeholder,
                     "options": updatedOptions
                 };
 
@@ -275,7 +284,7 @@
         function selectField($index)
         {
             FieldService
-                .getFieldForForm($scope.sortableArray[$index]._id)
+                .getFieldForForm($scope.formId, $scope.sortableArray[$index]._id)
                 .then(function(response){
                     $scope.currentField = response.data;
                 });

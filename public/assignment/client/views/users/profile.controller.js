@@ -33,11 +33,13 @@
             var userId = $scope.currentUser._id;
 
             var updatedUser = {
-                "_id": userId,
-                "firstName": firstName,
-                "lastName": lastName,
-                "username": username,
-                "password": password
+                _id: userId,
+                username: username,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                emails: [],
+                phones:[]
             };
 
             UserService

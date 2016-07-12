@@ -41,11 +41,12 @@
 
             } else {
                 var newUser = {
-                    "_id": new Date().getTime(),
-                    "firstName": "First Name",
-                    "lastName": "Last Name",
-                    "username": username,
-                    "password": password
+                    username: username,
+                    password: password,
+                    firstName: "First Name",
+                    lastName: "Last Name",
+                    emails: [],
+                    phones: []
                 };
                 UserService
                     .createUser(newUser)
@@ -58,11 +59,12 @@
         function updateUser(username, password, selectedUser)
         {
             var updatedUser = {
-                "_id": selectedUser._id,
-                "firstName": selectedUser.firstName,
-                "lastName": selectedUser.lastName,
-                "username": username,
-                "password": password
+                username: username,
+                password: password,
+                firstName: selectedUser.firstName,
+                lastName: selectedUser.lastName,
+                emails: selectedUser.emails,
+                phones: selectedUser.phones
             };
 
             UserService
