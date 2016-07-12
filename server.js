@@ -2,8 +2,17 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://127.0.0.1:27017/webdev2016');
-console.log(db);
+var connection_string = "127.0.0.1:27017/webdev2016";
+
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+    connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+        process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+        process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+        process.env.OPENSHIFT_APP_NAME;
+}
+var db = mongoose.connect('mongodb://' + connection_string);
+
 
 var app = express();
 
