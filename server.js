@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://127.0.0.1:27017/webdev2016');
+console.log(db);
 
 var app = express();
 
