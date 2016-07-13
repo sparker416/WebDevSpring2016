@@ -23,7 +23,6 @@
             $scope.message = null;
 
             var updatedUser = {
-                _id: $scope.currentUser._id,
                 email: user.email,
                 username: user.username,
                 password: user.password,
