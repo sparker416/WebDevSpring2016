@@ -1,43 +1,83 @@
 module.exports = function(app, model) {
     app.get("/rest/api/KM/game", function(req, res){
-        res.json(model.getAllGames());
+        model.getAllGames()
+            .then(function(doc){
+                res.json(doc);
+            }, function(err){
+                res.status(400).send(err);
+            });
     });
 
     app.get("/rest/api/KM/game/:gameId", function(req, res){
         if (isNaN(req.params.gameId)) {
             var gameTitle = req.params.gameId;
-            res.json(model.getGameByName(gameTitle));
+            model.getGameByName(gameTitle)
+                .then(function(doc){
+                    res.json(doc);
+                }, function(err){
+                    res.status(400).send(err);
+                });
         } else {
             var gameId = req.params.gameId;
-            res.json(model.getGameById(gameId));
+            model.getGameById(gameId)
+                .then(function(doc){
+                    res.json(doc);
+                }, function(err){
+                    res.status(400).send(err);
+                });
         }
     });
 
     app.delete("/rest/api/KM/admin/game/:gameId", function(req, res){
         var gameId = req.params.gameId;
-        res.json(model.deleteGame(gameId));
+        model.deleteGame(gameId)
+            .then(function(doc){
+                res.json(doc);
+            }, function(err){
+                res.status(400).send(err);
+            });
     });
 
     app.post("/rest/api/KM/admin/game", function(req, res){
         var game = req.body;
-        res.json(model.createGame(game));
+        model.createGame(game)
+            .then(function(doc){
+                res.json(doc);
+            }, function(err){
+                res.status(400).send(err);
+            });
     });
 
     app.put("/rest/api/KM/admin/game/:gameId", function(req, res){
         var gameId = req.params.gameId;
         var game = req.body;
-        res.json(model.editGame(gameId, game));
+        model.editGame(gameId, game)
+            .then(function(doc){
+                res.json(doc);
+            }, function(err){
+                res.status(400).send(err);
+            });
     });
     
     app.get("/rest/api/KM/user/:userId/game/:gameId", function (req, res){
         var userId = req.params.userId;
         var gameId = req.params.gameId;
-        res.json(model.addUserToGame(userId, gameId));
+        model.addUserToGame(userId, gameId)
+            .then(function(doc){
+                res.json(doc);
+            }, function(err){
+                res.status(400).send(err);
+            });
     });
 
     app.delete("/rest/api/KM/user/:userId/game/:gameId", function (req, res){
         var userId = req.params.userId;
         var gameId = req.params.gameId;
-        res.json(model.deleteUserFromGame(userId, gameId));
+        model.deleteUserFromGame(userId, gameId)
+            .then(function(doc){
+                res.json(doc);
+            }, function(err){
+                res.status(400).send(err);
+            });
     })
 };

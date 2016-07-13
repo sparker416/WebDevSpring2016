@@ -1,9 +1,13 @@
 /**
  * Created by spark on 4/30/2016.
  */
-var userDB = require("./user.mock.json");
+var q = require("q");
 
-module.exports = function() {
+module.exports = function(db, mongoose) {
+    var UserSchema = require("./user.schema");
+
+    var User = mongoose.model("User", UserSchema);
+
     var api = {
         createUser: createUser,
         findAllUsers: findAllUsers,
@@ -16,97 +20,158 @@ module.exports = function() {
         findUserByCredentials: findUserByCredentials
     };
     return api;
-    
+
     function createUser(newUser){
-        userDB.push(newUser);
-        return userDB[userDB.length-1];
+        var deferred = q.defer();
+
+        User.create(newUser, function(err, doc){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findAllUsers(){
-        return userDB;
+        var deferred = q.defer();
+
+        User.find({}, function(err, data){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(data);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findUserById(userId) {
-        var user = null;
-        for(var i=0; i<userDB.length; i++){
-            if(userDB[i]._id == userId){
-                user = userDB[i];
-            }
-        }
-        return user;
+        var deferred = q.defer();
+
+        User.findById({_id: userId},
+            function(err, data){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+            });
+
+        return deferred.promise;
     }
 
-    function findAllGamesForUser(userId)
-    {
-        var games = [];
-        for(var i=0; i<userDB.length; i++){
-            if(userId == userDB[i]._id){
-                for(var j=0; j<userDB[i].games.length; j++){
-                    games.push(userDB[i].games[j]);
-                }
+    function findAllGamesForUser(userId){
+        var deferred = q.defer();
+
+        User.findById(userId, function(err, user)
+        {
+            if (err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(user);
             }
-        }
-        return games;
+            return deferred.promise;
+        })
+            .then(function(user) {
+                return user.games
+            });
     }
 
     function addGame(userId, gameName)
     {
-        var updatedGames = findAllGamesForUser(userId);
-        for(var g=0; g<updatedGames.length; g++) {
-            if(updatedGames[g].name == gameName){
-                updatedGames[g].timesPlayed++;
-                updatedGames[g].dateLastPlayed = new Date().getMonth()+1 + "/" + new Date().getDate() + "/" + new Date().getFullYear();
-                findUserById(userId).games = updatedGames;
-                return findUserById(userId).games;
+        var deferred = q.defer();
+
+        User.findById(userId, function(err, user){
+            if (err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(user);
             }
-        }
-        updatedGames.push({"name": gameName, "dateLastPlayed": new Date().getMonth()+1 + "/" + new Date().getDate() + "/" + new Date().getFullYear(), "timesPlayed": 1});
-        findUserById(userId).games = updatedGames;
-        return findUserById(userId).games;
+            return deferred.promise;
+        })
+            .then(function(user){
+                console.log(user.games);
+
+                for(var g=0; g<user.games.length; g++) {
+                    if(user.games[g].name == gameName){
+                        user.games[g].timesPlayed++;
+                        user.games[g].dateLastPlayed = new Date().now;
+                    } else {
+                        user.games.push({name: gameName, dateLastPlayed: new Date().now, timesPlayed: 1});
+                    }
+                }
+                return user.games;
+            });
     }
-    
+
     function updateUser(userId, user) {
-        var newUser = null;
-        for(var i=0; i<userDB.length; i++) {
-            if (userDB[i]._id == userId) {
-                userDB[i] = user;
-                newUser = userDB[i];
-                console.log(newUser);
-            }
-        }
-        return newUser;
+        var deferred = q.defer();
+
+        User.findByIdAndUpdate(userId,
+            {
+                _id: userId,
+                email: user.email,
+                username: user.username,
+                password: user.password,
+                games: user.games,
+                roles: user.roles
+            },
+            function(err, data){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+            });
+
+        return deferred.promise;
     }
 
     function deleteUser(userId) {
-        var index = null;
-        for(var i=0; i<userDB.length; i++){
-            if(userDB[i]._id == userId){
-                index = i;
-                userDB.splice(index, 1);
-                return userDB;
-            }
-        }
+        var deferred = q.defer();
+
+        User.findByIdAndRemove(userId,
+            User.find({}, function(err, data){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+            }));
+        return deferred.promise;
     }
 
-    function findUserByUsername(username) {
-        var user = null;
-        for(var i=0; i<userDB.length; i++){
-            if(userDB[i].username === username){
-                user = userDB[i];
+    function findUserByUsername(usrnm) {
+        var deferred = q.defer();
+
+        User.findOne({username: usrnm}, function(err, data){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(data);
             }
-        }
-        return user;
+        });
+
+        return deferred.promise;
     }
 
     function findUserByCredentials(credentials) {
-        var username = credentials.username;
-        var password = credentials.password;
-        var user = null;
-        for(var i=0; i<userDB.length; i++){
-            if(userDB[i].username === username && userDB[i].password === password){
-                user = userDB[i];
-            }
-        }
-        return user;
+        var deferred = q.defer();
+
+        User.findOne(
+            { username: credentials.username,
+                password: credentials.password },
+
+            function(err, data){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+            });
+        return deferred.promise;
     }
 };
