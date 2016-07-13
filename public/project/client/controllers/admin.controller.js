@@ -75,7 +75,6 @@
         function editGame(currentId, game)
         {
             var updatedGame = {
-                _id: currentId,
                 Name: game.Name,
                 Picture: game.Picture,
                 Description: game.Description,

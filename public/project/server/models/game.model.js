@@ -93,7 +93,6 @@ module.exports = function(db, mongoose) {
 
         Game.findByIdAndUpdate(gameId,
             {
-                _id: gameId,
                 Name: updatedGame.Name,
                 Picture: updatedGame.Picture,
                 Description: updatedGame.Description,
