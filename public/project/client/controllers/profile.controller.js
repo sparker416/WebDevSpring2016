@@ -46,7 +46,7 @@
                         $scope.error = null;
                         var game = response.data;
                         UserGameService
-                            .addUserToGame(userId, game.id)
+                            .addUserToGame(userId, game._id)
                             .then(function(response){
                                 console.log(response.data);
                             });
@@ -65,7 +65,7 @@
 
         function removeGameForUser(game){
             UserGameService
-                .deleteUserFromGame($scope.currentUser._id, game.id)
+                .deleteUserFromGame($scope.currentUser._id, game._id)
                 .then(function(response){
                     UserGameService.setCurrentGames(response.data);
                     $rootScope.$broadcast("updateUserGames");

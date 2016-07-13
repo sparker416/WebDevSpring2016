@@ -34,7 +34,7 @@
                 .findUserByCredentials(user.username, user.password)
                 .then(function(response){
                     if (!response.data) {
-                        $scope.message = "User already exists";
+                        $scope.message = "User already exists or was not found";
                         if($scope.message){
                             window.setTimeout(function(){
                                 $location.url("/login");
@@ -45,11 +45,11 @@
                 });
 
             var newUser = {
-                "_id": new Date().getTime(),
-                "email": user.email,
-                "username": user.username,
-                "password": user.password,
-                "games": []
+                email: user.email,
+                username: user.username,
+                password: user.password,
+                games: [],
+                roles: ["player"]
             };
 
             UserService

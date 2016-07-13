@@ -23,11 +23,12 @@
             $scope.message = null;
 
             var updatedUser = {
-                "_id": $scope.currentUser._id,
-                "email": user.email,
-                "username": user.username,
-                "password": user.password,
-                "games": $scope.currentUser.games
+                _id: $scope.currentUser._id,
+                email: user.email,
+                username: user.username,
+                password: user.password,
+                games: $scope.currentUser.games,
+                roles: $scope.currentUser.roles
             };
 
             UserService

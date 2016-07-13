@@ -50,12 +50,11 @@
             }
 
             var newUser = {
-                "_id": user._id,
-                "email": user.email,
-                "username": user.username,
-                "password": user.password,
-                "games": [],
-                "roles": newRoles
+                email: user.email,
+                username: user.username,
+                password: user.password,
+                games: [],
+                roles: newRoles
             };
 
             UserService.createUser(newUser)
@@ -79,12 +78,12 @@
             }
 
             var updatedUser = {
-                "_id": user._id,
-                "email": user.email,
-                "username": user.username,
-                "password": user.password,
-                "games": [],
-                "roles": newRoles
+                _id: user._id,
+                email: user.email,
+                username: user.username,
+                password: user.password,
+                games: user.games,
+                roles: newRoles
             };
 
             UserService.updateUser(userId, updatedUser)
