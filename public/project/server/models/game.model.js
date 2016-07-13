@@ -4,7 +4,7 @@
 var q = require("q");
 
 module.exports = function(db, mongoose) {
-    var GameSchema = require("./game.schema.js");
+    var GameSchema = require("./game.schema.js")(mongoose);
 
     var Game = mongoose.model("Game", GameSchema);
 
