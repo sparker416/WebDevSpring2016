@@ -39,27 +39,6 @@
             return $rootScope.currentUsers;
         }
 
-        /*
-        function userIsAdmin(user)
-        {
-            if(!user){
-                return false;
-            }
-            else
-            {
-                var roles = user.roles;
-
-                for(var i=0; i<roles.length; i++){
-                    if(roles[i] === "admin")
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        */
-
         function findUserByUsername(username)
         {
             return $http.get("/api/assignment/user?username=" + username);

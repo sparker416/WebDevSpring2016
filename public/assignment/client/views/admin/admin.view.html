@@ -6,7 +6,9 @@
         <tr>
             <td><i class="fa fa-caret-down"></i> Username</td>
             <td><i class="fa fa-caret-down"></i> Password</td>
-            <!--<td><i class="fa fa-caret-down"></i> Role</td>-->
+            <td><i class="fa fa-caret-down"></i> First Name</td>
+            <td><i class="fa fa-caret-down"></i> Last Name</td>
+            <td><i class="fa fa-caret-down"></i> Roles</td>
             <td><i class="fa fa-caret-down"></i> Action</td>
         </tr>
         </thead>
@@ -14,26 +16,34 @@
             <tr>
                 <td>
                     <div class="form-group col-sm-10">
-                        <input ng-model="newUsername" type="text" class="form-control" id="username">
+                        <input ng-model="newUser.username" type="text" class="form-control" id="username">
                     </div>
                 </td>
                 <td>
                     <div class="col-sm-10">
-                        <input ng-model="newPassword" type="text" class="form-control" id="password">
+                        <input ng-model="newUser.password" type="text" class="form-control" id="password">
                     </div>
                 </td>
-                <!--
                 <td>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="roles" placeholder="role1, role2">
+                        <input ng-model="newUser.firstName" type="text" class="form-control" id="firstName">
                     </div>
                 </td>
-                -->
                 <td>
-                    <button ng-hide="selectedUser" ng-click="addUser(newUsername, newPassword)">
+                    <div class="col-sm-10">
+                        <input ng-model="newUser.lastName" type="text" class="form-control" id="lastName">
+                    </div>
+                </td>
+                <td>
+                    <div class="col-sm-10">
+                        <input ng-model="newUser.roles" type="text" class="form-control" id="roles" placeholder="role1, role2">
+                    </div>
+                </td>
+                <td>
+                    <button ng-hide="selectedUser" ng-click="addUser(newUser)">
                         <scan class="glyphicon glyphicon-plus"></scan>
                     </button>
-                    <button ng-show="selectedUser" ng-click="updateUser(newUsername, newPassword, selectedUser)">
+                    <button ng-show="selectedUser" ng-click="updateUser(newUser, selectedUser._id)">
                         <scan class="glyphicon glyphicon-ok"></scan>
                     </button>
                 </td>
@@ -42,14 +52,16 @@
         </form>
         <tr ng-repeat="user in currentUsers">
             <td>{{user.username}}</td>
-            <td>{{user.password}}</td>
-            <!-- <td>{{user.roles}}</td> -->
+            <td>&nbsp;</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.roles}}</td>
             <td>
-                <button ng-click="deleteUser($index)">
+                <button ng-click="deleteUser(user)">
                     <scan class="glyphicon glyphicon-remove"></scan>
                 </button>
-                <button ng-click="selectUser($index)">
-                    <scan class="glyphicon glyphicon-pencil"></scan>
+                <button ng-click="selectUser(user)">
+                    <scan class="glyphicon glyphicon-cog"></scan>
                 </button>
             </td>
         </tr>

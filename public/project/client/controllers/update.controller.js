@@ -22,10 +22,32 @@
             $scope.error = null;
             $scope.message = null;
 
+            var updatedEmail;
+            if(user.email){
+                updatedEmail=user.email;
+            } else {
+                updatedEmail=$scope.currentUser.email;
+            }
+
+            var updatedUsername;
+            if(user.username){
+                updatedUsername=user.username;
+            } else {
+                updatedUsername=$scope.currentUser.username;
+            }
+
+            var updatedPassword;
+            if(user.password && (user.password==user.confirmPassword)){
+                updatedPassword=user.password;
+            } else {
+                updatedPassword=$scope.currentUser.password;
+                $scope.error = "Password not updated.";
+            }
+
             var updatedUser = {
-                email: user.email,
-                username: user.username,
-                password: user.password,
+                email: updatedEmail,
+                username: updatedUsername,
+                password: updatedPassword,
                 games: $scope.currentUser.games,
                 roles: $scope.currentUser.roles
             };

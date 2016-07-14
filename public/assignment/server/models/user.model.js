@@ -2,6 +2,7 @@
  * Created by spark on 5/27/2016.
  */
 var q = require('q');
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(db, mongoose) {
     var UserSchema = require("./user.schema.server")(mongoose);
@@ -21,6 +22,7 @@ module.exports = function(db, mongoose) {
 
     function createUser(newUser){
         var deferred = q.defer();
+        newUser.password = bcrypt.hashSync(newUser.password);
 
         User.create(newUser, function(err, doc){
             if(err){
@@ -63,6 +65,7 @@ module.exports = function(db, mongoose) {
 
     function updateUser(userId, user) {
         var deferred = q.defer();
+        user.password = bcrypt.hashSync(user.password);
 
         User.findByIdAndUpdate(userId,
             {username: user.username,

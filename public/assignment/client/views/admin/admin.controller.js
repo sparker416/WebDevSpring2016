@@ -34,64 +34,64 @@
         $scope.deleteUser = deleteUser;
         $scope.selectUser = selectUser;
 
-        function addUser(username, password)
+        function addUser(newUser)
         {
-            if (username == null || username == ""
-            || password == null || password == ""){
+            if (newUser.username == null || newUser.username == ""
+            || newUser.password == null || newUser.password == ""){
 
             } else {
-                var newUser = {
-                    username: username,
-                    password: password,
-                    firstName: "First Name",
-                    lastName: "Last Name",
+                var user = {
+                    username: newUser.username,
+                    password: newUser.password,
+                    firstName: newUser.firstName,
+                    lastName: newUser.lastName,
                     emails: [],
-                    phones: []
+                    phones: [],
+                    roles: newUser.roles
                 };
                 UserService
-                    .createUser(newUser)
+                    .createUser(user)
                     .then(function () {
                         $rootScope.$broadcast("updateCurrentUsers");
                     });
             }
         }
 
-        function updateUser(username, password, selectedUser)
+        function updateUser(user, id)
         {
             var updatedUser = {
-                username: username,
-                password: password,
-                firstName: selectedUser.firstName,
-                lastName: selectedUser.lastName,
-                emails: selectedUser.emails,
-                phones: selectedUser.phones
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                emails: user.emails,
+                phones: user.phones,
+                roles: user.roles
             };
 
             UserService
                 .updateUser(selectedUser._id, updatedUser)
                 .then(function(){
                     $scope.selectedUser = null;
-                    $scope.newUsername = null;
-                    $scope.newPassword = null;
+                    $scope.newUser = null;
                     $rootScope.$broadcast("updateCurrentUsers");
                 });
         }
 
-        function deleteUser($index)
+        function deleteUser(user)
         {
             UserService
-                .deleteUserById($scope.currentUsers[$index]._id)
+                .deleteUserById(user._id)
                 .then(function(response){
                     UserService.setCurrentUsers(response.data);
                     $rootScope.$broadcast("updateCurrentUsers");
                 });
         }
 
-        function selectUser($index)
+        function selectUser(user)
         {
-            $scope.selectedUser = $scope.currentUsers[$index];
-            $scope.newUsername = $scope.selectedUser.username;
-            $scope.newPassword = $scope.selectedUser.password;
+            $scope.selectedUser = user;
+            $scope.newUser = $scope.selectedUser;
         }
     }
 })();
