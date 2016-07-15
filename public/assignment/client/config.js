@@ -19,11 +19,18 @@
             .when("/profile", {
                 templateUrl: "client/views/users/profile.view.html",
                 controller: "ProfileController",
-                activeTab: "profile"
+                activeTab: "profile",
+                resolve: {
+                    loggedin : checkLoggedIn
+                }
             })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
-                activeTab: "admin"
+                controller: "AdminController",
+                activeTab: "admin",
+                resolve: {
+                    isAdmin : checkIsAdmin
+                }
             })
             .when("/home",{
                 templateUrl: "client/views/home/home.view.html",
@@ -48,3 +55,39 @@
             });
     }
 })();
+
+function checkLoggedIn($q, $http, $location, $rootScope)
+{
+    var deferred = $q.defer();
+
+    $http.get("/api/assignment/loggedin")
+        .success(function(user){
+            if(user != '0'){
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                $rootScope.currentUser = null;
+                deferred.reject();
+                $location.url("/login");
+            }
+        });
+    return deferred.promise;
+}
+
+function checkIsAdmin($q, $http, $location, $rootScope)
+{
+    var deferred = $q.defer();
+
+    $http.get("/api/assignment/isAdmin")
+        .success(function(user){
+            if(user != '0'){
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url("/home");
+            }
+        });
+    return deferred.promise;
+}
+

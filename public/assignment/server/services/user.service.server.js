@@ -14,6 +14,29 @@ module.exports = function(app, model) {
     app.get("/api/assignment/admin/user/:userId", auth, findById);
     app.put("/api/assignment/admin/user/:userId", auth, updateUser);
     app.delete("/api/assignment/admin/user/:userId", auth, deleteUser);
+    app.get("/api/assignment/isAdmin", function(req, res)
+    {
+        if(req.isAuthenticated())
+        {
+            var user = req.user;
+            var username = user.username;
+            model.findUserByUsername({username: username}, function(err, foundUser){
+                if(foundUser != null){
+                    var roles = foundUser.roles;
+                    var isAdmin = roles.indexOf("admin") > -1;
+                    if(isAdmin){
+                        res.json(foundUser);
+                    } else {
+                        res.send('0');
+                    }
+                } else {
+                    res.send('0');
+                }
+            })
+        } else {
+            res.send('0');
+        }
+    });
 
     passport.use(new LocalStrategy(localStrategy));
 
@@ -79,7 +102,9 @@ module.exports = function(app, model) {
     }
 
     function loggedin(req, res){
-        res.send(req.isAuthenticated() ? req.user : '0');
+        var answer = req.isAuthenticated() ? req.user : '0';
+        console.log("Loggedin:" + answer);
+        res.send(answer);
     }
 
     function register(req, res){
