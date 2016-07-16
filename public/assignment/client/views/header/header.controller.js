@@ -18,12 +18,14 @@
 
         vm.logout = logout;
 
-        function logout()
+        function logout(user)
         {
-            UserService.setCurrentUser(null);
-            $rootScope.$broadcast("updateCurrentUser");
-            $location.url("/home");
+            UserService.logout(user)
+                .then(function(response){
+                    UserService.setCurrentUser(null);
+                    $rootScope.$broadcast("updateCurrentUser");
+                    $location.url("/home");
+                });
         }
-
     }
 })();

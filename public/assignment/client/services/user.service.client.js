@@ -18,7 +18,8 @@
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            logout: logout
         };
         return model;
 
