@@ -6,17 +6,15 @@
         .module("FormBuilderApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController($scope, $location, UserService, $route, $rootScope) {
-        $scope.$location = $location;
-        $scope.$route  = $route;
-        $scope.currentUser = UserService.getCurrentUser();
-//        $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+    function SidebarController($location, UserService, $route, $rootScope) {
+        var vm = this;
 
+        vm.$location = $location;
+        vm.$route  = $route;
+        vm.currentUser = UserService.getCurrentUser();
 
         $rootScope.$on("updateCurrentUser", function(){
-            $scope.currentUser = UserService.getCurrentUser();
-//            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
-
+            vm.currentUser = UserService.getCurrentUser();
         });
     }
 })();

@@ -24,7 +24,7 @@ module.exports = function(app, model) {
             model.findUserByUsername({username: username}, function(err, foundUser){
                 if(foundUser != null){
                     var roles = foundUser.roles;
-                    var isAdmin = roles.indexOf("admin") > -1;
+                    var isAdmin = (roles.indexOf("admin") > -1);
                     if(isAdmin){
                         res.json(foundUser);
                     } else {
@@ -266,6 +266,10 @@ module.exports = function(app, model) {
 
 
     function isAdmin(user) {
-       return (user.roles.indexOf("admin") > 0);
+       if(user.roles.indexOf("admin") > -1){
+           return true;
+       } else {
+           return false;
+       }
     }
 };

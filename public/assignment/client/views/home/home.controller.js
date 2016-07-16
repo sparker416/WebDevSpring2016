@@ -6,9 +6,11 @@
         .module("FormBuilderApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope, $location, $route, UserService) {
-        $scope.$location = $location;
-        $scope.$route  = $route;
-        $scope.currentUser = UserService.getCurrentUser();
+    function HomeController($location, $route, UserService) {
+        var vm = this;
+
+        vm.$location = $location;
+        vm.$route  = $route;
+        vm.currentUser = UserService.getCurrentUser();
     }
 })();

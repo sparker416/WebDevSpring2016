@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminController">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"">
     <h1>Admin</h1>
     <h2 class="">Users</h2>
     <table class="table table-striped table-bordered table-responsive table-condensed">
@@ -16,51 +16,51 @@
             <tr>
                 <td>
                     <div class="form-group col-sm-10">
-                        <input ng-model="newUser.username" type="text" class="form-control" id="username">
+                        <input ng-model="controller.newUser.username" type="text" class="form-control" id="username">
                     </div>
                 </td>
                 <td>
                     <div class="col-sm-10">
-                        <input ng-model="newUser.password" type="text" class="form-control" id="password">
+                        <input ng-model="controller.newUser.password" type="text" class="form-control" id="password">
                     </div>
                 </td>
                 <td>
                     <div class="col-sm-10">
-                        <input ng-model="newUser.firstName" type="text" class="form-control" id="firstName">
+                        <input ng-model="controller.newUser.firstName" type="text" class="form-control" id="firstName">
                     </div>
                 </td>
                 <td>
                     <div class="col-sm-10">
-                        <input ng-model="newUser.lastName" type="text" class="form-control" id="lastName">
+                        <input ng-model="controller.newUser.lastName" type="text" class="form-control" id="lastName">
                     </div>
                 </td>
                 <td>
                     <div class="col-sm-10">
-                        <input ng-model="newUser.roles" type="text" class="form-control" id="roles" placeholder="role1, role2">
+                        <input ng-model="controller.newUser.roles" type="text" class="form-control" id="roles" placeholder="role1, role2">
                     </div>
                 </td>
                 <td>
-                    <button ng-hide="selectedUser" ng-click="addUser(newUser)">
+                    <button ng-hide="controller.selectedUser" ng-click="controller.addUser(controller.newUser)">
                         <scan class="glyphicon glyphicon-plus"></scan>
                     </button>
-                    <button ng-show="selectedUser" ng-click="updateUser(newUser, selectedUser._id)">
+                    <button ng-show="controller.selectedUser" ng-click="controller.updateUser(controller.newUser, controller.selectedUser._id)">
                         <scan class="glyphicon glyphicon-ok"></scan>
                     </button>
                 </td>
             </tr>
 
         </form>
-        <tr ng-repeat="user in currentUsers">
+        <tr ng-repeat="user in controller.currentUsers">
             <td>{{user.username}}</td>
             <td>&nbsp;</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td>{{user.roles}}</td>
             <td>
-                <button ng-click="deleteUser(user)">
+                <button ng-click="controller.deleteUser(user)">
                     <scan class="glyphicon glyphicon-remove"></scan>
                 </button>
-                <button ng-click="selectUser(user)">
+                <button ng-click="controller.selectUser(user)">
                     <scan class="glyphicon glyphicon-cog"></scan>
                 </button>
             </td>

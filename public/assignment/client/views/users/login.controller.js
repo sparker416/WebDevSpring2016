@@ -6,16 +6,18 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController ($scope, UserService, $location, $rootScope) {
-        $scope.$location = $location;
+    function LoginController (UserService, $location, $rootScope) {
+        var vm = this;
 
-        $scope.error = null;
-        $scope.currentUser = UserService.getCurrentUser();
+        vm.$location = $location;
 
-        $scope.login = login;
+        vm.error = null;
+        vm.currentUser = UserService.getCurrentUser();
+
+        vm.login = login;
 
         function login (user) {
-            $scope.error = null;
+            vm.error = null;
 
             UserService
                 .findUserByCredentials(user)
@@ -25,7 +27,7 @@
                         $location.url("/profile");
                         $rootScope.$broadcast("updateCurrentUser");
                     } else {
-                        $scope.error = "Could not log you in";
+                        vm.error = "Could not log you in";
                     }
                 });
         }

@@ -1,10 +1,10 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FormController">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1>Forms</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#/forms">Forms</a></li>
-                <li role="presentation" ng-show="currentForm"><a href="#/fields">Fields</a></li>
+                <li role="presentation" ng-show="controller.currentForm"><a href="#/fields">Fields</a></li>
             </ul>
         </div>
         <div class="panel-body">
@@ -19,25 +19,25 @@
                     <tr>
                         <td>
                             <div class="form-group col-sm-10">
-                                <input ng-model="formTitle" type="text" class="form-control" id="title" placeholder="Form Title">
+                                <input ng-model="controller.formTitle" type="text" class="form-control" id="title" placeholder="Form Title">
                             </div>
                         </td>
                         <td>
-                            <button ng-hide="currentForm" ng-click="addForm(formTitle)">
+                            <button ng-hide="controller.currentForm" ng-click="controller.addForm(controller.formTitle)">
                                 <scan class="glyphicon glyphicon-plus"> Add</scan>
                             </button>
-                            <button ng-show="currentForm" ng-click="updateForm(formTitle, currentForm)" href="#">
+                            <button ng-show="controller.currentForm" ng-click="controller.updateForm(controller.formTitle, controller.currentForm)" href="#">
                                 <scan class="glyphicon glyphicon-ok"> Update</scan>
                             </button>
                         </td>
                     </tr>
 
                 </form>
-                <tr ng-repeat="form in currentForms">
+                <tr ng-repeat="form in controller.currentForms">
                     <td><a href="#/form/{{form._id}}/fields">{{form.title}}</a></td>
                     <td>
-                        <button ng-click="deleteForm($index)"><scan class="glyphicon glyphicon-remove"> Remove</scan></button>
-                        <button ng-click="selectForm($index)"><scan class="glyphicon glyphicon-pencil"> Edit</scan></button>
+                        <button ng-click="controller.deleteForm(form)"><scan class="glyphicon glyphicon-remove"> Remove</scan></button>
+                        <button ng-click="controller.selectForm(form)"><scan class="glyphicon glyphicon-pencil"> Edit</scan></button>
                     </td>
                 </tr>
             </table>

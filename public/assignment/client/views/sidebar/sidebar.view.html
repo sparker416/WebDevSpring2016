@@ -1,17 +1,17 @@
-<div class="container-fluid" ng-controller="SidebarController">
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li ng-class="{active: $route.current.activetab == 'home'}">
+                <li ng-class="{active: controller.$route.current.activetab == 'home'}">
                     <a href="#/home">Home</a>
                 </li>
-                <li ng-show="currentUser" ng-class="{active: $route.current.activetab == 'profile'}">
+                <li ng-show="currentUser" ng-class="{active: controller.$route.current.activetab == 'profile'}">
                     <a href="#/profile">Profile</a>
                 </li>
-                <li ng-show="currentUser" ng-class="{active: $route.current.activetab == 'forms'}">
+                <li ng-show="currentUser" ng-class="{active: controller.$route.current.activetab == 'forms'}">
                     <a href="#/forms">Forms</a>
                 </li>
-                <li ng-show="currentUser" ng-class="{active: $route.current.activetab == 'admin'}">
+                <li ng-show="currentUser.roles.indexOf('admin')>-1" ng-class="{active: controller.$route.current.activetab == 'admin'}">
                     <a href="#/admin">Admin</a>
                 </li>
             </ul>

@@ -6,34 +6,36 @@
         .module("FormBuilderApp")
         .controller("FieldController", FieldController);
 
-    function FieldController($scope, ngDialog, $location, FormService, UserService, $rootScope, FieldService, $routeParams) {
-        $scope.$location = $location;
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.selectedForm = FormService.getCurrentForm();
-        $scope.sortableArray = FieldService.getCurrentFields();
-        $scope.userId = $routeParams.userId;
-        $scope.formId = $routeParams.formId;
+    function FieldController(ngDialog, $location, FormService, UserService, $rootScope, FieldService, $routeParams) {
+        var vm = this;
 
-        FieldService.getFieldsForForm($scope.formId)
+        vm.$location = $location;
+        vm.currentUser = UserService.getCurrentUser();
+        vm.selectedForm = FormService.getCurrentForm();
+        vm.sortableArray = FieldService.getCurrentFields();
+        vm.userId = $routeParams.userId;
+        vm.formId = $routeParams.formId;
+
+        FieldService.getFieldsForForm(vm.formId)
             .then(function(response){
                 FieldService.setCurrentFields(response.data);
-                $scope.sortableArray = FieldService.getCurrentFields();
+                vm.sortableArray = FieldService.getCurrentFields();
             });
 
         $rootScope.$on("updateCurrentFields", function(){
             FieldService
-                .getFieldsForForm($scope.formId)
+                .getFieldsForForm(vm.formId)
                 .then(function(response){
                     FieldService.setCurrentFields(response.data);
-                    $scope.sortableArray = FieldService.getCurrentFields();
+                    vm.sortableArray = FieldService.getCurrentFields();
                 });
         });
 
-        $scope.addField = addField;
-        $scope.editField = editField;
-        $scope.removeField = removeField;
-        $scope.selectField = selectField;
-        $scope.openDialog = openDialog;
+        vm.addField = addField;
+        vm.editField = editField;
+        vm.removeField = removeField;
+        vm.selectField = selectField;
+        vm.openDialog = openDialog;
 
         function addField(type)
         {
@@ -94,7 +96,7 @@
                 };
             }
             FieldService
-                .createFieldForForm($scope.formId, newField)
+                .createFieldForForm(vm.formId, newField)
                 .then(function(response){
                     FieldService.setCurrentFields(response.data);
                     $rootScope.$broadcast("updateCurrentFields");
@@ -106,50 +108,44 @@
             if (type == "TEXT"){
                 dialog = ngDialog.open({
                     template: 'TEXTDialogBox',
-                    scope: $scope
                 });
                 dialog.closePromise.then(function(data){
-                    $scope.editField(field, data.value.label, data.value.placeholder, null);
+                    vm.editField(field, data.value.label, data.value.placeholder, null);
                 });
             } else if (type === "TEXTAREA"){
                 dialog = ngDialog.open({
                     template: 'TEXTAREADialogBox',
-                    scope: $scope
                 });
                 dialog.closePromise.then(function(data){
-                    $scope.editField(field, data.value.label, data.value.placeholder, null);
+                    vm.editField(field, data.value.label, data.value.placeholder, null);
                 });
             } else if (type === "DATE") {
                 dialog = ngDialog.open({
                     template: 'DATEDialogBox',
-                    scope: $scope
                 });
                 dialog.closePromise.then(function(data){
-                    $scope.editField(field, data.value, null, null);
+                    vm.editField(field, data.value, null, null);
                 });
             } else if (type === "OPTIONS"){
                 dialog = ngDialog.open({
                     template: 'OPTIONSDialogBox',
-                    scope: $scope
                 });
                 dialog.closePromise.then(function(data){
-                    $scope.editField(field, data.value.label, null, data.value.options);
+                    vm.editField(field, data.value.label, null, data.value.options);
                 });
             } else if (type === "CHECKBOXES"){
                 dialog = ngDialog.open({
                     template: 'CHECKBOXESDialogBox',
-                    scope: $scope
                 });
                 dialog.closePromise.then(function(data){
-                    $scope.editField(field, data.value.label, null, data.value.options);
+                    vm.editField(field, data.value.label, null, data.value.options);
                 });
             } else if (type === "RADIOS") {
                 dialog = ngDialog.open({
                     template: 'RADIOSDialogBox',
-                    scope: $scope
                 });
                 dialog.closePromise.then(function(data){
-                    $scope.editField(field, data.value.label, null, data.value.options);
+                    vm.editField(field, data.value.label, null, data.value.options);
                 });
             }
         }
@@ -167,7 +163,7 @@
                     options: options
                 };
                 FieldService
-                    .updateField($scope.formId, updatedField._id, updatedField)
+                    .updateField(vm.formId, updatedField._id, updatedField)
                     .then(function(response){
                         console.log(response)
                         FieldService.setCurrentFields(response.data);
@@ -182,7 +178,7 @@
                     options: options
                 };
                 FieldService
-                    .updateField($scope.formId, updatedField._id, updatedField)
+                    .updateField(vm.formId, updatedField._id, updatedField)
                     .then(function(response){
                         FieldService.setCurrentFields(response.data);
                         $rootScope.$broadcast("updateCurrentFields");
@@ -196,7 +192,7 @@
                     options: options
                 };
                 FieldService
-                    .updateField($scope.formId, updatedField._id, updatedField)
+                    .updateField(vm.formId, updatedField._id, updatedField)
                     .then(function(response){
                         FieldService.setCurrentFields(response.data);
                         $rootScope.$broadcast("updateCurrentFields");
@@ -217,7 +213,7 @@
                     "options": updatedOptions
                 };
                 FieldService
-                    .updateField($scope.formId, updatedField._id, updatedField)
+                    .updateField(vm.formId, updatedField._id, updatedField)
                     .then(function(response){
                         FieldService.setCurrentFields(response.data);
                         $rootScope.$broadcast("updateCurrentFields");
@@ -239,7 +235,7 @@
                 };
 
                 FieldService
-                    .updateField($scope.formId, updatedField._id, updatedField)
+                    .updateField(vm.formId, updatedField._id, updatedField)
                     .then(function(response){
                         FieldService.setCurrentFields(response.data);
                         $rootScope.$broadcast("updateCurrentFields");
@@ -261,7 +257,7 @@
                 };
 
                 FieldService
-                    .updateField($scope.formId, updatedField._id, updatedField)
+                    .updateField(vm.formId, updatedField._id, updatedField)
                     .then(function(response){
                         FieldService.setCurrentFields(response.data);
                         $rootScope.$broadcast("updateCurrentFields");
@@ -270,23 +266,23 @@
         }
 
 
-        function removeField($index)
+        function removeField(field)
         {
-            var fieldId = $scope.sortableArray[$index]._id;
+            var fieldId = field._id;
             FieldService
-                .deleteFieldFromForm($scope.formId, fieldId)
+                .deleteFieldFromForm(vm.formId, fieldId)
                 .then(function(response){
                     FieldService.setCurrentFields(response.data);
                     $rootScope.$broadcast("updateCurrentFields");
                 });
         }
 
-        function selectField($index)
+        function selectField(field)
         {
             FieldService
-                .getFieldForForm($scope.formId, $scope.sortableArray[$index]._id)
+                .getFieldForForm(vm.formId, field._id)
                 .then(function(response){
-                    $scope.currentField = response.data;
+                    vm.currentField = response.data;
                 });
         }
     }

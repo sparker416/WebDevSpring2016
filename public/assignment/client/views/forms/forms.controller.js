@@ -6,48 +6,49 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, FormService, $location, UserService, $rootScope, FieldService) {
-        $scope.$location = $location;
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.currentForm = null;
+    function FormController(FormService, $location, UserService, $rootScope, FieldService) {
+        var vm = this;
+
+        vm.$location = $location;
+        vm.currentUser = UserService.getCurrentUser();
+        vm.currentForm = null;
         FormService
-            .findAllFormsForUser($scope.currentUser._id)
+            .findAllFormsForUser(vm.currentUser._id)
             .then(function(response){
                 FormService.setCurrentForms(response.data);
-                $scope.currentForms = FormService.getCurrentForms();
+                vm.currentForms = FormService.getCurrentForms();
             });
 
         $rootScope.$on("updateCurrentForms", function(){
             FormService
-                .findAllFormsForUser($scope.currentUser._id)
+                .findAllFormsForUser(vm.currentUser._id)
                 .then(function(response){
                     FormService.setCurrentForms(response.data);
-                    $scope.currentForms = FormService.getCurrentForms();
+                    vm.currentForms = FormService.getCurrentForms();
                 });
         });
 
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
+        vm.addForm = addForm;
+        vm.updateForm = updateForm;
+        vm.deleteForm = deleteForm;
+        vm.selectForm = selectForm;
 
         function addForm(formTitle){
             if (formTitle == null || formTitle == ""){
                 
             } else {
                 var newForm = {
-                    userId: $scope.currentUser._id,
+                    userId: vm.currentUser._id,
                     title: formTitle,
                     fields: [],
                     created: new Date(),
                     updated: new Date()
                 };
-                console.log(newForm);
                 FormService
-                    .createFormForUser($scope.currentUser._id, newForm)
+                    .createFormForUser(vm.currentUser._id, newForm)
                     .then(function (response) {
-                        console.log(response);
                         FormService.setCurrentForms(response.data);
+                        FormServcie.setCurrentForm(null);
                         $rootScope.$broadcast("updateCurrentForms");
                     });
             }
@@ -66,28 +67,28 @@
                 .updateFormById(form._id, updatedForm)
                 .then(function(response){
                     FormService.setCurrentForms(response.data);
-                    $scope.formTitle = null;
-                    $scope.currentForm = null;
+                    vm.formTitle = null;
+                    vm.currentForm = null;
                     FormService.setCurrentForm(null);
                     $rootScope.$broadcast("updateCurrentForms");
                 });
         }
 
-        function deleteForm($index){
+        function deleteForm(form){
             FormService
-                .deleteFormById($scope.currentForms[$index]._id)
+                .deleteFormById(form._id)
                 .then(function(response){
                     FormService.setCurrentForms(response.data);
                     $rootScope.$broadcast("updateCurrentForms");
                 });
         }
 
-        function selectForm($index){
-            $scope.currentForm = $scope.currentForms[$index];
-            $scope.formTitle = $scope.currentForm.title;
+        function selectForm(form){
+            vm.currentForm = form;
+            vm.formTitle = vm.currentForm.title;
 
-            FormService.setCurrentForm($scope.currentForm);
-            FieldService.setCurrentFields($scope.currentForm.fields);
+            FormService.setCurrentForm(vm.currentForm);
+            FieldService.setCurrentFields(vm.currentForm.fields);
         }
     }
 })();

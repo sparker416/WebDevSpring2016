@@ -90,14 +90,13 @@ module.exports = function(db, mongoose, FieldSchema) {
     function deleteForm(formId) {
         var deferred = q.defer();
 
-        FormModel.findByIdAndRemove(formId,
-            User.find({}, function(err, data){
-                if(err){
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(data);
-                }
-            }));
+        FormModel.findByIdAndRemove(formId, function(err, data) {
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(findAllFormsForUser(data.userId));
+            }
+        });
         return deferred.promise;
     }
 

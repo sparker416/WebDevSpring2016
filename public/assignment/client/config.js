@@ -10,15 +10,15 @@
         $routeProvider
             .when("/register", {
                 templateUrl: "client/views/users/register.view.html",
-                controller: "RegisterController"
+                controller: "RegisterController as controller"
             })
             .when("/login", {
                 templateUrl: "client/views/users/login.view.html",
-                controller: "LoginController"
+                controller: "LoginController as controller"
             })
             .when("/profile", {
                 templateUrl: "client/views/users/profile.view.html",
-                controller: "ProfileController",
+                controller: "ProfileController as controller",
                 activeTab: "profile",
                 resolve: {
                     loggedin : checkLoggedIn
@@ -26,7 +26,7 @@
             })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
-                controller: "AdminController",
+                controller: "AdminController as controller",
                 activeTab: "admin",
                 resolve: {
                     isAdmin : checkIsAdmin
@@ -34,21 +34,21 @@
             })
             .when("/home",{
                 templateUrl: "client/views/home/home.view.html",
-                controller: "HomeController",
+                controller: "HomeController as controller",
                 activeTab: "home"
             })
             .when("/forms", {
                 templateUrl: "client/views/forms/forms.view.html",
-                controller: "FormController",
+                controller: "FormController as controller",
                 activeTab: "forms"
             })
             .when("/form/:formId/fields", {
                 templateUrl: "client/views/forms/fields.view.html",
-                controller: "FieldController"
+                controller: "FieldController as controller"
             })
             .when("/fields", {
                 templateUrl: "client/views/forms/fields.view.html",
-                controller: "FieldController"
+                controller: "FieldController as controller"
             })
             .otherwise({
                 redirectTo: "/home"

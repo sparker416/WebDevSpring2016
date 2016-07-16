@@ -6,40 +6,41 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, UserService, $location, $route, $rootScope) {
-        $scope.$location = $location;
-        $scope.$route  = $route;
+    function ProfileController(UserService, $location, $route, $rootScope) {
+        var vm = this;
 
-        $scope.error = null;
-        $scope.message = null;
+        vm.$location = $location;
+        vm.$route  = $route;
 
-        $scope.currentUser = UserService.getCurrentUser();
+        vm.error = null;
+        vm.message = null;
 
-        $scope.usernamePlaceholder = $scope.currentUser.username;
-        $scope.firstNamePlaceholder = $scope.currentUser.firstName;
-        $scope.lastNamePlaceholder = $scope.currentUser.lastName;
+        vm.currentUser = UserService.getCurrentUser();
+
+        vm.usernamePlaceholder = vm.currentUser.username;
+        vm.firstNamePlaceholder = vm.currentUser.firstName;
+        vm.lastNamePlaceholder = vm.currentUser.lastName;
         
         $rootScope.$on("updateCurrentUser", function(){
-            $scope.currentUser = UserService.getCurrentUser();
-//            $scope.currentUserIsAdmin = UserService.userIsAdmin($scope.currentUser);
+            vm.currentUser = UserService.getCurrentUser();
         });
 
-        $scope.updateUser = updateUser;
+        vm.updateUser = updateUser;
 
         function updateUser (user) {
-            $scope.error = null;
-            $scope.message = null;
+            vm.error = null;
+            vm.message = null;
 
-            var userId = $scope.currentUser._id;
+            var userId = vm.currentUser._id;
 
             var updatedUser = {
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                emails: $scope.currentUser.emails,
-                phones:$scope.currentUser.phones,
-                roles: $scope.currentUser.roles
+                emails: vm.currentUser.emails,
+                phones:vm.currentUser.phones,
+                roles: vm.currentUser.roles
             };
 
             UserService
@@ -48,10 +49,10 @@
                     console.log(response);
                     if(response.data){
                         UserService.setCurrentUser(response.data);
-                        $scope.message = "User updated successfully";
+                        vm.message = "User updated successfully";
                         $rootScope.$broadcast("updateCurrentUser");
                     } else {
-                        $scope.error = "Unable to update the user";
+                        vm.error = "Unable to update the user";
                     }
                 });
         }

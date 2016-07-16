@@ -6,17 +6,19 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, UserService, $location, $rootScope) {
-        $scope.$location = $location;
-        $scope.currentUser = UserService.getCurrentUser();
+    function RegisterController(UserService, $location, $rootScope) {
+        var vm = this;
 
-        $scope.error = null;
+        vm.$location = $location;
+        vm.currentUser = UserService.getCurrentUser();
 
-        $scope.register = register;
+        vm.error = null;
+
+        vm.register = register;
 
         function register(username, password, verifyPassword) {
 
-            $scope.error=null;
+            vm.error=null;
             
             if (password === verifyPassword){
                 var newUser = {
@@ -37,7 +39,7 @@
                         }
                     });
             } else{
-                $scope.error="Passwords do not match."
+                vm.error="Passwords do not match."
             }
         }
     }

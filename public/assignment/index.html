@@ -46,8 +46,8 @@
     <script src="client/services/field.service.client.js"></script>
 </head>
 
-<body ng-controller="MainController">
-<div ng-if="!($location.path() == '/register')">
+<body ng-controller="MainController as controller">
+<div ng-if="!(controller.$location.path() == '/register')">
     <div ng-include="'client/views/header/header.view.html'"></div>
     <div ng-include="'client/views/sidebar/sidebar.view.html'"></div>
 </div>

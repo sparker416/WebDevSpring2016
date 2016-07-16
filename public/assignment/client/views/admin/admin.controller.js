@@ -6,18 +6,21 @@
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $location, $route, UserService, $rootScope) {
-        $scope.$location = $location;
-        $scope.$route = $route;
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.selectedUser = null;
-        $scope.currentUsers = UserService.getCurrentUsers();
+    function AdminController($location, $route, UserService, $rootScope) {
+        var vm = this;
+
+        vm.$location = $location;
+        $rootScope.$location = $location;
+ //       $scope.$route = $route;
+        vm.currentUser = UserService.getCurrentUser();
+        vm.selectedUser = null;
+        vm.currentUsers = UserService.getCurrentUsers();
 
         UserService
             .findAllUsers()
             .then(function (response) {
                 UserService.setCurrentUsers(response.data);
-                $scope.currentUsers = UserService.getCurrentUsers();
+                vm.currentUsers = UserService.getCurrentUsers();
             });
         
         $rootScope.$on("updateCurrentUsers", function(){
@@ -25,14 +28,14 @@
                 .findAllUsers()
                 .then(function (response) {
                     UserService.setCurrentUsers(response.data);
-                    $scope.currentUsers = UserService.getCurrentUsers();
+                    vm.currentUsers = UserService.getCurrentUsers();
                 });
         });
 
-        $scope.addUser = addUser;
-        $scope.updateUser = updateUser;
-        $scope.deleteUser = deleteUser;
-        $scope.selectUser = selectUser;
+        vm.addUser = addUser;
+        vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
+        vm.selectUser = selectUser;
 
         function addUser(newUser)
         {
@@ -72,8 +75,8 @@
             UserService
                 .updateUser(selectedUser._id, updatedUser)
                 .then(function(){
-                    $scope.selectedUser = null;
-                    $scope.newUser = null;
+                    vm.selectedUser = null;
+                    vm.newUser = null;
                     $rootScope.$broadcast("updateCurrentUsers");
                 });
         }
@@ -90,8 +93,8 @@
 
         function selectUser(user)
         {
-            $scope.selectedUser = user;
-            $scope.newUser = $scope.selectedUser;
+            vm.selectedUser = user;
+            vm.newUser = vm.selectedUser;
         }
     }
 })();
