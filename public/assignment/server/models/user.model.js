@@ -95,11 +95,11 @@ module.exports = function(db, mongoose) {
     function findUserByUsername(usrnm) {
         var deferred = q.defer();
 
-        User.findOne({username: usrnm}, function(err, data){
+        User.findOne({username: usrnm}, function(err, foundUser){
             if(err){
                 deferred.reject(err);
             } else {
-                deferred.resolve(data);
+                deferred.resolve(foundUser);
             }
         });
 

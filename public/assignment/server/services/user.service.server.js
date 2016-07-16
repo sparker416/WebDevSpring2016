@@ -14,26 +14,28 @@ module.exports = function(app, model) {
     app.get("/api/assignment/admin/user/:userId", auth, findById);
     app.put("/api/assignment/admin/user/:userId", auth, updateUser);
     app.delete("/api/assignment/admin/user/:userId", auth, deleteUser);
-    
+
     app.get("/api/assignment/isAdmin", function(req, res)
     {
         if(req.isAuthenticated())
         {
             var user = req.user;
             var username = user.username;
-            model.findUserByUsername({username: username}, function(err, foundUser){
-                if(foundUser != null){
-                    var roles = foundUser.roles;
-                    var isAdmin = (roles.indexOf("admin") > -1);
-                    if(isAdmin){
-                        res.json(foundUser);
-                    } else {
+            model.findUserByUsername(username)
+                .then(
+                    function(foundUser) {
+                        if (foundUser) {
+                            var roles = foundUser.roles;
+                            var isAdmin = (roles.indexOf("admin") > -1);
+                            if (isAdmin) {
+                                res.json(foundUser);
+                            } else {
+                                res.send('0');
+                            }
+                        }
+                    }, function(err){
                         res.send('0');
-                    }
-                } else {
-                    res.send('0');
-                }
-            })
+                    })
         } else {
             res.send('0');
         }
@@ -266,10 +268,10 @@ module.exports = function(app, model) {
 
 
     function isAdmin(user) {
-       if(user.roles.indexOf("admin") > -1){
-           return true;
-       } else {
-           return false;
-       }
+        if(user.roles.indexOf("admin") > -1){
+            return true;
+        } else {
+            return false;
+        }
     }
 };
