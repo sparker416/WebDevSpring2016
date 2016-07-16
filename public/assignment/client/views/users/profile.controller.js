@@ -26,25 +26,26 @@
 
         $scope.updateUser = updateUser;
 
-        function updateUser (username, password, firstName, lastName) {
+        function updateUser (user) {
             $scope.error = null;
             $scope.message = null;
 
             var userId = $scope.currentUser._id;
 
             var updatedUser = {
-                _id: userId,
-                username: username,
-                password: password,
-                firstName: firstName,
-                lastName: lastName,
-                emails: [],
-                phones:[]
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                emails: $scope.currentUser.emails,
+                phones:$scope.currentUser.phones,
+                roles: $scope.currentUser.roles
             };
 
             UserService
                 .updateUser(userId, updatedUser)
                 .then(function(response){
+                    console.log(response);
                     if(response.data){
                         UserService.setCurrentUser(response.data);
                         $scope.message = "User updated successfully";

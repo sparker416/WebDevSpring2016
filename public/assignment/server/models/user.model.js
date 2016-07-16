@@ -22,7 +22,6 @@ module.exports = function(db, mongoose) {
 
     function createUser(newUser){
         var deferred = q.defer();
-        newUser.password = bcrypt.hashSync(newUser.password);
 
         User.create(newUser, function(err, doc){
             if(err){
@@ -65,15 +64,9 @@ module.exports = function(db, mongoose) {
 
     function updateUser(userId, user) {
         var deferred = q.defer();
-        user.password = bcrypt.hashSync(user.password);
 
         User.findByIdAndUpdate(userId,
-            {username: user.username,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                emails: user.emails,
-                phones: user.phones},
+            user,
             function(err, data){
                 if(err){
                     deferred.reject(err);

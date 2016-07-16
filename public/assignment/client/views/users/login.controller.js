@@ -14,11 +14,11 @@
 
         $scope.login = login;
 
-        function login (usrnm, psswrd) {
+        function login (user) {
             $scope.error = null;
 
             UserService
-                .findUserByCredentials(usrnm, psswrd)
+                .findUserByCredentials(user)
                 .then(function(response){
                     if(response.data){
                         UserService.setCurrentUser(response.data);

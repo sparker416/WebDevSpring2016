@@ -6,38 +6,30 @@
         <div class="form-group">
             <label for="username3" class="col-sm-2">Username:</label>
             <div class="col-sm-10">
-                <input ng-model="updateUsername" type="text" class="form-control" id="username3" placeholder="{{usernamePlaceholder}}">
+                <input ng-model="user.username" type="text" class="form-control" id="username3" placeholder="{{usernamePlaceholder}}">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPassword3" class="col-sm-2">Password:</label>
             <div class="col-sm-10">
-                <input ng-model="updatePassword" type="password" class="form-control" id="inputPassword3" placeholder="Change Password">
+                <input ng-model="user.password" type="password" class="form-control" id="inputPassword3" placeholder="Change Password">
             </div>
         </div>
         <div class="form-group">
             <label for="firstName" class="col-sm-2">First Name:</label>
             <div class="col-sm-10">
-                <input ng-model="updateFirstName" type="text" class="form-control" id="firstName" placeholder="{{firstNamePlaceholder}}">
+                <input ng-model="user.firstName" type="text" class="form-control" id="firstName" placeholder="{{firstNamePlaceholder}}">
             </div>
         </div>
         <div class="form-group">
             <label for="lastName" class="col-sm-2">Last Name:</label>
             <div class="col-sm-10">
-                <input ng-model="updateLastName" type="text" class="form-control" id="lastName" placeholder="{{lastNamePlaceholder}}">
+                <input ng-model="user.lastName" type="text" class="form-control" id="lastName" placeholder="{{lastNamePlaceholder}}">
             </div>
         </div>
-        <!--
-        <div class="form-group">
-            <label for="email" class="col-sm-2">Email:</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" placeholder="Change Email Address">
-            </div>
-        </div>
-        -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button ng-click="updateUser(updateUsername, updatePassword, updateFirstName, updateLastName)" class="btn btn-default btn-lg btn-block active">Update</button>
+                <button ng-click="updateUser(user)" class="btn btn-default btn-lg btn-block active">Update</button>
             </div>
         </div>
     </form>

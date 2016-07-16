@@ -14,6 +14,7 @@ module.exports = function(app, model) {
     app.get("/api/assignment/admin/user/:userId", auth, findById);
     app.put("/api/assignment/admin/user/:userId", auth, updateUser);
     app.delete("/api/assignment/admin/user/:userId", auth, deleteUser);
+    
     app.get("/api/assignment/isAdmin", function(req, res)
     {
         if(req.isAuthenticated())
@@ -42,7 +43,7 @@ module.exports = function(app, model) {
 
     function localStrategy(username, password, done){
         model
-            .findUserByCredentials({username: username, password: password})
+            .findUserByUsername(username)
             .then(
                 function(user){
                     if (!user){
@@ -103,7 +104,6 @@ module.exports = function(app, model) {
 
     function loggedin(req, res){
         var answer = req.isAuthenticated() ? req.user : '0';
-        console.log("Loggedin:" + answer);
         res.send(answer);
     }
 
@@ -152,7 +152,7 @@ module.exports = function(app, model) {
                     function(users){
                         res.json(users);
                     },
-                    function(){
+                    function(err){
                         res.status(400).send(err);
                     }
                 );
@@ -165,7 +165,7 @@ module.exports = function(app, model) {
         if(isAdmin(req.user)){
 
             model
-                .findUserById(req.params.id)
+                .findUserById(req.params.userId)
                 .then(
                     function(user){
                         res.json(user);
@@ -183,7 +183,7 @@ module.exports = function(app, model) {
         if(isAdmin(req.user)) {
 
             model
-                .deleteUser(req.params.id)
+                .deleteUser(req.params.userId)
                 .then(
                     function(users){
                         res.json(users);
@@ -208,7 +208,7 @@ module.exports = function(app, model) {
         newUser.password = bcrypt.hashSync(req.body.password);
 
         model
-            .updateUser(req.params.id, newUser)
+            .updateUser(req.params.userId, newUser)
             .then(
                 function(user){
                     res.json(user);
@@ -258,7 +258,7 @@ module.exports = function(app, model) {
                 function(users){
                     res.json(users);
                 },
-                function(){
+                function(err){
                     res.status(400).send(err);
                 }
             )
@@ -266,11 +266,6 @@ module.exports = function(app, model) {
 
 
     function isAdmin(user) {
-        if(loggedin(user) && user.roles.indexOf("admin") > 0){
-            next();
-        } else {
-            res.send(403);
-        }
- //       return (user.roles.indexOf("admin") > 0);
+       return (user.roles.indexOf("admin") > 0);
     }
 };
