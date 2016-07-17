@@ -183,7 +183,6 @@ module.exports = function(app, model) {
 
     function deleteUser(req, res) {
         if(isAdmin(req.user)) {
-
             model
                 .deleteUser(req.params.userId)
                 .then(
@@ -237,6 +236,7 @@ module.exports = function(app, model) {
                     // if the user does not already exist
                     if(user == null) {
                         // create a new user
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return model.createUser(newUser)
                             .then(
                                 // fetch all the users

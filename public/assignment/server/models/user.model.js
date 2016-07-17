@@ -81,14 +81,14 @@ module.exports = function(db, mongoose) {
     function deleteUser(userId) {
         var deferred = q.defer();
 
-        User.findByIdAndRemove(userId,
-                User.find({}, function(err, data){
-                    if(err){
-                        deferred.reject(err);
-                    } else {
-                        deferred.resolve(data);
-                    }
-            }));
+        User.findByIdAndRemove(userId, function(err, user){
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(findAllUsers());
+            }
+        });
+
         return deferred.promise;
     }
 

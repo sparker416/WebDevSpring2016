@@ -10,8 +10,7 @@
         var vm = this;
 
         vm.$location = $location;
-        $rootScope.$location = $location;
- //       $scope.$route = $route;
+        vm.$route = $route;
         vm.currentUser = UserService.getCurrentUser();
         vm.selectedUser = null;
         vm.currentUsers = UserService.getCurrentUsers();
@@ -37,15 +36,15 @@
         vm.deleteUser = deleteUser;
         vm.selectUser = selectUser;
 
-        function addUser(newUser)
+        function addUser(newUser, newPassword)
         {
             if (newUser.username == null || newUser.username == ""
-            || newUser.password == null || newUser.password == ""){
+            || newPassword == null || newPassword == ""){
 
             } else {
                 var user = {
                     username: newUser.username,
-                    password: newUser.password,
+                    password: newPassword,
                     firstName: newUser.firstName,
                     lastName: newUser.lastName,
                     emails: [],
@@ -53,27 +52,42 @@
                     roles: newUser.roles
                 };
                 UserService
-                    .createUser(user)
-                    .then(function () {
+                    .adminAddUser(user)
+                    .then(function (response) {
+                        vm.newUser = null;
                         $rootScope.$broadcast("updateCurrentUsers");
+                        console.log(vm.currentUsers);
                     });
             }
         }
 
-        function updateUser(user, id)
+        function updateUser(user, id, newPassword)
         {
-            var updatedUser = {
-                username: user.username,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                emails: user.emails,
-                phones: user.phones,
-                roles: user.roles
-            };
+            var updatedUser;
+            if(newPassword) {
+                updatedUser = {
+                    username: user.username,
+                    password: newPassword,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    emails: user.emails,
+                    phones: user.phones,
+                    roles: user.roles
+                };
+            } else {
+                updatedUser = {
+                    username: user.username,
+                    password: vm.selectedUser.password,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    emails: user.emails,
+                    phones: user.phones,
+                    roles: user.roles
+                }
+            }
 
             UserService
-                .updateUser(selectedUser._id, updatedUser)
+                .updateUser(id, updatedUser)
                 .then(function(){
                     vm.selectedUser = null;
                     vm.newUser = null;

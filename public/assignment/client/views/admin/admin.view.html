@@ -21,7 +21,7 @@
                 </td>
                 <td>
                     <div class="col-sm-10">
-                        <input ng-model="controller.newUser.password" type="text" class="form-control" id="password">
+                        <input ng-model="newPassword" type="password" class="form-control" id="password">
                     </div>
                 </td>
                 <td>
@@ -40,10 +40,10 @@
                     </div>
                 </td>
                 <td>
-                    <button ng-hide="controller.selectedUser" ng-click="controller.addUser(controller.newUser)">
+                    <button ng-hide="controller.selectedUser" ng-click="controller.addUser(controller.newUser, newPassword)">
                         <scan class="glyphicon glyphicon-plus"></scan>
                     </button>
-                    <button ng-show="controller.selectedUser" ng-click="controller.updateUser(controller.newUser, controller.selectedUser._id)">
+                    <button ng-show="controller.selectedUser" ng-click="controller.updateUser(controller.newUser, controller.selectedUser._id, newPassword)">
                         <scan class="glyphicon glyphicon-ok"></scan>
                     </button>
                 </td>
@@ -52,7 +52,7 @@
         </form>
         <tr ng-repeat="user in controller.currentUsers">
             <td>{{user.username}}</td>
-            <td>&nbsp;</td>
+            <td>&nbsp;&nbsp;</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td>{{user.roles}}</td>

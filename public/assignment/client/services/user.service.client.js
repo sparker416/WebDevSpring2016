@@ -19,7 +19,8 @@
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
-            logout: logout
+            logout: logout,
+            adminAddUser: adminAddUser
         };
         return model;
 
@@ -57,6 +58,11 @@
         function createUser(user)
         {
             return $http.post("/api/assignment/register", user);
+        }
+
+        function adminAddUser(user)
+        {
+            return $http.post("/api/assignment/admin/user", user);
         }
 
         function deleteUserById(userId)
