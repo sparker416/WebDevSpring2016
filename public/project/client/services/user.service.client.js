@@ -14,11 +14,11 @@
             getCurrentUser: getCurrentUser,
             isAdmin: isAdmin,
             isOwner: isOwner,
-            findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             findAllGamesForUser: findAllGamesForUser,
             addGame: addGame,
             createUser: createUser,
+            register: register,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             findUserById: findUserById,
@@ -36,34 +36,22 @@
             return $rootScope.currentUser;
         }
 
-        function isAdmin(user){
-            var isAdmin = false;
-            for(var i in user.roles){
-                if(user.roles[i] == "admin"){
-                    isAdmin = true;
-                }
-            }
-            return isAdmin;
+        function isAdmin(){
+            return $http.get("/api/project/isAdmin");
         }
 
-        function isOwner(user){
-            var isAdmin = false;
-            for(var i in user.roles){
-                if(user.roles[i] == "owner"){
-                    isAdmin = true;
-                }
-            }
-            return isAdmin;
+        function isOwner(){
+            return $http.get("/api/project/isOwner");
         }
-        
+        /*
         function findUserByCredentials(username, password)
         {
             return $http.get("/rest/api/project/user?username=" + username + "&password=" + password);
         }
-
+*/
         function findAllUsers()
         {
-            return $http.get("/rest/api/project/user");
+            return $http.get("/api/project/user");
         }
 
         function findAllGamesForUser(userId)
@@ -78,19 +66,25 @@
 
         function createUser(user)
         {
-            return $http.post("/rest/api/project/user", user);
+            return $http.post("/api/project/user", user);
+        }
+
+        function register(user)
+        {
+            return $http.post("/api/project/register", user);
         }
 
         function deleteUserById(userId)
         {
-            return $http.delete("/rest/api/project/user/" + userId);
+            return $http.delete("/api/project/user/" + userId);
         }
 
         function updateUser(userId, user)
         {
-            return $http.put("/rest/api/project/user/" + userId, user);
+            return $http.put("/api/project/user/" + userId, user);
         }
 
+        /*
         function findUserById(userId)
         {
             return $http.get("/rest/api/project/user/" + userId);
@@ -100,5 +94,6 @@
         {
             return $http.get("/rest/api/project/user?username=" + name);
         }
+        */
     }
 })();

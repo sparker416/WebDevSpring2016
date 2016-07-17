@@ -11,12 +11,13 @@
 
         vm.$location = $location;
         vm.message = null;
-        vm.login = login;
+//        vm.login = login;
 
         $rootScope.$on("updateCurrentUser", function(){
             vm.currentUser = UserService.getCurrentUser();
         });
 
+        /*
         function login (username, password) {
             UserService
                 .findUserByCredentials(username, password)
@@ -31,5 +32,6 @@
                     }
                 });
         }
+        */
     }
 })();

@@ -5,19 +5,71 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 module.exports = function(app, model) {
     var auth = authorized;
-    app.post  ('/api/logout',         logout);
-    app.post  ('/api/register',       register);
-    app.post  ('/api/user',     auth, createUser);
-    app.get   ('/api/loggedin',       loggedin);
-    app.get   ('/api/user',     auth, findAllUsers);
-    app.put   ('/api/user/:id', auth, updateUser);
-    app.delete('/api/user/:id', auth, deleteUser);
+    app.post  ('/api/project/logout',         logout);
+    app.post  ('/api/project/register',       register);
+    app.post  ('/api/project/user',     auth, createUser);
+    app.get   ('/api/project/loggedin',       loggedin);
+    app.get   ('/api/project/user',     auth, findAllUsers);
+    app.put   ('/api/project/user/:id', auth, updateUser);
+    app.delete('/api/project/user/:id', auth, deleteUser);
+
+    app.get("/api/project/isAdmin", function(req, res)
+    {
+        if(req.isAuthenticated())
+        {
+            var user = req.user;
+            var username = user.username;
+            model.findUserByUsername(username)
+                .then(
+                    function(foundUser) {
+                        if (foundUser) {
+                            var roles = foundUser.roles;
+                            var isAdmin = (roles.indexOf("admin") > -1);
+                            if (isAdmin) {
+                                res.json(foundUser);
+                            } else {
+                                res.send('0');
+                            }
+                        }
+                    }, function(err){
+                        res.send('0');
+                    })
+        } else {
+            res.send('0');
+        }
+    });
+
+    app.get("/api/project/isOwner", function(req, res)
+    {
+        if(req.isAuthenticated())
+        {
+            var user = req.user;
+            var username = user.username;
+            model.findUserByUsername(username)
+                .then(
+                    function(foundUser) {
+                        if (foundUser) {
+                            var roles = foundUser.roles;
+                            var isOwner = (roles.indexOf("owner") > -1);
+                            if (isOwner) {
+                                res.json(foundUser);
+                            } else {
+                                res.send('0');
+                            }
+                        }
+                    }, function(err){
+                        res.send('0');
+                    })
+        } else {
+            res.send('0');
+        }
+    });
 
     app.get   ('/auth/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect: '/#/profile',
-            failureRedirect: '/#/login'
+            successRedirect: 'http://localhost:3000/project/client/index.html#/profile',
+            failureRedirect: 'http://localhost:3000/project/client/index.html#/login'
         }));
 
     app.get   ('/auth/google/login', passport.authenticate('google', { scope : ['profile', 'email'] }));
@@ -288,11 +340,18 @@ module.exports = function(app, model) {
         return false;
     }
 
+    function isOwner(user) {
+        if(user.roles.indexOf("owner") > 0) {
+            return true;
+        }
+        return false;
+    }
+
     function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
             res.send(401);
         } else {
             next();
         }
-    };
+    }
 };

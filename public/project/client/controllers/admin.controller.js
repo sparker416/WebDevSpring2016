@@ -11,7 +11,7 @@
 
         vm.$location = $location;
         vm.currentUser = UserService.getCurrentUser();
-        vm.isAdmin = UserService.isAdmin(vm.currentUser);
+        vm.isAdmin = UserService.isAdmin();
 
         if(!vm.isAdmin){
             $location.url("/home");

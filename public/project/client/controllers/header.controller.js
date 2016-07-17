@@ -9,6 +9,8 @@
     function HeaderController($location, UserService) {
         var vm = this;
 
+        vm.currentUser = UserService.getCurrentUser();
+
         vm.$location = $location;
         vm.logout = logout;
 
