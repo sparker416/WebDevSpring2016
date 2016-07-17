@@ -6,35 +6,37 @@
         .module("KnightMovesApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $location, UserGameService, $rootScope, UserService) {
-        $scope.$location = $location;
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.isAdmin = UserService.isAdmin($scope.currentUser);
+    function AdminController($location, UserGameService, $rootScope, UserService) {
+        var vm = this;
 
-        if(!$scope.isAdmin){
+        vm.$location = $location;
+        vm.currentUser = UserService.getCurrentUser();
+        vm.isAdmin = UserService.isAdmin(vm.currentUser);
+
+        if(!vm.isAdmin){
             $location.url("/home");
         }
 
-        $scope.addGame = addGame;
-        $scope.editGame = editGame;
-        $scope.deleteGame = deleteGame;
-        $scope.selectGame = selectGame;
+        vm.addGame = addGame;
+        vm.editGame = editGame;
+        vm.deleteGame = deleteGame;
+        vm.selectGame = selectGame;
 
         UserGameService
             .findAllGames()
             .then(function(response) {
-                $scope.allGames = response.data;
+                vm.allGames = response.data;
             });
 
         $rootScope.$on("updateCurrentGame", function(){
-            $scope.currentGame = UserGameService.getCurrentGame();
+            vm.currentGame = UserGameService.getCurrentGame();
         });
 
         $rootScope.$on("updateAllGames", function(){
             UserGameService
                 .findAllGames()
                 .then(function(response) {
-                    $scope.allGames = response.data;
+                    vm.allGames = response.data;
                 });
         });
 
@@ -66,7 +68,7 @@
                 .then(function(response){
                     UserGameService.setCurrentGames(response.data);
                     UserGameService.setCurrentGame(null);
-                    $scope.game = null;
+                    vm.game = null;
                     $rootScope.$broadcast("updateAllGames");
                     $rootScope.$broadcast("updateCurrentGame");
                 });
@@ -101,31 +103,34 @@
                     console.log(response.data);
                     UserGameService.setCurrentGames(response.data);
                     UserGameService.setCurrentGame(null);
-                    $scope.game = null;
+                    vm.game = null;
                     $rootScope.$broadcast("updateAllGames");
                     $rootScope.$broadcast("updateCurrentGame");
                 });
         }
 
-        function deleteGame($index)
+        function deleteGame(game)
         {
-            var gameId = $scope.allGames[$index].id;
+            var gameId = game._id;
             UserGameService.deleteGameById(gameId)
                 .then(function(response){
                     UserGameService.setCurrentGames(response.data);
                     UserGameService.setCurrentGame(null);
-                    $scope.game = null;
+                    vm.game = null;
                     $rootScope.$broadcast("updateAllGames");
                     $rootScope.$broadcast("updateCurrentGame");
                 });
         }
 
-        function selectGame($index)
+        function selectGame(game)
         {
-            $scope.currentGame = $scope.allGames[$index];
-            $scope.game = $scope.currentGame;
-            UserGameService.setCurrentGame($scope.currentGame);
-            $rootScope.$broadcast("updateCurrentGame");
+            UserGameService.findGameById(game._id)
+                .then(function(response){
+                    vm.currentGame = response.data;
+                    vm.game = vm.currentGame;
+                    UserGameService.setCurrentGame(vm.currentGame);
+                    $rootScope.$broadcast("updateCurrentGame");
+                });
         }
     }
 })();

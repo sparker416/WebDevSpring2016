@@ -1,8 +1,8 @@
-<div class="back-white-black-border pad-top-bottom-10-px margin-1" ng-controller="RegisterController">
+<div class="back-white-black-border pad-top-bottom-10-px margin-1">
 
     <h3 class="align-center">Register</h3>
 
-    <div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>
+    <div ng-show="controller.message" class="alert alert-danger" role="alert">{{controller.message}}</div>
 
     <form class="form-horizontal">
         <div class="form-group">
@@ -39,7 +39,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-5 col-sm-4">
-                <button ng-click="register(user)" type="submit" class="btn btn-default">Register</button>
+                <button ng-click="controller.register(user)" type="submit" class="btn btn-default">Register</button>
             </div>
         </div>
     </form>

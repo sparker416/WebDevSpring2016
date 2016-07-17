@@ -6,61 +6,63 @@
         .module("KnightMovesApp")
         .controller("UpdateController", UpdateController);
 
-    function UpdateController($scope, UserService, $location, $rootScope) {
-        $scope.error = null;
-        $scope.message = null;
+    function UpdateController(UserService, $location, $rootScope) {
+        var vm = this;
 
-        $scope.currentUser = UserService.getCurrentUser();
-        if (!$scope.currentUser) {
+        vm.error = null;
+        vm.message = null;
+
+        vm.currentUser = UserService.getCurrentUser();
+        if (!vm.currentUser) {
             $location.url("/home");
         }
 
-        $scope.profileUpdate = profileUpdate;
+        vm.profileUpdate = profileUpdate;
 
         function profileUpdate (user) {
             // same validation as register
-            $scope.error = null;
-            $scope.message = null;
+            vm.error = null;
+            vm.message = null;
 
             var updatedEmail;
             if(user.email){
                 updatedEmail=user.email;
             } else {
-                updatedEmail=$scope.currentUser.email;
+                updatedEmail=vm.currentUser.email;
             }
 
             var updatedUsername;
             if(user.username){
                 updatedUsername=user.username;
             } else {
-                updatedUsername=$scope.currentUser.username;
+                updatedUsername=vm.currentUser.username;
             }
 
             var updatedPassword;
             if(user.password && (user.password==user.confirmPassword)){
                 updatedPassword=user.password;
             } else {
-                updatedPassword=$scope.currentUser.password;
-                $scope.error = "Password not updated.";
+                updatedPassword=vm.currentUser.password;
+                vm.error = "Password not updated.";
             }
 
             var updatedUser = {
                 email: updatedEmail,
                 username: updatedUsername,
                 password: updatedPassword,
-                games: $scope.currentUser.games,
-                roles: $scope.currentUser.roles
+                games: vm.currentUser.games,
+                roles: vm.currentUser.roles
             };
 
             UserService
-                .updateUser($scope.currentUser._id, updatedUser)
+                .updateUser(vm.currentUser._id, updatedUser)
                 .then(function (response) {
                     if (response.data) {
-                        $scope.currentUser = response.data;
-                        $scope.message = "User updated successfully";
+                        vm.currentUser = response.data;
+                        vm.message = "User updated successfully";
                         $rootScope.$broadcast("updateCurrentUser");
                     } else {
-                        $scope.error = "Unable to update the user";
+                        vm.error = "Unable to update the user";
                     }
                 });
         }

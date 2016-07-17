@@ -6,8 +6,8 @@
         .module("KnightMovesApp")
         .controller("NewsController", NewsController);
 
-    function NewsController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function NewsController($location) {
+        var vm = this;
+        vm.$location = $location;
     }
 })();

@@ -6,12 +6,14 @@
         .module("KnightMovesApp")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope, $location, UserGameService) {
-        $scope.$location = $location;
+    function SearchController($location, UserGameService) {
+        var vm = this;
 
-        $scope.search = search;
-        $scope.searchGameForKeywords = searchGameForKeywords;
-        $scope.searchTypes = searchTypes;
+        vm.$location = $location;
+
+        vm.search = search;
+        vm.searchGameForKeywords = searchGameForKeywords;
+        vm.searchTypes = searchTypes;
 
         var allGames = [];
 
@@ -71,8 +73,8 @@
                         criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             (criteria.lowAge >= allGames[g].Min_Age) &&
@@ -90,7 +92,7 @@
                         criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             (criteria.lowAge >= allGames[g].Min_Age) &&
@@ -108,7 +110,7 @@
                         criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             (criteria.lowAge >= allGames[g].Min_Age) &&
@@ -126,8 +128,8 @@
                         criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             (criteria.lowAge >= allGames[g].Min_Age) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
                             (criteria.playtime <= allGames[g].Max_Playing_Time)))
@@ -143,8 +145,8 @@
                         !criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
@@ -161,8 +163,8 @@
                         criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             (criteria.lowAge >= allGames[g].Min_Age))
@@ -195,7 +197,7 @@
                         criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             (criteria.lowAge >= allGames[g].Min_Age) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
                             (criteria.playtime <= allGames[g].Max_Playing_Time)))
@@ -211,7 +213,7 @@
                         !criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
@@ -228,7 +230,7 @@
                         criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             (criteria.lowAge >= allGames[g].Min_Age))
@@ -244,7 +246,7 @@
                         criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             (criteria.lowAge >= allGames[g].Min_Age) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
                             (criteria.playtime <= allGames[g].Max_Playing_Time)))
@@ -260,7 +262,7 @@
                         !criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
@@ -277,7 +279,7 @@
                         criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)) &&
                             (criteria.lowAge >= allGames[g].Min_Age))
@@ -293,8 +295,8 @@
                         !criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
                             (criteria.playtime <= allGames[g].Max_Playing_Time)))
                         {
@@ -309,8 +311,8 @@
                         criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             (criteria.lowAge >= allGames[g].Min_Age))
                         {
                             results.push(allGames[g]);
@@ -324,8 +326,8 @@
                         !criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)))
                         {
@@ -386,7 +388,7 @@
                         !criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
                             (criteria.playtime <= allGames[g].Max_Playing_Time)))
                         {
@@ -401,7 +403,7 @@
                         criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             (criteria.lowAge >= allGames[g].Min_Age))
                         {
                             results.push(allGames[g]);
@@ -415,7 +417,7 @@
                         !criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]) &&
+                        if(vm.searchTypes(criteria, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)))
                         {
@@ -430,7 +432,7 @@
                         !criteria.lowAge &&
                         criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             ((criteria.playtime >= allGames[g].Min_Playing_Time) &&
                             (criteria.playtime <= allGames[g].Max_Playing_Time)))
                         {
@@ -445,7 +447,7 @@
                         criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             (criteria.lowAge >= allGames[g].Min_Age))
                         {
                             results.push(allGames[g]);
@@ -459,7 +461,7 @@
                         !criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
                             ((criteria.CC && allGames[g].Coolidge_Corner) ||
                             (criteria.Teele && allGames[g].Teele_Square)))
                         {
@@ -474,8 +476,8 @@
                         !criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]) &&
-                            $scope.searchTypes(criteria, allGames[g]))
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]) &&
+                            vm.searchTypes(criteria, allGames[g]))
                         {
                             results.push(allGames[g]);
                         }
@@ -529,7 +531,7 @@
                         !criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchTypes(criteria, allGames[g]))
+                        if(vm.searchTypes(criteria, allGames[g]))
                         {
                             results.push(allGames[g]);
                         }
@@ -542,7 +544,7 @@
                         !criteria.lowAge &&
                         !criteria.playtime)
                     {
-                        if($scope.searchGameForKeywords(criteria.keywords, allGames[g]))
+                        if(vm.searchGameForKeywords(criteria.keywords, allGames[g]))
                         {
                             results.push(allGames[g]);
                         }
@@ -559,7 +561,7 @@
                     }
                 }
             }
-            $scope.results = results;
+            vm.results = results;
         }
     }
 })();

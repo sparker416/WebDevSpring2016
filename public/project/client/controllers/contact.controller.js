@@ -6,8 +6,8 @@
         .module("KnightMovesApp")
         .controller("ContactController", ContactController);
 
-    function ContactController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function ContactController($location) {
+        var vm = this;
+        vm.$location = $location;
     }
 })();

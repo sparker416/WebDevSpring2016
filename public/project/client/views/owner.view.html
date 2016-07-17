@@ -1,6 +1,6 @@
 <h1 class="align-center white-text bold">Manage Users</h1>
 
-<div class="pad-10-px" ng-controller="OwnerController">
+<div class="pad-10-px">
     <table class="table table-bordered width-98">
         <tr>
             <th>User ID</th>
@@ -12,30 +12,30 @@
         </tr>
         <form id="newUser">
             <tr>
-                <td><input title="newUserId" type="number" ng-model="newUser._id"></td>
-                <td><input title="newUserEmail" type="text" ng-model="newUser.email"></td>
-                <td><input title="newUserUsername" type="text" ng-model="newUser.username"></td>
-                <td><input title="newUserPassword" type="text" ng-model="newUser.password"></td>
+                <td><input title="newUserId" type="number" ng-model="controller.newUser._id"></td>
+                <td><input title="newUserEmail" type="text" ng-model="controller.newUser.email"></td>
+                <td><input title="newUserUsername" type="text" ng-model="controller.newUser.username"></td>
+                <td><input title="newUserPassword" type="text" ng-model="controller.newUser.password"></td>
                 <td>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" ng-model="newUser.player" ng-true-value="true" ng-false-value="false"> Player
+                            <input type="checkbox" ng-model="controller.newUser.player" ng-true-value="true" ng-false-value="false"> Player
                         </label>
                         <label>
-                            <input type="checkbox" ng-model="newUser.admin" ng-true-value="true" ng-false-value="false"> Admin
+                            <input type="checkbox" ng-model="controller.newUser.admin" ng-true-value="true" ng-false-value="false"> Admin
                         </label>
                         <label>
-                            <input type="checkbox" ng-model="newUser.owner" ng-true-value="true" ng-false-value="false"> Owner
+                            <input type="checkbox" ng-model="controller.newUser.owner" ng-true-value="true" ng-false-value="false"> Owner
                         </label>
                     </div>
                 </td>
                 <td>
-                    <button ng-hide="selectedUser" ng-click="addUser(newUser)">Add</button>
-                    <button ng-show="selectedUser" ng-click="editUser(selectedUser._id, newUser)">Update</button>
+                    <button ng-hide="controller.selectedUser" ng-click="controller.addUser(controller.newUser)">Add</button>
+                    <button ng-show="controller.selectedUser" ng-click="controller.editUser(controller.selectedUser._id, controller.newUser)">Update</button>
                 </td>
             </tr>
         </form>
-        <tr ng-repeat="user in allUsers">
+        <tr ng-repeat="user in controller.allUsers">
             <td>{{user._id}}</td>
             <td>  {{user.email}}  </td>
             <td>  {{user.username}}  </td>
@@ -46,8 +46,8 @@
                 </ul>
             </td>
             <td>
-                <button ng-click="selectUser($index)">Edit</button>
-                <button ng-click="deleteUser($index)">Remove</button>
+                <button ng-click="controller.selectUser(user)">Edit</button>
+                <button ng-click="controller.deleteUser(user)">Remove</button>
             </td>
         </tr>
     </table>

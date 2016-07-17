@@ -6,46 +6,48 @@
         .module("KnightMovesApp")
         .controller("OwnerController", OwnerController);
 
-    function OwnerController($scope, $location, UserService, $rootScope) {
-        $scope.$location = $location;
-        $scope.currentUser = UserService.getCurrentUser();
+    function OwnerController($location, UserService, $rootScope) {
+        var vm = this;
 
-        $scope.isOwner = UserService.isOwner($scope.currentUser);
+        vm.$location = $location;
+        vm.currentUser = UserService.getCurrentUser();
 
-        if(!$scope.isOwner){
+        vm.isOwner = UserService.isOwner(vm.currentUser);
+
+        if(!vm.isOwner){
             $location.url("/home");
         }
 
-        $scope.selectedUser = null;
+        vm.selectedUser = null;
 
         UserService.findAllUsers()
             .then(function(response){
-                $scope.allUsers = response.data;
+                vm.allUsers = response.data;
             });
 
         $rootScope.$on("refreshUsers", function(){
             UserService.findAllUsers()
                 .then(function(response){
-                    $scope.allUsers = response.data;
-                    $scope.selectedUser = null;
-                    $scope.newUser = null;
+                    vm.allUsers = response.data;
+                    vm.selectedUser = null;
+                    vm.newUser = null;
                 });
         });
 
-        $scope.addUser = addUser;
-        $scope.editUser = editUser;
-        $scope.deleteUser = deleteUser;
-        $scope.selectUser = selectUser;
+        vm.addUser = addUser;
+        vm.editUser = editUser;
+        vm.deleteUser = deleteUser;
+        vm.selectUser = selectUser;
 
         function addUser(user)
         {
             var newRoles = [];
 
-            if($scope.newUser.player){
+            if(vm.newUser.player){
                 newRoles.push("player")
-            } if($scope.newUser.admin){
+            } if(vm.newUser.admin){
                 newRoles.push("admin")
-            } if($scope.newUser.owner){
+            } if(vm.newUser.owner){
                 newRoles.push("owner")
             }
 
@@ -59,8 +61,8 @@
 
             UserService.createUser(newUser)
                 .then(function(response){
-                    $scope.allUsers = response.data;
-                    $scope.selectedUser = null;
+                    vm.allUsers = response.data;
+                    vm.selectedUser = null;
                     $rootScope.$broadcast("refreshUsers");
                 });
         }
@@ -69,11 +71,11 @@
         {
             var newRoles = [];
 
-            if($scope.newUser.player){
+            if(vm.newUser.player){
                 newRoles.push("player")
-            } if($scope.newUser.admin){
+            } if(vm.newUser.admin){
                 newRoles.push("admin")
-            } if($scope.newUser.owner){
+            } if(vm.newUser.owner){
                 newRoles.push("owner")
             }
 
@@ -88,27 +90,30 @@
 
             UserService.updateUser(userId, updatedUser)
                 .then(function(response){
-                    $scope.allUsers = response.data;
-                    $scope.selectedUser = null;
+                    vm.allUsers = response.data;
+                    vm.selectedUser = null;
                     $rootScope.$broadcast("refreshUsers");
                 });
         }
 
-        function deleteUser($index)
+        function deleteUser(user)
         {
-            var userId = $scope.allUsers[$index]._id;
+            var userId = user._id;
             UserService.deleteUserById(userId)
                 .then(function(response){
-                    $scope.allUsers = response.data;
-                    $scope.selectedUser = null;
+                    vm.allUsers = response.data;
+                    vm.selectedUser = null;
                     $rootScope.$broadcast("refreshUsers");
                 });
         }
 
-        function selectUser($index)
+        function selectUser(user)
         {
-            $scope.selectedUser = $scope.allUsers[$index];
-            $scope.newUser = $scope.selectedUser;
+            UserService.findUserById(user._id)
+                .then(function(response){
+                    vm.selectedUser = response.data;
+                    vm.newUser = vm.selectedUser;
+                });
         }
     }
 })();

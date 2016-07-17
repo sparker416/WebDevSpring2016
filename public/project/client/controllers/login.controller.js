@@ -6,13 +6,15 @@
         .module("KnightMovesApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, UserService, $location, $rootScope) {
-        $scope.$location = $location;
-        $scope.message = null;
-        $scope.login = login;
+    function LoginController(UserService, $location, $rootScope) {
+        var vm = this;
+
+        vm.$location = $location;
+        vm.message = null;
+        vm.login = login;
 
         $rootScope.$on("updateCurrentUser", function(){
-            $scope.currentUser = UserService.getCurrentUser();
+            vm.currentUser = UserService.getCurrentUser();
         });
 
         function login (username, password) {
@@ -24,7 +26,7 @@
                         $location.url("/profile");
                         $rootScope.$broadcast("updateCurrentUser");
                     } else {
-                        $scope.message = "User not found.";
+                        vm.message = "User not found.";
                         $location.url("/login");
                     }
                 });

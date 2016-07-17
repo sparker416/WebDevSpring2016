@@ -1,6 +1,6 @@
 <h1 class="align-center white-text bold">Admin</h1>
 
-<div class="pad-10-px" ng-controller="AdminController">
+<div class="pad-10-px">
     <table class="table table-bordered width-98">
         <tr>
             <th>Name</th>
@@ -63,12 +63,12 @@
                     </div>
                 </td>
                 <td>
-                    <button ng-hide="currentGame" ng-click="addGame(game)">Add</button>
-                    <button ng-show="currentGame" ng-click="editGame(currentGame.id, game)">Update</button>
+                    <button ng-hide="controller.currentGame" ng-click="controller.addGame(game)">Add</button>
+                    <button ng-show="controller.currentGame" ng-click="controller.editGame(currentGame.id, game)">Update</button>
                 </td>
             </tr>
         </form>
-        <tr ng-repeat="library in allGames">
+        <tr ng-repeat="library in controller.allGames">
             <td>  {{library.Name}}  </td>
             <td><img ng-src="{{library.Picture}}" width="100px" /></td>
             <td>  {{library.Description}}  </td>
@@ -111,8 +111,8 @@
                 </ul>
             </td>
             <td>
-                <button ng-click="selectGame($index)">Edit</button>
-                <button ng-click="deleteGame($index)">Remove</button>
+                <button ng-click="selectGame(library)">Edit</button>
+                <button ng-click="deleteGame(library)">Remove</button>
             </td>
         </tr>
     </table>

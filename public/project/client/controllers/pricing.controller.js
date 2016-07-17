@@ -6,8 +6,8 @@
         .module("KnightMovesApp")
         .controller("PricingController", PricingController);
 
-    function PricingController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function PricingController($location) {
+        var vm = this;
+        vm.$location = $location;
     }
 })();

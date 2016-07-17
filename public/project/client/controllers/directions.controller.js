@@ -6,8 +6,8 @@
         .module("KnightMovesApp")
         .controller("DirectionsController", DirectionsController);
 
-    function DirectionsController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function DirectionsController($location) {
+        var vm = this;
+        vm.$location = $location;
     }
 })();

@@ -6,8 +6,8 @@
         .module("KnightMovesApp")
         .controller("FAQController", FAQController);
 
-    function FAQController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function FAQController($location) {
+        var vm = this;
+        vm.$location = $location;
     }
 })();

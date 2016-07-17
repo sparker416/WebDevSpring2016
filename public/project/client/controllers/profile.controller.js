@@ -7,43 +7,45 @@
         .module("KnightMovesApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, UserService, $location, UserGameService, $rootScope) {
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.error = null;
+    function ProfileController(UserService, $location, UserGameService, $rootScope) {
+        var vm = this;
 
-        if (!$scope.currentUser) {
+        vm.currentUser = UserService.getCurrentUser();
+        vm.error = null;
+
+        if (!vm.currentUser) {
             $location.url("/home");
         }
 
         $rootScope.$on("updateCurrentUser", function(){
-            $scope.currentUser = UserService.getCurrentUser();
+            vm.currentUser = UserService.getCurrentUser();
         });
 
         UserService
-            .findAllGamesForUser($scope.currentUser._id)
+            .findAllGamesForUser(vm.currentUser._id)
             .then(function(response){
-                $scope.userGames = response.data;
+                vm.userGames = response.data;
             });
 
         $rootScope.$on("updateUserGames", function(){
             UserService
-                .findAllGamesForUser($scope.currentUser._id)
+                .findAllGamesForUser(vm.currentUser._id)
                 .then(function(response){
-                    $scope.userGames = response.data;
+                    vm.userGames = response.data;
                 });
         });
 
 
 
-        $scope.addGameForUser = addGameForUser;
-        $scope.removeGameForUser = removeGameForUser;
-        $scope.selectGame = selectGame;
+        vm.addGameForUser = addGameForUser;
+        vm.removeGameForUser = removeGameForUser;
+        vm.selectGame = selectGame;
 
         function addGameForUser(userId, gameName){
             UserGameService.findGameByName(gameName)
                 .then(function(response){
                     if(response.data){
-                        $scope.error = null;
+                        vm.error = null;
                         var game = response.data;
                         UserGameService
                             .addUserToGame(userId, game._id)
@@ -53,27 +55,30 @@
 
                         UserService.addGame(userId, gameName)
                             .then(function(response){
-                                $scope.userGames = response.data;
+                                vm.userGames = response.data;
                                 $rootScope.$broadcast("updateUserGames");
                             });
                     }
                     else {
-                        $scope.error = "Game does not exist in database.";
+                        vm.error = "Game does not exist in database.";
                     }
                 });
         }
 
         function removeGameForUser(game){
             UserGameService
-                .deleteUserFromGame($scope.currentUser._id, game._id)
+                .deleteUserFromGame(vm.currentUser._id, game._id)
                 .then(function(response){
                     UserGameService.setCurrentGames(response.data);
                     $rootScope.$broadcast("updateUserGames");
                 })
         }
 
-        function selectGame($index){
-            $scope.currentGame = $scope.userGames[$index];
+        function selectGame(game){
+            UserGameService.findGameById(game._id)
+                .then(function(response){
+                    vm.currentGame = response.data;
+                });
         }
     }
 })();

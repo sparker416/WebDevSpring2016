@@ -17,6 +17,14 @@ module.exports = function(mongoose){
         email: String,
         username: String,
         password: String,
+        google:   {
+            id:    String,
+            token: String
+        },
+        facebook:   {
+            id:    String,
+            token: String
+        },
         games: [UserGameSchema],
         roles: {type: [String], default: ["player"]}
     });

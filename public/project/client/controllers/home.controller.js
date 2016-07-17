@@ -6,7 +6,9 @@
         .module("KnightMovesApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope, $location) {
-        $scope.$location = $location;
+    function HomeController($location) {
+        var vm = this;
+
+        vm.$location = $location;
     }
 })();

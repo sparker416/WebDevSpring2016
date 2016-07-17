@@ -6,8 +6,9 @@
         .module("KnightMovesApp")
         .controller("AboutController", AboutController);
 
-    function AboutController($scope, $location) {
-        console.log($location);
-        $scope.$location = $location;
+    function AboutController($location) {
+        var vm = this;
+
+        vm.$location = $location;
     }
 })();

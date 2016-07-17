@@ -7,24 +7,28 @@
         .module("KnightMovesApp")
         .controller("LibraryController", LibraryController);
 
-    function LibraryController($scope, $location, UserGameService, $rootScope) {
-        $scope.$location = $location;
+    function LibraryController($location, UserGameService, $rootScope) {
+        var vm = this;
+
+        vm.$location = $location;
 
         UserGameService
             .findAllGames()
             .then(function(response) {
-                $scope.allGames = response.data;
+                vm.allGames = response.data;
             });
 
 
-        $scope.goToDetails = goToDetails;
+        vm.goToDetails = goToDetails;
 
-        function goToDetails($index)
+        function goToDetails(game)
         {
-            $scope.currentGame = $scope.allGames[$index];
-            UserGameService.setCurrentGame($scope.currentGame);
-            $rootScope.$broadcast("updateCurrentGame");
-            $location.url("/detail");
+            UserGameService.findGameById(game._id)
+                .then(function(response){
+                    UserGameService.setCurrentGame(response.data);
+                    $rootScope.$broadcast("updateCurrentGame");
+                    $location.url("/detail");
+                });
         }
     }
 })();

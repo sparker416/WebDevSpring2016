@@ -1,4 +1,4 @@
-<div class="pad-10-px" ng-controller="LibraryController">
+<div class="pad-10-px"
     <table class="table table-bordered" id="library_table">
         <tr>
             <th>Name</th>
@@ -10,7 +10,7 @@
             <th>Type(s)</th>
             <th>Location</th>
         </tr>
-        <tr ng-repeat="library in allGames" ng-click="goToDetails($index)" class="clickable">
+        <tr ng-repeat="library in controller.allGames" ng-click="controller.goToDetails(library)" class="clickable">
             <td>  {{library.Name}}  </td>
             <td><img ng-src="{{library.Picture}}" width="100px" /></td>
             <td>  {{library.Description}}  </td>

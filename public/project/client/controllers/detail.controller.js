@@ -3,15 +3,15 @@
         .module("KnightMovesApp")
         .controller("DetailController", DetailController);
 
-    function DetailController($scope, UserService, UserGameService, $rootScope, $location) {
-        $scope.$location = $location;
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.currentGame = UserGameService.getCurrentGame();
+    function DetailController(UserService, UserGameService, $rootScope, $location) {
+        var vm = this;
 
-        console.log($scope.currentGame);
+        vm.$location = $location;
+        vm.currentUser = UserService.getCurrentUser();
+        vm.currentGame = UserGameService.getCurrentGame();
 
         $rootScope.$on("updateCurrentGame", function(){
-            $scope.currentGame = UserGameService.getCurrentGame();
+            vm.currentGame = UserGameService.getCurrentGame();
         });
     }
 })();

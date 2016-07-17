@@ -17,7 +17,9 @@ module.exports = function(db, mongoose) {
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials
+        findUserByCredentials: findUserByCredentials,
+        findUserByFacebookId: findUserByFacebookId,
+        findUserByGoogleId: findUserByGoogleId
     };
     return api;
 
@@ -118,11 +120,11 @@ module.exports = function(db, mongoose) {
                 games: user.games,
                 roles: user.roles
             },
-            function(err, data){
+            function(err, user){
                 if(err){
                     deferred.reject(err);
                 } else {
-                    deferred.resolve(data);
+                    deferred.resolve(user);
                 }
             });
 
@@ -172,5 +174,35 @@ module.exports = function(db, mongoose) {
                 }
             });
         return deferred.promise;
+    }
+
+    function findUserByFacebookId(facebookId) {
+        var deferred = q.defer();
+
+        return ProjectUser.findOne({'facebook.id': facebookId},
+            function(err, data) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+
+                return deferred.promise;
+            });
+    }
+
+    function findUserByGoogleId(googleId) {
+        var deferred = q.defer();
+
+        return ProjectUser.findOne({'google.id': googleId},
+            function(err, data) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data);
+                }
+
+                return deferred.promise;
+            });
     }
 };
