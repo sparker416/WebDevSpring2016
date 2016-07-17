@@ -1,4 +1,11 @@
+var passport = require("passport");
+var bcrypt = require("bcrypt-nodejs");
+var facebook = require("passport-facebook");
+
 module.exports = function(app, model) {
+
+
+
     app.post("/rest/api/project/user", function(req, res){
         var user = req.body;
         model.createUser(user)
