@@ -15,7 +15,13 @@
         function mail(name, email, message){
             MailService.mail(name, email, message);
 
+            vm.contactForm = {};
+            vm.contactName = "";
+            vm.contactEmail = "";
+            vm.contactMessage = "";
+
             vm.contactForm.$setPristine();
+            vm.contactForm.$setUntouched();
         }
     }
 })();
