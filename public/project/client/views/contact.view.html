@@ -38,23 +38,23 @@
                 <div class="form-group">
                     <label for="contactName" class="col-sm-3 control-label">Name:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="contactName">
+                        <input type="text" class="form-control" id="contactName" ng-model="contactName">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="contactEmail" class="col-sm-3 control-label">Email Address: </label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" id="contactEmail" placeholder="email@domain.com">
+                        <input type="email" class="form-control" id="contactEmail" placeholder="email@domain.com" ng-model="contactEmail">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="contactMessage" class="col-sm-3 control-label">Message: </label>
                     <div class="col-sm-9">
-                        <textarea rows="10" cols="30" id="contactMessage" class="form-control"></textarea>
+                        <textarea rows="10" cols="30" id="contactMessage" class="form-control" ng-model="contactMessage"></textarea>
                     </div>
                 </div>
                 <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" class="btn btn-default" onclick="">Submit</button>
+                    <button type="submit" class="btn btn-default" ng-click="controller.mail(contactName, contactEmail, contactMessage)">Submit</button>
                 </div>
             </form>
         </div>
