@@ -9,6 +9,7 @@
     function ContactController($location, MailService) {
         var vm = this;
         vm.$location = $location;
+        vm.contactForm = {};
 
         vm.mail = mail;
 
