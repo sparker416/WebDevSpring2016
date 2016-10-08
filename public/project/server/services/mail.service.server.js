@@ -8,8 +8,8 @@ module.exports = function(app) {
 
         var mailOptions = {
             from: data.email,
-            to: 'sparker416@gmail.com',
-            subject: 'Email from ' + data.name,
+            to: 'sparker416@gmail.com', //'rachel@knightmovescafe.com',
+            subject: 'Email from ' + data.name + " at " + data.email,
             text: data.msg
         };
 
