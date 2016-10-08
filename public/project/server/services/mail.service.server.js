@@ -14,11 +14,13 @@ module.exports = function(app) {
         };
 
         var transporter = nodemailer.createTransport({
-            service: 'Gmail',
+            service: 'Gmail'
+            /*
             auth: {
                 user: 'knightmovescafetest@gmail.com', // Your email id
                 pass: 'Checkmate' // Your password
             }
+            */
         });
 
         transporter.sendMail(mailOptions, function(error, info){
