@@ -14,6 +14,10 @@
 
         function mail(name, email, message){
             MailService.mail(name, email, message);
+
+            vm.contactName = "";
+            vm.contactEmail = "";
+            vm.contactMessage = "";
         }
     }
 })();
