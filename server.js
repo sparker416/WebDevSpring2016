@@ -37,7 +37,7 @@ app.use(session({
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(nodemailer());
+// app.use(nodemailer());
 
 require('./public/project/server/app.js')(app, db, mongoose);
 require('./public/assignment/server/app.js')(app, db, mongoose);
