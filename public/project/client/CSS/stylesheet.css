@@ -48,6 +48,14 @@
     float: left;
     width: 25%;
 }
+.float-left-33 {
+    float: left;
+    width: 33%;
+}
+.float-right-34 {
+    float: right;
+    width: 34%;
+}
 .float-left-75 {
     float: left;
     width: 75%;
