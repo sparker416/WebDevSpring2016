@@ -16,8 +16,8 @@ module.exports = function(app) {
         var transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'knightmovescafetest@gmail.com' // Your email id
-                //pass: 'Checkmate' // Your password
+                user: 'knightmovescafetest@gmail.com', // Your email id
+                pass: EMAIL_PASSWORD // Your password
             }
         });
 
