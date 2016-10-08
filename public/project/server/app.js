@@ -4,4 +4,5 @@ module.exports = function(app, db, mongoose){
 
     require("./services/user.service.server.js")(app, projectUserModel);
     require("./services/game.service.server.js")(app, projectGameModel);
+    require("./services/mail.service.server")(app);
 };

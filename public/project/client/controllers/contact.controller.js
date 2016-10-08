@@ -6,15 +6,14 @@
         .module("KnightMovesApp")
         .controller("ContactController", ContactController);
 
-    function ContactController($location, $window) {
+    function ContactController($location, MailService) {
         var vm = this;
         vm.$location = $location;
 
         vm.mail = mail;
 
         function mail(name, email, message){
-            $window.location="mailto:sparker416@gmail.com?subject=Message%20from%20" + name + "%20at%20" + email +
-                "&body=" +message;
+            MailService.mail(name, email, message);
         }
     }
 })();

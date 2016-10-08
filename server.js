@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var nodemailer = require('nodemailer');
 
 var connection_string = "127.0.0.1:27017/webdev2016";
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
@@ -36,6 +37,7 @@ app.use(session({
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(nodemailer());
 
 require('./public/project/server/app.js')(app, db, mongoose);
 require('./public/assignment/server/app.js')(app, db, mongoose);
